@@ -23,7 +23,7 @@ const char* help =
 
 
 const char* header =
-  "/**\n@author:\t{AUTHOR}\n@email:\t{EMAIL}\n{DATE}\n{TAG}\nDesc:\t{DESC}\n\n\n*/";
+  "/**\n@author: {AUTHOR}\n@email:\t{EMAIL}\n{DATE}\n{TAG}\nDesc:\t{DESC}\n\n\n*/";
   
   
 const char* genfile =

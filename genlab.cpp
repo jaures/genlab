@@ -1,6 +1,6 @@
 #include "genlab.h"
 
-int main(int argc, char* argv)
+int main(int argc, char* argv[])
 {
 	// Route Command Line Arguments
 	if (argc == 1)
@@ -11,7 +11,7 @@ int main(int argc, char* argv)
 	{
 		if (std::string(argv[1]) == "--init" && argc > 2)
 		{
-			arg_int(argc, argv);
+			arg_init(argc, argv);
 		}
 		else if (std::string(argv[1]) == "--build")
 		{
@@ -42,7 +42,7 @@ int main(int argc, char* argv)
 
 
 // Init the Project Directory
-void arg_init(int c, char* vals[])
+void arg_init(int cnt, char* vals[])
 {
 	// Create Root Directory	-> ./
 
@@ -54,81 +54,101 @@ void arg_init(int c, char* vals[])
 
 	// Create Pack Directory	-> ./package
 
-	for (int i = 0; i < c; i++)
+	for (int i = 0; i < cnt; i++)
 	{
 		// Create Source Files
 	}
 
-	_init_genFile(c, vals);
+	_init_genFile(cnt, vals);
 	
 }
 
 // Build and Compile the Project
-void arg_build();
+void arg_build()
+{
+  
+}
 
 // Run the Project
-void arg_run();
-
+void arg_run()
+{
+  
+}
 // Run documentation Wizard and produce output
-void arg_doc();
+void arg_doc()
+{
+
+}
 
 // Run the Test Cases
-void arg_test();
+void arg_test()
+{
+
+}
+
 
 // Package the Project
-void arg_pack();
+void arg_pack()
+{
+
+}
 
 // Produce the Help Message
-void arg_help();
+void arg_help()
+{
+  std::cout << help << "\n";
+}
 
 
 // Init the .gen File
-std::string _init_genFile(int c, std::char* vals[])
+std::string _init_genFile(int cnt, char* vals[])
 {
-	std::string genFile, line;
-	genFile= "";
+  std::string genFile = std::string(vals[2]);
+  std::string line;
 
 	std::cout << "Author: ";
-	cin >> genFile; genFile += "\n";
+	std::cin >> line; genFile += line + "\n";
 
 	std::cout << "Email: ";
-	cin >> genFile; genFile += "\n";
+	std::cin >> line; genFile += line + "\n";
 
 	std::cout << "Tag: ";
-	cin >> genFile; genFile += "\n";
+	std::cin >> line; genFile += line +"\n";
 
 	// Get Description for Project
-	std::cout << "\nProject Description (Press <enter> twice to save entry):\n\n";
+	std::cin.ignore(); // Flush buffer
+	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
 	do 
 	{
 		std::getline(std::cin, line);
-		genFile += line;
-	} while (line != "\n");
+		genFile += line + "\n";
+	} while (!line.empty());
 
-	for (int i = 3; i < c; i++)
+	// Cycle through the rest of the files
+	for (int i = 3; i < cnt; i++)
 	{
 		// Get Descriptions for other files
 		std::cout << "\nBrief Description For " << vals[i] << ":\n";
-		std::getline(cin, line);
+		getline(std::cin, line);
 		genFile += line + "\n";
 	}
 	
 	std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
 	std::cout << "\t" << vals[2] << ".h: ";
-	std::getline(std::cin, line);
+	getline(std::cin, line);
 
-	genFile += line;
+	genFile += line + "\n";
 
 	std::cout << "\t" << vals[2] << ".cpp: ";
-	std::getline(std::cin, line);
+	getline(std::cin, line);
 
-	genFile += line;
+	genFile += line + "\n";
 
-	for (int i = 3; i < c; i++)
+	for (int i = 3; i < cnt; i++)
 	{
 		std::cout << vals[i] << ": ";
-		std::getline(std::cin, line);
-		genFile += line;
+		getline(std::cin, line);
+		genFile += line + "\n";
 	}
 
 	std::cout << genFile;

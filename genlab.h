@@ -6,7 +6,7 @@
 #include "templates.h"
 
 // Init the Project Directory
-void arg_init(int c, char* v[]);
+void arg_init(int, char**);
 
 // Build and Compile the Project
 void arg_build();
@@ -28,7 +28,7 @@ void arg_help();
 
 
 // Create the .gen File
-std::string _init_genFile();
+std::string _init_genFile(int,char**);
 
 // Create the Makefile
 std::string _init_makefile();
