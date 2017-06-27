@@ -1,4 +1,6 @@
 #include "templates.h"
+#include <iostream>
+#include <string>
 
 const char* help =
   "GENLAB - Lab Template Generator\n\n"
@@ -55,3 +57,23 @@ const char* cppfile =
 const char* testfile = 
 "";
 
+const char* buildCMD =
+  "mkdir -p {project}/include {project}/src"
+  " {project}/doc {project}/build/bin"
+  " {project}/build/test {project}/package";
+
+std::string str_replace(std::string str, std::string ori, std::string rep)
+{
+  int p1 = 0, p2 = str.find(ori, p1);
+  std::string res = "";
+  
+  while(p2 != std::string::npos)
+  {
+    res += str.substr(p1, p2-p1) + rep;
+    str = str.substr(p2 + ori.size(), str.size() - p2 - ori.size());
+    p2 = str.find(ori);
+  }
+
+  return res + str;
+  
+}

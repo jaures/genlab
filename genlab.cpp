@@ -1,10 +1,15 @@
 #include "genlab.h"
+#include "templates.h"
 
 int main(int argc, char* argv[])
 {
+
+  _check_call(std::string("mkdir lee"));
+
 	// Route Command Line Arguments
 	if (argc == 1)
 	{
+
 		arg_help();
 	}
 	else
@@ -34,8 +39,9 @@ int main(int argc, char* argv[])
 			if (std::string(argv[1]) != "--help")
 			{
 				std::cout << "\nError: Invalid Argument '" << argv[1] << "'\n\n";
-				arg_help();
 			}
+
+			arg_help();
 		}
 	}
 }
@@ -54,13 +60,19 @@ void arg_init(int cnt, char* vals[])
 
 	// Create Pack Directory	-> ./package
 
-	for (int i = 0; i < cnt; i++)
-	{
-		// Create Source Files
-	}
 
-	_init_genFile(cnt, vals);
-	
+  if(_check_call( str_replace(std::string(buildCMD),"{project}", vals[2])))
+  {
+     return;
+  }
+  
+  for (int i = 0; i < cnt; i++)
+  {
+    // Create Source Files
+  }
+  
+  _init_genFile(cnt, vals);
+  
 }
 
 // Build and Compile the Project
@@ -103,55 +115,87 @@ void arg_help()
 // Init the .gen File
 std::string _init_genFile(int cnt, char* vals[])
 {
-  std::string genFile = std::string(vals[2]);
+  std::string genFile;
   std::string line;
 
-	std::cout << "Author: ";
-	std::cin >> line; genFile += line + "\n";
+  // Append Project Files to genFile
+  genFile += "#FILES#\n";
+  for(int i = 2; i < cnt; i++)
+  { 
+    genFile += std::string(vals[i]) + '\n';
+  }
 
-	std::cout << "Email: ";
-	std::cin >> line; genFile += line + "\n";
+  // Append Header information to genFile
+  genFile += "#HEADER#\n";
+  
+  std::cout << "Author: ";
+  std::cin >> line; genFile += line + "\n";
 
-	std::cout << "Tag: ";
-	std::cin >> line; genFile += line +"\n";
+  std::cout << "Email: ";
+  std::cin >> line; genFile += line + "\n";
 
-	// Get Description for Project
-	std::cin.ignore(); // Flush buffer
-	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
-	do 
-	{
-		std::getline(std::cin, line);
-		genFile += line + "\n";
-	} while (!line.empty());
+  std::cout << "Tag: ";
+  std::cin >> line; genFile += line +"\n";
 
-	// Cycle through the rest of the files
-	for (int i = 3; i < cnt; i++)
-	{
-		// Get Descriptions for other files
-		std::cout << "\nBrief Description For " << vals[i] << ":\n";
-		getline(std::cin, line);
-		genFile += line + "\n";
-	}
-	
-	std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
-	std::cout << "\t" << vals[2] << ".h: ";
-	getline(std::cin, line);
+  // Append File Descriptions to genFile
+  genFile += "#DESC#\n";
+  std::cin.ignore(); // Flush buffer
+  std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
+  do 
+    {
+      std::getline(std::cin, line);
+      genFile += line + "\n";
+    } while (!line.empty());
+  
+  // Cycle through the rest of the files
+  for (int i = 3; i < cnt; i++)
+    {
+      // Get Descriptions for other files
+      std::cout << "\nBrief Description For " << vals[i] << ":\n";
+      getline(std::cin, line);
+      genFile += line + "\n";
+    }
 
-	genFile += line + "\n";
+  // Append libraries for each file
+  genFile += "#INCLUDES\n";
+  std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
+  std::cout << "\t" << vals[2] << ".h: ";
+  getline(std::cin, line);
+  
+  genFile += line + "\n";
+  
+  std::cout << "\t" << vals[2] << ".cpp: ";
+  getline(std::cin, line);
+  
+  genFile += line + "\n";
+  
+  for (int i = 3; i < cnt; i++)
+    {
+      std::cout << "\t" << vals[i] << ": ";
+      getline(std::cin, line);
+      genFile += line + "\n";
+    }
 
-	std::cout << "\t" << vals[2] << ".cpp: ";
-	getline(std::cin, line);
-
-	genFile += line + "\n";
-
-	for (int i = 3; i < cnt; i++)
-	{
-		std::cout << vals[i] << ": ";
-		getline(std::cin, line);
-		genFile += line + "\n";
-	}
-
-	std::cout << genFile;
-
-	return "";
+  genFile += "####";
+  
+  std::cout << genFile;
+  return genFile;
 }
+
+int _check_call(std::string cmd )
+{
+  // Open a stream to a process's outputs
+  cmd.append(" 2>&1");
+  FILE * cmd_stream = popen(cmd.c_str(), "r");
+
+  char buff[1024];
+  while(std::fgets(buff, 1024, cmd_stream) != NULL )
+  {
+    std::cout << std::string(buff);
+  }
+
+  std::cout << buff << "\n";
+  
+  return  pclose(cmd_stream);
+}
+
