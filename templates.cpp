@@ -57,10 +57,17 @@ const char* cppfile =
 const char* testfile = 
 "";
 
-const char* buildCMD =
-  "mkdir -p {project}/include {project}/src"
-  " {project}/doc {project}/build/bin"
-  " {project}/build/test {project}/package";
+const char* buildCMD[] =
+  {
+	  "{project}",
+	  "{project}/include",
+	  "{project}/src",
+	  "{project}/docs",
+	  "{project}/bin",
+	  "{project}/bin/build",
+	  "{project}/bin/package",
+	  "{project}/bin/test"
+  };
 
 std::string str_replace(std::string str, std::string ori, std::string rep)
 {

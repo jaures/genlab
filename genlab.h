@@ -1,9 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-
+#include <sys/stat.h>
 #include <string>
 #include <vector>
+
+// mode_t Value for all permissions (777)
+#define MOD777  S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP |\
+	S_IWGRP | S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH
+
 
 // Init the Project Directory
 void arg_init(int, char**);

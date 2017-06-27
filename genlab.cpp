@@ -50,19 +50,23 @@ int main(int argc, char* argv[])
 // Init the Project Directory
 void arg_init(int cnt, char* vals[])
 {
-	// Create Root Directory	-> ./
+	bool init_res = false;
 
-	// Create Header Directory	-> ./include
-
-	// Create Doc Directory		-> ./docs
-
-	// Create Build Directory	-> ./bin
-
-	// Create Pack Directory	-> ./package
+	for( int i = 0; i < 8; i++)
+	{
+		// Create and Check for errors
+		if (mkdir(buildCMD[i], MOD777))
+		{
+			std::cout << "Error Creating Project Directory\n\t"
+				<< "Failed to create: " << buildCMD[i] << "\n";
+			return;
+		}
+	}
 
 
   if(_check_call( str_replace(std::string(buildCMD),"{project}", vals[2])))
   {
+	  std::cout << "Error Creating Dir";
      return;
   }
   
