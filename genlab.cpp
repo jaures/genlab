@@ -64,12 +64,6 @@ void arg_init(int cnt, char* vals[])
 	}
 
 
-  if(_check_call( str_replace(std::string(buildCMD),"{project}", vals[2])))
-  {
-	  std::cout << "Error Creating Dir";
-     return;
-  }
-  
   for (int i = 0; i < cnt; i++)
   {
     // Create Source Files
