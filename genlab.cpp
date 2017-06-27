@@ -4,8 +4,6 @@
 int main(int argc, char* argv[])
 {
 
-  _check_call(std::string("mkdir lee"));
-
 	// Route Command Line Arguments
 	if (argc == 1)
 	{
@@ -55,7 +53,7 @@ void arg_init(int cnt, char* vals[])
 	for( int i = 0; i < 8; i++)
 	{
 		// Create and Check for errors
-		if (mkdir(buildCMD[i], MOD777))
+		if (mkdir( str_replace(buildCMD[i], "{project}", vals[2]), MOD777))
 		{
 			std::cout << "Error Creating Project Directory\n\t"
 				<< "Failed to create: " << buildCMD[i] << "\n";
