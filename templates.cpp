@@ -71,14 +71,14 @@ const char* buildCMD[] =
 
 std::string str_replace(std::string str, std::string ori, std::string rep)
 {
-  int p1 = 0, p2 = str.find(ori, p1);
+  int p = str.find(ori, 0);
   std::string res = "";
   
-  while(p2 != std::string::npos)
+  while(p != std::string::npos)
   {
-    res += str.substr(p1, p2-p1) + rep;
-    str = str.substr(p2 + ori.size(), str.size() - p2 - ori.size());
-    p2 = str.find(ori);
+    res += str.substr(0, p) + rep;
+    str = str.substr(p + ori.size(), str.size() - p - ori.size());
+    p = str.find(ori);
   }
 
   return res + str;
