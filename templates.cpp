@@ -38,20 +38,52 @@ const char* genfile =
 
 const char* makefile =
 "# {PROJECT} Makefile\n"
-"PRJCT={PROJECT}"
+"PRJCT={PROJECT}\n\n"
+
 "# Include Directory\n"
-"IDIR=include\n"
+"IDIR:=include/\n\n"
+
+"# Header Files\n"
+"INCS=(wildcard $(IDIR)*.h)\n\n"
+
 "# Source Directory\n"
-"SDIR=srcs\n"
+"SDIR:=srcs/\n\n"
+
+"# Source Files\n"
+"SRCS=(wildcard $(SDIR)*.cpp)\n"
+
+"# Docs Directory\n"
+"DDIR:=docs/\n\n"
+
+"# Build Directory\n"
+"BDIR:=bin/build/\n\n"
+
+"# Pack Directory\n"
+"PDIR:=bin/build/\n\n"
+
+"# Test Directory\n"
+"TDIR:=bin/test/\n"
+
 "# C++ Compiler\n"
 "CXX=g++\n"
+
 "# C++ Flags to Pass to Compiler\n"
 "CXXFLAGS=-pedantic -Wall -I$(IDIR)\n"
+
+"# Output Flag\n"
+"OUT:= -o $(BDIR)
+
 "# TEX Compiler\n"
 "TEX=latex\n"
+
 "# DVI to PDF Program\n"
 "DTP=dvipdf\n\n";
 
+"$(PRJCT): $(INCS) $(SRCS)\n"
+"\t$(info compiling files: $?)"
+""
+""
+""
 
 
 const char* docfile = 
