@@ -47,8 +47,10 @@ const char* makefile =
 "CXX=g++\n"
 "# C++ Flags to Pass to Compiler\n"
 "CXXFLAGS=-pedantic -Wall -I$(IDIR)\n"
-"TEX=latex\n\n"
-"";
+"# TEX Compiler\n"
+"TEX=latex\n"
+"# DVI to PDF Program\n"
+"DTP=dvipdf";
 
 
 const char* docfile = 
