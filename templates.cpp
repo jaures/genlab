@@ -43,6 +43,9 @@ const char* makefile =
 "# Include Directory\n"
 "IDIR:=include/\n\n"
 
+"# Other Include Directories"
+"OIDIR:={OIDIRS}"
+
 "# Header Files\n"
 "INCS=(wildcard $(IDIR)*.h)\n\n"
 
@@ -68,21 +71,39 @@ const char* makefile =
 "CXX=g++\n"
 
 "# C++ Flags to Pass to Compiler\n"
-"CXXFLAGS=-pedantic -Wall -I$(IDIR)\n"
+"CXXFLAGS=-pedantic -Wall -I $(IDIR) $(O_IDIRS)\n"
+
+"# Other C++ Flags\n"
+"OFLAGS={OFLAGS}\n\n"
 
 "# Output Flag\n"
-"OUT:= -o $(BDIR)
+"OUT:= -o $(BDIR)\n\n"
 
 "# TEX Compiler\n"
-"TEX=latex\n"
+"TEX=latex\n\n"
 
 "# DVI to PDF Program\n"
 "DTP=dvipdf\n\n";
 
-"$(PRJCT): $(INCS) $(SRCS)\n"
-"\t$(info compiling files: $?)"
+"# Make sure make does not operate files\n"
+"# with reserved targets\n"
+".PHONY: clean run back\n\n"
+
+"$(PRJCT): $(INCS) $(SRCS)"
+"\n\t$(warning On Error try running 'make clean' first)"
+"\n\t$(info compiling files: $?)"
+"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) $(OUT)\n\n\n"
+
+"clean:"
+"\n\trm -rf include/*.gch"
+"\n\trm -rf bin/build/*\n\n"
+
+"run: $(BDIR)$(PRJCT)"
+"\n\t./$<\n\n"
+
 ""
 ""
+"\n\t"
 ""
 
 
