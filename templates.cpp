@@ -50,7 +50,8 @@ const char* makefile =
 "# TEX Compiler\n"
 "TEX=latex\n"
 "# DVI to PDF Program\n"
-"DTP=dvipdf";
+"DTP=dvipdf\n\n";
+
 
 
 const char* docfile = 
