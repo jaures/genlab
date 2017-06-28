@@ -37,9 +37,15 @@ const char* genfile =
 "#test\n{test}\n";
 
 const char* makefile =
+"# {PROJECT} Makefile\n"
+"PRJCT={PROJECT}"
+"# Include Directory\n"
 "IDIR=include\n"
+"# Source Directory\n"
 "SDIR=srcs\n"
+"# C++ Compiler\n"
 "CXX=g++\n"
+"# C++ Flags to Pass to Compiler\n"
 "CXXFLAGS=-pedantic -Wall -I$(IDIR)\n"
 "TEX=latex\n\n"
 "";
@@ -61,7 +67,7 @@ const char* buildCMD[] =
   {
 	  "{project}",
 	  "{project}/include",
-	  "{project}/src",
+	  "{project}/srcs",
 	  "{project}/docs",
 	  "{project}/bin",
 	  "{project}/bin/build",
