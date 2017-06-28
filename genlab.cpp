@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 		{
 			if (std::string(argv[1]) != "--help")
 			{
-				std::cout << "\nError: Invalid Argument '" << argv[1] << "'\n\n";
+				std::cout << "\nError: Invalid Usgae or Unrecognized Argument: '" << argv[1] << "'\n\n";
 			}
 
 			arg_help();
