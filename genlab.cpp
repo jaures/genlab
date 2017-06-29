@@ -203,6 +203,8 @@ void arg_test()
 		}
 
 		std::cout << "\nContinue with Test Wizard? (y/n): ";
+		std::cin.ignore(MAXBUFF, '\n');
+		getline(std::cin, choice);
 	}
 
     if(testFile.is_open()){ testFile.close(); }
