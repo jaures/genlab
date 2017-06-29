@@ -145,6 +145,8 @@ void arg_test()
 
 		getline(std::cin, choice);
 
+		std::cout << "ECHO:" << choice;
+
 		// File Content should be Cleared
 		if (choice == "clear" || choice == "Clear")
 		{
