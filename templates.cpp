@@ -83,7 +83,7 @@ const char* makefile =
 "TEX=latex\n\n"
 
 "# DVI to PDF Program\n"
-"DTP=dvipdf\n\n";
+"DTP=dvipdf\n\n"
 
 "# Make sure make does not operate files\n"
 "# with reserved targets\n"
