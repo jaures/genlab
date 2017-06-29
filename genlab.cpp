@@ -259,83 +259,82 @@ void arg_help()
 
 
 // Init the .gen File
-std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
+std::vector<std::string> _init_genFile(int cnt, char* vals[])
 {
   	std::string line;
-
-	// Add List of Project Files
-	genInfo[0] = std::string(vals[2]) + ".h " + std::string(vals[2]) + ".cpp ";
-
-  	for(int i = 3; i < cnt; i++)
-  	{ 
-    	genInfo[0] += std::string(vals[i]) + ' ';
-  	}
+	std::vector<std::string> genInfo;
 
   	// Get Header Information 
-	genInfo[1] = "";
   
   	std::cout << "Author: ";
   	getline(std::cin, line);
-	genInfo[1] += "Author:\t" + line + "\n";
+	// Create first item in genInfo for holding general project information
+	genInfo.push_back("Author:\t" + line + "\n");
 
   	std::cout << "Email: ";
   	getline(std::cin, line); 
-	genInfo[1]+= "Email:\t" + line + "\n";
+	// Append Onto the first item Developer Email
+	genInfo[0]+= "Email:\t" + line + "\n";
 
   	std::cout << "Tag: ";
   	getline(std::cin, line); 
-	genInfo[1] += line +"\n";
+	// Append Project Tag Onto the first Item
+	genInfo[0] += line +"\n";
 
 
-  	// Get Project Description
-  	//std::cin.ignore(); // Flush buffer
+	// Get Project Description
   	std::cout <<"\nProject Description (Leave blank line to save entry):\n";
-  	genInfo[2] = "";
 	do 
   	{
       	std::getline(std::cin, line);
-		genInfo[2] += line + '\n';
+		genInfo.push_back(line);
 
     } while (!line.empty());
 
-
- 
-	// Get Descriptions for Project Header File
-   	std::cout << "\nBrief Description For " << vals[2] << ".h:\n> ";
-  	getline(std::cin, genInfo[3]);
-	// Get Libraries to include
-	std::cout << "Libraries to Include for " << vals[2] 
-			<< ".h (seperated by spaces): \n> ";
+	// Add All Project Files
+	genInfo.push_back(std::string(vals[2]) + ".h");	// Add Project Header File
+	
+    // Get Descriptions for Project Header file
+   	std::cout << "\nBrief Description For " << genFile.back() << ":\n> ";
+  	getline(std::cin, line);
+	genInfo.push_back(line);
+	// Get Included Libraries
+	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
-	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n"); 
+	genInfo[2] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n");
 
-	// Get Descriptions for Project Source File
-   	std::cout << "\nBrief Description For " << vals[2] << ".cpp:\n> ";
-  	getline(std::cin, genInfo[4]);
-	// Get Libraries to include
-	std::cout << "Libraries to Include for " << vals[2] 
-			<< ".cpp (seperated by spaces): \n> ";
+	genInfo.push_back(std::string(vals[2]) + ".cpp "); // Add Project Source File
+	
+    // Get Descriptions for Project Source file
+   	std::cout << "\nBrief Description For " << genFile.back() << ":\n> ";
+  	getline(std::cin, line);
+	genInfo.push_back(line);
+	// Get Included Libraries
+	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
 	genInfo[4] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n"); 
-  	
-	// Cycle through the rest of the files
-  	for (int i = 3; i < cnt; i++)
-	{
-    	// Get Descriptions for other files
-   		std::cout << "\nBrief Description For " << vals[i] << ":\n> ";
-  		getline(std::cin, genInfo[2+i]);
+				+ ">\n\n");
+
+	// Cycle through and add rest of files
+  	for(int i = 5; i < cnt; i += 2)
+  	{ 
+     	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
+
+	 	std::cout << "\nBrief Description For " << genFile[i] << ":\n> ";
+  		getline(std::cin, line);
+		genInfo.push_back(line);
 
 		// Get Includes for file
 		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
-		genInfo[2+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+		genInfo[i+1] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n");
-  	}	
 
-	std::cout << "Final Config: \n" << genInfo[0] 
+  	}
+
+	std::cout << "\n\nFinal Config: \n" << genInfo[0] 
 					<< '\n' << genInfo[1] << '\n' 
 					<< genInfo[2];
 	std::cout << '\n' << genInfo[2] << genInfo[3];
