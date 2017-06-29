@@ -170,7 +170,7 @@ void arg_test()
 			testFile.open("bin/test/.tests", std::fstream::in);
 		
 			char buff[MAXBUFF];
-			while(!testFile.eof())
+			while(!testFile.eof() || !testFile.fail())
 			{
 				testFile.getline(buff, MAXBUFF);
 				std::cout << buff;
