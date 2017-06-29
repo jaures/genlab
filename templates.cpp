@@ -104,7 +104,7 @@ const char* makefile =
 ""
 ""
 "\n\t"
-""
+"";
 
 
 const char* docfile = 
