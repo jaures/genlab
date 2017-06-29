@@ -49,11 +49,12 @@ int main(int argc, char* argv[])
 void arg_init(int cnt, char* vals[])
 {
 	bool init_res = false;
+	std::string prj = std::string(vals[2]);
 
 	for( int i = 0; i < 8; i++)
 	{
 		// Create and Check for errors
-		if (mkdir( str_replace(buildCMD[i], "{project}", vals[2]).c_str(), MOD777))
+		if (mkdir( str_replace(buildCMD[i], "{project}", prj]).c_str(), MOD777))
 		{
 			std::cout << "Error Creating Project Directory\n\t"
 				<< "Failed to create: " << buildCMD[i] << "\n";
@@ -61,13 +62,27 @@ void arg_init(int cnt, char* vals[])
 		}
 	}
 
+	// Go through Wizard and Generate genFile
+  	ifstream genFile;
+	genFile.open( (proj + "/.genFile", "*").c_str());
 
-  for (int i = 0; i < cnt; i++)
-  {
-    // Create Source Files
-  }
+	genFile << _init_genFile(cnt, vals);
+
+	//Close file
+	genFile.close();
+
+
+	// Create Initial header and source files
+	std::cout << "Creating Project Header and Source Files...\n";
+
+
+
+	
+  	for (int i = 0; i < cnt; i++)
+  	{
+    	// Create Source Files
+  	}
   
-  _init_genFile(cnt, vals);
   
 }
 
@@ -111,71 +126,81 @@ void arg_help()
 // Init the .gen File
 std::string _init_genFile(int cnt, char* vals[])
 {
-  std::string genFile;
-  std::string line;
+  	std::string genFile;
+  	std::string line;
 
-  // Append Project Files to genFile
-  genFile += "#FILES#\n";
-  for(int i = 2; i < cnt; i++)
-  { 
-    genFile += std::string(vals[i]) + '\n';
-  }
+  	// Append Project Files to genFile
+  	genFile += "#FILES#\n";
+  	for(int i = 2; i < cnt; i++)
+  	{ 
+    	genFile += std::string(vals[i]) + '\n';
+  	}
 
-  // Append Header information to genFile
-  genFile += "#HEADER#\n";
+  	// Append Header information to genFile
+  	genFile += "#HEADER#\n";
   
-  std::cout << "Author: ";
-  std::cin >> line; genFile += line + "\n";
+  	std::cout << "Author: ";
+  	std::cin >> line; genFile += line + "\n";
 
-  std::cout << "Email: ";
-  std::cin >> line; genFile += line + "\n";
+  	std::cout << "Email: ";
+  	std::cin >> line; genFile += line + "\n";
 
-  std::cout << "Tag: ";
-  std::cin >> line; genFile += line +"\n";
+  	std::cout << "Tag: ";
+  	std::cin >> line; genFile += line +"\n";
 
-  // Append File Descriptions to genFile
-  genFile += "#DESC#\n";
-  std::cin.ignore(); // Flush buffer
-  std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
-  do 
-    {
-      std::getline(std::cin, line);
-      genFile += line + "\n";
+  	// Append File Descriptions to genFile
+  	genFile += "#DESC#\n";
+  	std::cin.ignore(); // Flush buffer
+  	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
+  	do 
+  	{
+      	std::getline(std::cin, line);
+      	genFile += line + "\n";
     } while (!line.empty());
   
-  // Cycle through the rest of the files
-  for (int i = 3; i < cnt; i++)
-    {
-      // Get Descriptions for other files
-      std::cout << "\nBrief Description For " << vals[i] << ":\n";
-      getline(std::cin, line);
-      genFile += line + "\n";
-    }
+  	// Cycle through the rest of the files
+  	for (int i = 3; i < cnt; i++)
+	{
+    	// Get Descriptions for other files
+   		std::cout << "\nBrief Description For " << vals[i] << ":\n";
+  		getline(std::cin, line);
+    	genFile += line + "\n";
+  	}	
 
-  // Append libraries for each file
-  genFile += "#INCLUDES\n";
-  std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
-  std::cout << "\t" << vals[2] << ".h: ";
-  getline(std::cin, line);
+  	// Append libraries for each file
+  	genFile += "#INCLUDES\n";
+  	std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
+  	std::cout << "\t" << vals[2] << ".h: ";
+  	getline(std::cin, line);
   
-  genFile += line + "\n";
+  	genFile += line + "\n";
   
-  std::cout << "\t" << vals[2] << ".cpp: ";
-  getline(std::cin, line);
+  	std::cout << "\t" << vals[2] << ".cpp: ";
+  	getline(std::cin, line);
   
-  genFile += line + "\n";
+  	genFile += line + "\n";
   
-  for (int i = 3; i < cnt; i++)
-    {
-      std::cout << "\t" << vals[i] << ": ";
-      getline(std::cin, line);
-      genFile += line + "\n";
-    }
-
-  genFile += "####";
+  	for (int i = 3; i < cnt; i++)
+  	{
+		std::cout << "\t" << vals[i] << ": ";
+		getline(std::cin, line);
+ 		genFile += line + "\n";
+  	}
   
-  std::cout << genFile;
-  return genFile;
+	// Prompt For tests & adds them to genfile
+	genFile += "#TESTS#\n";
+	std::cout << "Test Wizard\n\nEnter inputs seperated by spaces or <Enter> twice to continue\n";
+	for(int i = 1; !line.empty(); i++)
+	{
+		std::cout << "\n\tTest " << i << " Inputs: ";
+		getline(cin, line);
+		genFile += line + "\n";
+	}
+  
+  	genFile += "####\n";
+  
+ 	std::cout << genFile;
+  	return genFile;
 }
 
 int _check_call(std::string cmd )
