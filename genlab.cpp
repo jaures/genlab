@@ -174,6 +174,7 @@ void arg_test()
 			{
 				testFile.getline(buff, MAXBUFF);
 				std::cout << buff;
+				std::cout << testFile.peek();
 			}
 		
 			testFile.close();
@@ -205,7 +206,7 @@ void arg_test()
 		}
 
 		std::cout << "\nContinue with Test Wizard? (y/n): ";
-		std::cin.ignore(MAXBUFF, '\n');
+		//std::cin.ignore(MAXBUFF, '\n');
 		getline(std::cin, choice);
 	}
 
