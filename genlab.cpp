@@ -281,13 +281,15 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	// Append Project Tag Onto the first Item
 	genInfo[0] += line +"\n";
 
+    
+	genInfo.push_back("Description: \n");
 
 	// Get Project Description
   	std::cout <<"\nProject Description (Leave blank line to save entry):\n";
 	do 
   	{
       	std::getline(std::cin, line);
-		genInfo.push_back(line);
+        genInfo[1] += line;
 
     } while (!line.empty());
 
