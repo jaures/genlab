@@ -129,7 +129,8 @@ void arg_test()
 	}
 
     // Open Test File
-    std::fstream testFile("bin/test/.tests", std::fstream::in);
+    std::fstream testFile;
+    testFile.open("bin/test/.tests", std::fstream::out | std::fstream::app);
 
     if(testFile.fail())
     {
@@ -148,7 +149,6 @@ void arg_test()
     // Run Through Test Wizard if yes
     while(std::string("YESYesyes").find(choice) != std::string::npos)
     {
-        std::string test = "#";
 		std::cout << "\nType 'list' to list current tests or 'clear' to clear all test cases\n"
 			<< "\tNew test: ";
 
@@ -192,10 +192,12 @@ void arg_test()
 		else
 		{	
 			// Open file for writing
-			if(!testFile.is_open())
+			if(testFile.is_open())
 			{
-				testFile.open("bin/test/.tests", std::fstream::in | std::fstream::app);
+				testFile.close();
 			}
+			
+			testFile.open("bin/test/.tests", std::fstream::in | std::fstream::app);
 
 			std::cout << "\n\t> Test " << choice 
 				<< "\n\tlines begining with '$' are sent to STDIN"
@@ -208,7 +210,7 @@ void arg_test()
 			{
 				std::cout << "\t\t==> ";
 				getline(std::cin, choice);
-				testFile << choice + "\n";
+				testFile << choice << "\n";
 
 			}while(!choice.empty());
 
