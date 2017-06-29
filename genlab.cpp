@@ -295,7 +295,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	genInfo.push_back(std::string(vals[2]) + ".h");	// Add Project Header File
 	
     // Get Descriptions for Project Header file
-   	std::cout << "\nBrief Description For " << genFile.back() << ":\n> ";
+   	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
   	getline(std::cin, line);
 	genInfo.push_back(line);
 	// Get Included Libraries
@@ -307,7 +307,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	genInfo.push_back(std::string(vals[2]) + ".cpp "); // Add Project Source File
 	
     // Get Descriptions for Project Source file
-   	std::cout << "\nBrief Description For " << genFile.back() << ":\n> ";
+   	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
   	getline(std::cin, line);
 	genInfo.push_back(line);
 	// Get Included Libraries
@@ -317,11 +317,11 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 				+ ">\n\n");
 
 	// Cycle through and add rest of files
-  	for(int i = 5; i < cnt; i += 2)
+  	for(int i = 5; i < cnt * 2; i += 2)
   	{ 
      	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
-	 	std::cout << "\nBrief Description For " << genFile[i] << ":\n> ";
+	 	std::cout << "\nBrief Description For " << genInfo[i] << ":\n> ";
   		getline(std::cin, line);
 		genInfo.push_back(line);
 
@@ -339,7 +339,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 					<< genInfo[2];
 	std::cout << '\n' << genInfo[2] << genInfo[3];
 
-  	return std::string(genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2]);
+  	return genInfo;
 }
 
 // Check if Project has been Initialized
