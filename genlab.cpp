@@ -64,7 +64,7 @@ void arg_init(int cnt, char* vals[])
 
 	// Go through Wizard and Generate genFile
 	std::ofstream genFile;
-	genFile.open( (prj + "/.genFile").c_str() | std::ios::noreplace);
+	genFile.open( (prj + "/.genFile").c_str(), std::ios::noreplace);
 
     if(genFile.bad())
     {
