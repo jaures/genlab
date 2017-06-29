@@ -103,7 +103,7 @@ void arg_init(int cnt, char* vals[])
 
 	std::fstream fw;
 
-	fw.open( prj + "/src/" +  prj + ".cpp", std::fstream::out | std::fstream::trunc);
+	fw.open( prj + "/src/" +  prj + ".cpp");
 
 
 
