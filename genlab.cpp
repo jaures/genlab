@@ -80,6 +80,9 @@ void arg_init(int cnt, char* vals[])
     }
 
 	std::string gf_str = _init_genFile(cnt, vals, info);
+
+	std::cout << "Here is what I'm working with:\n" << gf_str;
+
 	genFile << gf_str;
 
 	//Close file
@@ -281,7 +284,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
   	// Get Project Description
   	//std::cin.ignore(); // Flush buffer
-  	std::cout <<"\nProject Description (Leave blank line to save entry):\n\n\t> ";
+  	std::cout <<"\nProject Description (Leave blank line to save entry):\n\n ";
   	genInfo[2] = "";
 	do 
   	{
