@@ -133,7 +133,7 @@ void arg_test()
     getline(std::cin, choice);
 
     // Run Through Test Wizard if yes
-    for(int i = 0; string("YESYesyes").find(choice) != std::string::npos)
+    for(int i = 0; std::string("YESYesyes").find(choice) != std::string::npos)
     {
         std::string test = "#";
     }

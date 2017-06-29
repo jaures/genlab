@@ -129,7 +129,7 @@ const char* cppfile =
 
 
 const char* mainfunc = 
-"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\treturn 0;\}\n\n";
+"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\treturn 0;\n}\n\n";
 
 
 const char* buildCMD[] =
