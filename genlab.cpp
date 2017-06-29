@@ -88,15 +88,6 @@ void arg_init(int cnt, char* vals[])
 	//Reopen for parsing through & to make sure everything saved properly
 	genFile.open( (prj + "/.genFile").c_str(), std::fstream::in);
 	
-	std::string tkn;
-
-	do
-	{
-		getline(genFile, tkn);
-		
-		
-	}while(tkn != "####" || !genFile.eof() || !genFile.bad());
-
 	// Create Initial header and source files
 	std::cout << "Creating Project Header and Source Files...\n";
 
@@ -326,7 +317,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 					<< genInfo[2];
 	std::cout << '\n' << genInfo[2] << genInfo[3];
 
-  	return genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2];
+  	return std::string(genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2]);
 }
 
 // Check if Project has been Initialized
