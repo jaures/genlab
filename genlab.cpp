@@ -322,6 +322,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
   	}	
 
  	std::cout << (genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2]);
+	std::cout << '\n' << genInfo[2] << genInfo[3];
 
   	return genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2];
 }
