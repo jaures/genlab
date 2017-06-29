@@ -289,7 +289,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
 
   	// Get Project Description
-  	// std::cin.ignore(); // Flush buffer
+  	std::cin.ignore(); // Flush buffer
   	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
   	genInfo[2] = "";
 	do 
@@ -299,8 +299,8 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
     } while (!line.empty());
   
-	std::cout << "\tInclude Libraries for " << vals[2] 
-			<< ".h (seperated by spaces): ";
+	std::cout << "Libraries to Incluse for " << vals[2] 
+			<< ".h (seperated by spaces): \n\t";
 
 	getline(std::cin, line);
 	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
@@ -314,7 +314,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
   		getline(std::cin, genInfo[1+i]);
 
 		// Get Includes for file
-		std::cout << "\tIncluded Libraries (seperate by space): ";
+		std::cout << "Libraries to Include (seperate by space): ";
 
 		getline(std::cin, line);
 		genInfo[1+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
