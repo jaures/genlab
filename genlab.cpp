@@ -115,10 +115,9 @@ void arg_doc()
 void arg_test()
 {
     // Open Test File
-    std::fstream tests;
-    tests.open("/bin/test/.tests", std::fstream::in | std::fstream::out | std::fstream::app);
+    std::fstream testFile;
 
-    if(tests.fail())
+    if(testFile.fail())
     {
         // Exit on Error
         std::cout << "Error: Unable to access tests\n\n";
@@ -126,8 +125,8 @@ void arg_test()
     }
 
 
+    std::string tests = "";
     std::string choice;
-    char ch;
 
     std::cout << "Run Test Wizard? (y/n): ";
     getline(std::cin, choice);
@@ -136,7 +135,76 @@ void arg_test()
     for(int i = 0; std::string("YESYesyes").find(choice) != std::string::npos)
     {
         std::string test = "#";
-    }
+		std::cout << "\nType 'list' to list current tests or 'clear' to clear all test cases\n"
+			<< "\tNew test: ";
+
+		getline(std::cin, choice);
+
+		// File Content should be Cleared
+		if (choice == "clear" || choice == "Clear")
+		{
+			if(testFile.is_open())
+			{
+				testFile.close();
+			}	
+		
+			testFile.open("bin/test/.tests", std::fstream::trunc);
+
+			testFile.close();
+		}
+		// File Content should be listed
+		else if (choice == "list" || choice == "List")
+		{
+			if(testFile.is_open())
+			{
+				testFile.close();
+			}
+
+			testFile.open("bin/test/.tests", std::fstream::in);
+		
+			char buff[MAXBUFF];
+			while(!testFile.eof())
+			{
+				testFile.getline(buff, MAXBUFF);
+				std::cout << buff;
+			}
+		
+			testFile.close();
+
+		}	
+		else
+		{	
+			// Open file for writing
+			if(!testFile.is_open())
+			{
+				testFile.open("bin/test/.tests", std::fstream::in | std::fstream::app);
+			}
+
+			std::cout << "\n\t> Test " << choice << "\n\t(lines begining with '$' are sent to STDIN, "
+				<< "leave the line empty to  save test)\n"
+				
+			std::cin.ignore();
+			testFile << choice << "\n";
+
+			// Get Lines for the test
+			do
+			{
+				std::cout << "\t\t==> ";
+				getline(std::cin, choice);
+				testFile << choice + "\n";
+
+			}while(!choice.empty())
+
+			
+		}
+
+		std::cout << "\nContinue with Test Wizard? (y/n):
+	}
+
+    if(testFile.is_open()){ testFile.close(); }
+
+	std::cout << "Testing now...\n\n";
+
 }
 
 
