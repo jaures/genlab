@@ -199,7 +199,7 @@ void arg_test()
 			char buff[MAXBUFF];
 			while(!testFile.eof() || !testFile.fail())
 			{
-				testFile.read(buff, MAXBUFF);
+				testFile.getline(buff, MAXBUFF, '\0');
 				std::cout << std::string(buff);
 				//std::cout << testFile.peek();
 			}
@@ -289,7 +289,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	do 
   	{
       	std::getline(std::cin, line);
-        genInfo[1] += line;
+        genInfo[1] += line + '\n';
 
     } while (!line.empty());
 
