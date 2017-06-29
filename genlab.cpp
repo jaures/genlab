@@ -79,11 +79,11 @@ void arg_init(int cnt, char* vals[])
         return;
     }
 
-	std::string gf_str = _init_genFile(cnt, vals, info);
+    std::vector<std::string> gf_str = _init_genFile(cnt, vals);
 
 	for(int i =0 ; i < cnt; i++)
 	{
-		std::cout << info[i] << "\n";
+		std::cout << gf_str[i] << "\n";
 	}
 
 	std::cout << "Here is what I'm working with:\n" << gf_str;
