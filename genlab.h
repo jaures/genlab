@@ -31,6 +31,9 @@ void arg_pack();
 // Produce the Help Message
 void arg_help();
 
+// Check to Ensure genFile has been created/project has been init
+bool _check_init();
+
 // Perform a system call and check exit code
 int _check_call(std::string);
 

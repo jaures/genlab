@@ -121,7 +121,7 @@ void arg_test()
 {
 
 	// Check to make sure project has been initialized
-	if(!check_init())
+	if(!_check_init())
 	{
 			// Exit on Error: Project was not init
 			std::cout << "No project found in this directory. Make sure to --init the project first.\n";
