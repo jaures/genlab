@@ -290,7 +290,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
   	// Get Project Description
   	//std::cin.ignore(); // Flush buffer
-  	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
+  	std::cout <<"\nProject Description (Leave blank line to save entry):\n\n\t> ";
   	genInfo[2] = "";
 	do 
   	{
@@ -299,8 +299,8 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
     } while (!line.empty());
   
-	std::cout << "Libraries to Incluse for " << vals[2] 
-			<< ".h (seperated by spaces): \n\t";
+	std::cout << "Libraries to Include for " << vals[2] 
+			<< ".h (seperated by spaces): \n\t> ";
 
 	getline(std::cin, line);
 	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
@@ -310,18 +310,20 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
   	for (int i = 3; i < cnt; i++)
 	{
     	// Get Descriptions for other files
-   		std::cout << "\nBrief Description For " << vals[i] << ":\n";
+   		std::cout << "\nBrief Description For " << vals[i] << ":\n\t> ";
   		getline(std::cin, genInfo[1+i]);
 
 		// Get Includes for file
-		std::cout << "Libraries to Include (seperate by space): ";
+		std::cout << "Libraries to Include (seperate by space):\n\t> ";
 
 		getline(std::cin, line);
 		genInfo[1+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n");
   	}	
 
- 	std::cout << (genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2]);
+	std::cout << "Final Config: \n" << genInfo[0] 
+					<< '\n' << genInfo[1] << '\n' 
+					<< genInfo[2];
 	std::cout << '\n' << genInfo[2] << genInfo[3];
 
   	return genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2];
