@@ -88,7 +88,7 @@ void arg_init(int cnt, char* vals[])
 
 	std::cout << "Here is what I'm working with:\n" << gf_str;
 
-	genFile << gf_str;
+	genFile << gf_str[0];
 
 	//Close file
 	genFile.close();
