@@ -284,7 +284,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
   	// Get Project Description
   	//std::cin.ignore(); // Flush buffer
-  	std::cout <<"\nProject Description (Leave blank line to save entry):\n\n ";
+  	std::cout <<"\nProject Description (Leave blank line to save entry):\n";
   	genInfo[2] = "";
 	do 
   	{
@@ -292,12 +292,27 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 		genInfo[2] += line + '\n';
 
     } while (!line.empty());
-  
+
+
+ 
+	// Get Descriptions for Project Header File
+   	std::cout << "\nBrief Description For " << vals[2] << ".h:\n\t> ";
+  	getline(std::cin, genInfo[3]);
+	// Get Libraries to include
 	std::cout << "Libraries to Include for " << vals[2] 
 			<< ".h (seperated by spaces): \n\t> ";
-
 	getline(std::cin, line);
 	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n"); 
+
+	// Get Descriptions for Project Source File
+   	std::cout << "\nBrief Description For " << vals[2] << ".cpp:\n\t> ";
+  	getline(std::cin, genInfo[4]);
+	// Get Libraries to include
+	std::cout << "Libraries to Include for " << vals[2] 
+			<< ".cpp (seperated by spaces): \n\t> ";
+	getline(std::cin, line);
+	genInfo[4] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n"); 
   	
 	// Cycle through the rest of the files
@@ -305,13 +320,13 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 	{
     	// Get Descriptions for other files
    		std::cout << "\nBrief Description For " << vals[i] << ":\n\t> ";
-  		getline(std::cin, genInfo[1+i]);
+  		getline(std::cin, genInfo[2+i]);
 
 		// Get Includes for file
 		std::cout << "Libraries to Include (seperate by space):\n\t> ";
 
 		getline(std::cin, line);
-		genInfo[1+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+		genInfo[2+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n");
   	}	
 
