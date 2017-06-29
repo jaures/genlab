@@ -289,13 +289,13 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
 
   	// Get Project Description
-  	std::cin.ignore(); // Flush buffer
+  	//std::cin.ignore(); // Flush buffer
   	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
   	genInfo[2] = "";
 	do 
   	{
       	std::getline(std::cin, line);
-		genInfo[2] += line;
+		genInfo[2] += line + '\n';
 
     } while (!line.empty());
   
