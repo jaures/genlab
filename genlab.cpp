@@ -186,7 +186,7 @@ void arg_test()
 			}
 
 			std::cout << "\n\t> Test " << choice << "\n\t(lines begining with '$' are sent to STDIN, "
-				<< "leave the line empty to  save test)\n"
+				<< "leave the line empty to  save test)\n";
 				
 			std::cin.ignore();
 			testFile << choice << "\n";
