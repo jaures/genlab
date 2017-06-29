@@ -81,6 +81,11 @@ void arg_init(int cnt, char* vals[])
 
 	std::string gf_str = _init_genFile(cnt, vals, info);
 
+	for(int i =0 ; i < cnt; i++)
+	{
+		std::cout << info[i] << "\n";
+	}
+
 	std::cout << "Here is what I'm working with:\n" << gf_str;
 
 	genFile << gf_str;
@@ -296,21 +301,21 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
  
 	// Get Descriptions for Project Header File
-   	std::cout << "\nBrief Description For " << vals[2] << ".h:\n\t> ";
+   	std::cout << "\nBrief Description For " << vals[2] << ".h:\n> ";
   	getline(std::cin, genInfo[3]);
 	// Get Libraries to include
 	std::cout << "Libraries to Include for " << vals[2] 
-			<< ".h (seperated by spaces): \n\t> ";
+			<< ".h (seperated by spaces): \n> ";
 	getline(std::cin, line);
 	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n"); 
 
 	// Get Descriptions for Project Source File
-   	std::cout << "\nBrief Description For " << vals[2] << ".cpp:\n\t> ";
+   	std::cout << "\nBrief Description For " << vals[2] << ".cpp:\n> ";
   	getline(std::cin, genInfo[4]);
 	// Get Libraries to include
 	std::cout << "Libraries to Include for " << vals[2] 
-			<< ".cpp (seperated by spaces): \n\t> ";
+			<< ".cpp (seperated by spaces): \n> ";
 	getline(std::cin, line);
 	genInfo[4] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n"); 
@@ -319,11 +324,11 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
   	for (int i = 3; i < cnt; i++)
 	{
     	// Get Descriptions for other files
-   		std::cout << "\nBrief Description For " << vals[i] << ":\n\t> ";
+   		std::cout << "\nBrief Description For " << vals[i] << ":\n> ";
   		getline(std::cin, genInfo[2+i]);
 
 		// Get Includes for file
-		std::cout << "Libraries to Include (seperate by space):\n\t> ";
+		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
 		genInfo[2+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
