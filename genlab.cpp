@@ -119,8 +119,17 @@ void arg_doc()
 // Run the Test Cases
 void arg_test()
 {
+
+	// Check to make sure project has been initialized
+	if(!check_init())
+	{
+			// Exit on Error: Project was not init
+			std::cout << "No project found in this directory. Make sure to --init the project first.\n";
+			return;
+	}
+
     // Open Test File
-    std::fstream testFile;
+    std::fstream testFile("bin/test/.tests", std::fstream::in);
 
     if(testFile.fail())
     {
@@ -172,9 +181,9 @@ void arg_test()
 			char buff[MAXBUFF];
 			while(!testFile.eof() || !testFile.fail())
 			{
-				testFile.getline(buff, MAXBUFF);
+				testFile.read(buff, MAXBUFF);
 				std::cout << buff;
-				std::cout << testFile.peek();
+				//std::cout << testFile.peek();
 			}
 		
 			testFile.close();
@@ -192,7 +201,7 @@ void arg_test()
 				<< "\n\tlines begining with '$' are sent to STDIN"
 				<< "\n\tleave the line empty to  save test\n";
 				
-			testFile << choice << "\n";
+			testFile <<"#" << choice << "\n";
 
 			// Get Lines for the test
 			do
@@ -301,6 +310,13 @@ std::string _init_genFile(int cnt, char* vals[])
 
   	return genFile;
 }
+
+// Check if Project has been Initialized
+bool _check_init()
+{
+	return std::ifstream(".genFile"); 
+}
+
 
 int _check_call(std::string cmd )
 {
