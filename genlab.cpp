@@ -63,16 +63,21 @@ void arg_init(int cnt, char* vals[])
 	}
 
 	// Go through Wizard and Generate genFile
-	std::ofstream genFile;
-	genFile.open( (prj + "/.genFile").c_str(), std::ios::noreplace);
+	std::fstream genFile;
+	genFile.open( (prj + "/.genFile").c_str(), std::fstream::trunc);
 
     if(genFile.bad())
     {
         // Exit on error
         std::cout << "Error: Failed to create genFile."
-            << "Project may already exist or insufficient permissions.\n\n";
+            << "May not have sufficient permissions.\n\n";
         return;
     }
+	else if(!genFile.eof())
+	{
+		// Exit on project already existing
+			std::cout << "Error: This project already exists.\n\n";
+	}
 
 	genFile << _init_genFile(cnt, vals);
 
@@ -86,7 +91,7 @@ void arg_init(int cnt, char* vals[])
 
 
 	
-  	for (int i = 0; i < cnt; i++)
+  for (int i = 0; i < cnt; i++)
   	{
     	// Create Source Files
   	}
