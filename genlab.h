@@ -38,7 +38,7 @@ bool _check_init();
 int _check_call(std::string);
 
 // Create the .gen File
-std::string _init_genFile(int,char**,std::string[]);
+std::vector<std::string> _init_genFile(int,char**,std::string[]);
 
 // Create the Makefile
 std::string _init_makefile();
