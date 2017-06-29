@@ -185,10 +185,10 @@ void arg_test()
 				testFile.open("bin/test/.tests", std::fstream::in | std::fstream::app);
 			}
 
-			std::cout << "\n\t> Test " << choice << "\n\t(lines begining with '$' are sent to STDIN, "
-				<< "leave the line empty to  save test)\n";
+			std::cout << "\n\t> Test " << choice 
+				<< "\n\tlines begining with '$' are sent to STDIN"
+				<< "\n\tleave the line empty to  save test\n";
 				
-			std::cin.ignore();
 			testFile << choice << "\n";
 
 			// Get Lines for the test
