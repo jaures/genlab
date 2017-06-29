@@ -198,7 +198,7 @@ void arg_test()
 			
 		}
 
-		std::cout << "\nContinue with Test Wizard? (y/n):
+		std::cout << "\nContinue with Test Wizard? (y/n): ";
 	}
 
     if(testFile.is_open()){ testFile.close(); }

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+extern const int MAXBUFF;
+
 extern const char* help;
 
 extern const char* header;

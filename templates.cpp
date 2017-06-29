@@ -2,9 +2,7 @@
 #include <iostream>
 #include <string>
 
-#ifndef MAXBUFF
-#define MAXBUFF 1024
-#endif
+const int MAXBUFF = 1024;
 
 const char* help =
   "GENLAB - Lab Template Generator\n\n"
