@@ -69,7 +69,7 @@ void arg_init(int cnt, char* vals[])
 
 	// Go through Wizard and Generate genFile
 	std::fstream genFile;
-	genFile.open( (prj + "/.genFile").c_str(), std::fstream::trunc);
+	genFile.open( (prj + "/.genFile").c_str(), std::fstream::out | std::fstream::trunc);
 
     if(genFile.bad())
     {
