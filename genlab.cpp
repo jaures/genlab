@@ -276,21 +276,26 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 	genInfo[1] = "";
   
   	std::cout << "Author: ";
-  	std::cin >> line; genInfo[1] += "Author:\t" + line + "\n";
+  	getline(std::cin, line);
+	genInfo[1] += "Author:\t" + line + "\n";
 
   	std::cout << "Email: ";
-  	std::cin >> line; genInfo[1]+= "Email:\t" + line + "\n";
+  	getline(std::cin, line); 
+	genInfo[1]+= "Email:\t" + line + "\n";
 
   	std::cout << "Tag: ";
-  	std::cin >> line; genInfo[1] += line +"\n";
+  	getline(std::cin, line); 
+	genInfo[1] += line +"\n";
+
 
   	// Get Project Description
-  	std::cin.ignore(); // Flush buffer
+  	// std::cin.ignore(); // Flush buffer
   	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
-  	do 
+  	genInfo[2] = "";
+	do 
   	{
-      	std::getline(std::cin, genInfo[2]);
-
+      	std::getline(std::cin, line);
+		genInfo[2] += line;
 
     } while (!line.empty());
   
