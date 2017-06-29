@@ -56,7 +56,7 @@ void arg_init(int cnt, char* vals[])
 		// Create and Check for errors
 		if (mkdir( str_replace(buildCMD[i], "{project}", prj).c_str(), MOD777))
 		{
-			std::cout << "Error Creating Project Directory\n\t"
+			std::cout << "Error: Failed to Create Project Directory\n\t"
 				<< "Failed to create: " << buildCMD[i] << "\n";
 			return;
 		}
@@ -64,7 +64,15 @@ void arg_init(int cnt, char* vals[])
 
 	// Go through Wizard and Generate genFile
 	std::ofstream genFile;
-	genFile.open( (prj + "/.genFile").c_str());
+	genFile.open( (prj + "/.genFile").c_str() | std::ios::noreplace);
+
+    if(genFile.bad())
+    {
+        // Exit on error
+        std::cout << "Error: Failed to create genFile."
+            << "Project may already exist or insufficient permissions.\n\n";
+        return;
+    }
 
 	genFile << _init_genFile(cnt, vals);
 
@@ -106,7 +114,29 @@ void arg_doc()
 // Run the Test Cases
 void arg_test()
 {
+    // Open Test File
+    std::fstream tests;
+    tests.open("/bin/test/.tests", std::fstream::in | std::fstream::out | std::fstream::app);
 
+    if(tests.fail())
+    {
+        // Exit on Error
+        std::cout << "Error: Unable to access tests\n\n";
+        return;
+    }
+
+
+    std::string choice;
+    char ch;
+
+    std::cout << "Run Test Wizard? (y/n): ";
+    getline(std::cin, choice);
+
+    // Run Through Test Wizard if yes
+    for(int i = 0; string("YESYesyes").find(choice) != std::string::npos)
+    {
+        std::string test = "#";
+    }
 }
 
 
@@ -186,20 +216,12 @@ std::string _init_genFile(int cnt, char* vals[])
 		getline(std::cin, line);
  		genFile += line + "\n";
   	}
-  
-	// Prompt For tests & adds them to genfile
-	genFile += "#TESTS#\n";
-	std::cout << "Test Wizard\n\nEnter inputs seperated by spaces or <Enter> twice to continue\n";
-	for(int i = 1; !line.empty(); i++)
-	{
-		std::cout << "\n\tTest " << i << " Inputs: ";
-		getline(std::cin, line);
-		genFile += line + "\n";
-	}
-  
+ 
+    // Mark end of the genFile
   	genFile += "####\n";
   
  	std::cout << genFile;
+
   	return genFile;
 }
 

@@ -15,7 +15,7 @@ extern const char* hfile;
 
 extern const char* cppfile;
 
-extern const char* testfile;
+extern const char* mainfunc;
 
 extern const char* buildCMD[];
 
