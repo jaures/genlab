@@ -96,7 +96,7 @@ void arg_init(int cnt, char* vals[])
 		getline(genFile, tkn);
 		
 		
-	}while(tkn != "####" || !genFile.eof() || !genFile.bad())
+	}while(tkn != "####" || !genFile.eof() || !genFile.bad());
 
 	// Create Initial header and source files
 	std::cout << "Creating Project Header and Source Files...\n";
@@ -268,7 +268,7 @@ std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 
   	for(int i = 3; i < cnt; i++)
   	{ 
-    	genFile[0] += std::string(vals[i]) + ' ';
+    	genInfo[0] += std::string(vals[i]) + ' ';
   	}
 
   	// Get Header Information 
