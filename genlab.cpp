@@ -63,8 +63,8 @@ void arg_init(int cnt, char* vals[])
 	}
 
 	// Go through Wizard and Generate genFile
-  	ifstream genFile;
-	genFile.open( (proj + "/.genFile", "*").c_str());
+	std::ifstream genFile;
+	genFile.open( (prj + "/.genFile", "*").c_str());
 
 	genFile << _init_genFile(cnt, vals);
 
@@ -193,7 +193,7 @@ std::string _init_genFile(int cnt, char* vals[])
 	for(int i = 1; !line.empty(); i++)
 	{
 		std::cout << "\n\tTest " << i << " Inputs: ";
-		getline(cin, line);
+		getline(std::cin, line);
 		genFile += line + "\n";
 	}
   
