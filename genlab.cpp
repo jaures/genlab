@@ -198,9 +198,8 @@ void arg_test()
 				getline(std::cin, choice);
 				testFile << choice + "\n";
 
-			}while(!choice.empty())
+			}while(!choice.empty());
 
-			
 		}
 
 		std::cout << "\nContinue with Test Wizard? (y/n): ";
