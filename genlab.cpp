@@ -36,7 +36,8 @@ int main(int argc, char* argv[])
 		{
 			if (std::string(argv[1]) != "--help")
 			{
-				std::cout << "\nError: Invalid Usgae or Unrecognized Argument: '" << argv[1] << "'\n\n";
+				std::cout << "\nError: Invalid Usgae or Unrecognized Argument: '" 
+						<< argv[1] << "'\n\n";
 			}
 
 			arg_help();
@@ -58,7 +59,10 @@ void arg_init(int cnt, char* vals[])
 		if (mkdir( str_replace(buildCMD[i], "{project}", prj).c_str(), MOD777))
 		{
 			std::cout << "Error: Failed to Create Project Directory\n\t"
-				<< "Failed to create: " << buildCMD[i] << "\n";
+				<< "Failed to create: " << 
+				str_replace(buildCMD[i], "{project}", vals[2]) 
+				<< "\n";
+
 			return;
 		}
 	}
@@ -74,11 +78,6 @@ void arg_init(int cnt, char* vals[])
             << "May not have sufficient permissions.\n\n";
         return;
     }
-	else if(!genFile.eof())
-	{
-		// Exit on project already existing
-			std::cout << "Error: This project already exists.\n\n";
-	}
 
 	std::string gf_str = _init_genFile(cnt, vals, info);
 	genFile << gf_str;
@@ -180,10 +179,12 @@ void arg_test()
 			{
 				testFile.close();
 			}	
-		
-			testFile.open("bin/test/.tests", std::fstream::trunc);
 
-			testFile.close();
+			std::cout << (std::remove("bin/test/.tests")) ? 
+					("Tests Successfully Cleared.\n") : 
+					("Failed to clear tests.\n");
+	
+
 		}
 		// File Content should be listed
 		else if (choice == "list" || choice == "List")
