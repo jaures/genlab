@@ -84,11 +84,8 @@ void arg_init(int cnt, char* vals[])
 	for(int i =0 ; i < cnt; i++)
 	{
 		std::cout << gf_str[i] << "\n";
+        genFile << "##~\n" << gf_str[i] << '\n';
 	}
-
-	std::cout << "Here is what I'm working with:\n" << gf_str[0];
-
-	genFile << gf_str[0];
 
 	//Close file
 	genFile.close();
@@ -169,8 +166,6 @@ void arg_test()
 
 		getline(std::cin, choice);
 
-		std::cout << "ECHO:" << choice;
-
 		// File Content should be Cleared
 		if (choice == "clear" || choice == "Clear")
 		{
@@ -179,9 +174,9 @@ void arg_test()
 				testFile.close();
 			}	
 
-			std::cout << (std::remove("bin/test/.tests")) ? 
-					("Tests Successfully Cleared.\n") : 
-					("Failed to clear tests.\n");
+			std::cout << ((std::remove("bin/test/.tests")) ? 
+					"Tests Successfully Cleared.\n" : 
+					"Failed to clear tests.\n");
 	
 
 		}
@@ -192,9 +187,12 @@ void arg_test()
 			{
 				testFile.close();
 			}
-
+            
+            // Open the file for reading
 			testFile.open("bin/test/.tests", std::fstream::in);
 		
+            std::cout << "Current Tests:\n\n";
+
 			// Read and print full content of the file
 			char buff[MAXBUFF];
 			while(!testFile.eof() || !testFile.fail())
@@ -339,8 +337,8 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
   	}
 
-	std::cout << "\n\nFinal Config: \n" << genInfo[0] 
-					<< '\n' << genInfo[1] << "\n####\n";
+
+    std::cout << "Project Initialization Complete.\n\n";
 
   	return genInfo;
 }
