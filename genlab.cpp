@@ -50,6 +50,7 @@ void arg_init(int cnt, char* vals[])
 {
 	bool init_res = false;
 	std::string prj = std::string(vals[2]);
+	std::string info[cnt + 2];
 
 	for( int i = 0; i < 8; i++)
 	{
@@ -79,14 +80,30 @@ void arg_init(int cnt, char* vals[])
 			std::cout << "Error: This project already exists.\n\n";
 	}
 
-	genFile << _init_genFile(cnt, vals);
+	std::string gf_str = _init_genFile(cnt, vals, info);
+	genFile << gf_str;
 
 	//Close file
 	genFile.close();
 
+	//Reopen for parsing through & to make sure everything saved properly
+	genFile.open( (prj + "/.genFile").c_str(), std::fstream::in);
+	
+	std::string tkn;
+
+	do
+	{
+		getline(genFile, tkn);
+		
+		
+	}while(tkn != "####" || !genFile.eof() || !genFile.bad())
 
 	// Create Initial header and source files
 	std::cout << "Creating Project Header and Source Files...\n";
+
+	std::fstream fw;
+
+	fw.open( prj + "/src/" +  prj + ".cpp", std::fstream::out | std::fstream::trunc);
 
 
 
@@ -178,11 +195,12 @@ void arg_test()
 
 			testFile.open("bin/test/.tests", std::fstream::in);
 		
+			// Read and print full content of the file
 			char buff[MAXBUFF];
 			while(!testFile.eof() || !testFile.fail())
 			{
 				testFile.read(buff, MAXBUFF);
-				std::cout << buff;
+				std::cout << std::string(buff);
 				//std::cout << testFile.peek();
 			}
 		
@@ -203,7 +221,7 @@ void arg_test()
 				<< "\n\tlines begining with '$' are sent to STDIN"
 				<< "\n\tleave the line empty to  save test\n";
 				
-			testFile <<"#" << choice << "\n";
+			testFile <<"#%" << choice << "\n";
 
 			// Get Lines for the test
 			do
@@ -217,7 +235,6 @@ void arg_test()
 		}
 
 		std::cout << "\nContinue with Test Wizard? (y/n): ";
-		//std::cin.ignore(MAXBUFF, '\n');
 		getline(std::cin, choice);
 	}
 
@@ -242,75 +259,65 @@ void arg_help()
 
 
 // Init the .gen File
-std::string _init_genFile(int cnt, char* vals[])
+std::string _init_genFile(int cnt, char* vals[], std::string genInfo[])
 {
-  	std::string genFile;
   	std::string line;
 
-  	// Append Project Files to genFile
-  	genFile += "#FILES#\n";
-  	for(int i = 2; i < cnt; i++)
+	// Add List of Project Files
+	genInfo[0] = std::string(vals[2]) + ".h " + std::string(vals[2]) + ".cpp ";
+
+  	for(int i = 3; i < cnt; i++)
   	{ 
-    	genFile += std::string(vals[i]) + '\n';
+    	genFile[0] += std::string(vals[i]) + ' ';
   	}
 
-  	// Append Header information to genFile
-  	genFile += "#HEADER#\n";
+  	// Get Header Information 
+	genInfo[1] = "";
   
   	std::cout << "Author: ";
-  	std::cin >> line; genFile += line + "\n";
+  	std::cin >> line; genInfo[1] += "Author:\t" + line + "\n";
 
   	std::cout << "Email: ";
-  	std::cin >> line; genFile += line + "\n";
+  	std::cin >> line; genInfo[1]+= "Email:\t" + line + "\n";
 
   	std::cout << "Tag: ";
-  	std::cin >> line; genFile += line +"\n";
+  	std::cin >> line; genInfo[1] += line +"\n";
 
-  	// Append File Descriptions to genFile
-  	genFile += "#DESC#\n";
+  	// Get Project Description
   	std::cin.ignore(); // Flush buffer
   	std::cout << "\nProject Description (Press <ENTER> twice to save entry):\n\n";
   	do 
   	{
-      	std::getline(std::cin, line);
-      	genFile += line + "\n";
+      	std::getline(std::cin, genInfo[2]);
+
+
     } while (!line.empty());
   
-  	// Cycle through the rest of the files
+	std::cout << "\tInclude Libraries for " << vals[2] 
+			<< ".h (seperated by spaces): ";
+
+	getline(std::cin, line);
+	genInfo[3] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n"); 
+  	
+	// Cycle through the rest of the files
   	for (int i = 3; i < cnt; i++)
 	{
     	// Get Descriptions for other files
    		std::cout << "\nBrief Description For " << vals[i] << ":\n";
-  		getline(std::cin, line);
-    	genFile += line + "\n";
+  		getline(std::cin, genInfo[1+i]);
+
+		// Get Includes for file
+		std::cout << "\tIncluded Libraries (seperate by space): ";
+
+		getline(std::cin, line);
+		genInfo[1+i] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n");
   	}	
 
-  	// Append libraries for each file
-  	genFile += "#INCLUDES\n";
-  	std::cout << "Enter Libraries for each file, seperated by spaces\n\n";
-  	std::cout << "\t" << vals[2] << ".h: ";
-  	getline(std::cin, line);
-  
-  	genFile += line + "\n";
-  
-  	std::cout << "\t" << vals[2] << ".cpp: ";
-  	getline(std::cin, line);
-  
-  	genFile += line + "\n";
-  
-  	for (int i = 3; i < cnt; i++)
-  	{
-		std::cout << "\t" << vals[i] << ": ";
-		getline(std::cin, line);
- 		genFile += line + "\n";
-  	}
- 
-    // Mark end of the genFile
-  	genFile += "####\n";
-  
- 	std::cout << genFile;
+ 	std::cout << (genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2]);
 
-  	return genFile;
+  	return genInfo[0] + '\n' + genInfo[1] + '\n' + genInfo[2];
 }
 
 // Check if Project has been Initialized
