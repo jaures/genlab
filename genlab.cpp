@@ -292,7 +292,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
     } while (!line.empty());
 
 	// Add All Project Files
-	genInfo.push_back(std::string(vals[2]) + ".h");	// Add Project Header File
+
+    // Add Project Header File
+	genInfo.push_back(std::string(vals[2]) + ".h");
 	
     // Get Descriptions for Project Header file
    	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
@@ -304,7 +306,8 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	genInfo[2] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n");
 
-	genInfo.push_back(std::string(vals[2]) + ".cpp "); // Add Project Source File
+    // Add Project Source File
+	genInfo.push_back(std::string(vals[2]) + ".cpp ");
 	
     // Get Descriptions for Project Source file
    	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
@@ -317,7 +320,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 				+ ">\n\n");
 
 	// Cycle through and add rest of files
-  	for(int i = 5; i < cnt * 2; i += 2)
+  	for(int i = 5; i < cnt * 2 - 3; i += 2)
   	{ 
      	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
