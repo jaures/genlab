@@ -132,7 +132,7 @@ void arg_test()
     getline(std::cin, choice);
 
     // Run Through Test Wizard if yes
-    for(int i = 0; std::string("YESYesyes").find(choice) != std::string::npos)
+    while(std::string("YESYesyes").find(choice) != std::string::npos)
     {
         std::string test = "#";
 		std::cout << "\nType 'list' to list current tests or 'clear' to clear all test cases\n"
