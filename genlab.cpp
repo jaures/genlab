@@ -338,9 +338,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
   	}
 
 	std::cout << "\n\nFinal Config: \n" << genInfo[0] 
-					<< '\n' << genInfo[1] << '\n' 
-					<< genInfo[2];
-	std::cout << '\n' << genInfo[2] << genInfo[3];
+					<< '\n' << genInfo[1] << "\n####\n";
 
   	return genInfo;
 }
