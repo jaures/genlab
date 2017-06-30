@@ -292,7 +292,6 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
     } while (!line.empty());
 
 
-    std::cin.ignore(1,'\0');
 
 	// Add All Project Files
 
@@ -302,7 +301,11 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
     // Get Descriptions for Project Header file
    	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
   	getline(std::cin, line);
-	genInfo.push_back(line);
+	
+    // DEBUG LINE
+    std::cout<<"\nBug: \n" << line << "\n\n^^^^^\n";
+
+    genInfo.push_back(line);
 	// Get Included Libraries
 	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
