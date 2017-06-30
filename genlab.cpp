@@ -323,7 +323,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 				+ ">\n\n")); // Otherwise add Include Directives 
 
 	// Cycle through and add rest of files
-  	for(int i = 4; i < cnt; i++)
+  	for(int i = 3; i < cnt; i++)
   	{ 
      	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
