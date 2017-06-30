@@ -81,7 +81,7 @@ void arg_init(int cnt, char* vals[])
 
     std::vector<std::string> gf_str = _init_genFile(cnt, vals);
 
-	for(int i = 0 ; i < cnt; i++)
+	for(int i = 0 ; i < cnt - 1; i++)
 	{
 		std::cout << gf_str[2*i] << "\n" << gf_str[2*i + 1] << "\n\n";
         genFile << "##~\n" << gf_str[3*i] << '\n' << gf_str[3*i + 1] << '\n'
