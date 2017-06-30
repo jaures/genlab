@@ -114,8 +114,6 @@ void arg_init(int cnt, char* vals[])
             content = str_replace(content, "{HEADER}",
                     std::string(gf_str[0]) + std::string(gf_str[i+1]));
 
-            content = str_replace(content, "{DESC}", 
-
             content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
             
             content = str_replace(content, "{HFILE}", 
@@ -130,7 +128,6 @@ void arg_init(int cnt, char* vals[])
         {
 	        fw.open( (prj + "/srcs/" + gf_str[i] ).c_str(), 
                     std::fstream::out | std::fstream::trunc);
-        
 
             content = std::string(cppfile);
 
@@ -147,6 +144,7 @@ void arg_init(int cnt, char* vals[])
                 // Add the main function if name matches project name
                 fw << mainfunc;
             }
+
             fw.close();
         }
     }
