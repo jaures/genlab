@@ -140,7 +140,7 @@ void arg_init(int cnt, char* vals[])
 
             fw << content;
 
-            if(gf_str[i].find(prj) != std::string::npose)
+            if(gf_str[i].find(prj) != std::string::npos)
             {
                 // Add the main function if name matches project name
                 fw << mainfunc;
