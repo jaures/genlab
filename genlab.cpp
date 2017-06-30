@@ -363,7 +363,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 				+ ">\n\n")); // Otherwise add Include Directives 
 
     // Add Project Source File
-	genInfo.push_back(std::string(vals[2]) + ".cpp ");
+	genInfo.push_back(std::string(vals[2]) + ".cpp");
 	
     // Get Descriptions for Project Source file
    	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
