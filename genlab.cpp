@@ -84,7 +84,8 @@ void arg_init(int cnt, char* vals[])
 	for(int i = 0 ; i < cnt; i++)
 	{
 		std::cout << gf_str[2*i] << "\n" << gf_str[2*i + 1] << "\n\n";
-        genFile << "##~\n" << gf_str[2*i] << '\n' << gf_str[2*i + 1] << '\n';
+        genFile << "##~\n" << gf_str[3*i] << '\n' << gf_str[3*i + 1] << '\n'
+            << gf_str[3*i+2] << '\n';
 	}
 
 	//Close file
