@@ -91,17 +91,63 @@ void arg_init(int cnt, char* vals[])
 
 	//Close file
 	genFile.close();
-
-	//Reopen for parsing through & to make sure everything saved properly
-	genFile.open( (prj + "/.genFile").c_str(), std::fstream::in);
 	
 	// Create Initial header and source files
 	std::cout << "Creating Project Header and Source Files...\n";
 
 	std::fstream fw;
 
-	fw.open( (prj + "/src/" +  prj + ".cpp").c_str(), std::fstream::out);
+    // Cycle through and create all files
+    for(int i = 2; i < gf_str.size(); i+=3)
+    {
+        std::string content;
 
+        // Create a Header File
+        if(gf_str[i].find(".h") != std::string::npos)
+        {
+	        fw.open((prj + "/include/" + gf_str[i]).c_str(), 
+                    std::fstream::out | std::fstream::trunc);
+
+            content = std::string(hfile);
+
+            // Swap in values from file templates
+            content = str_replace(content, "{HEADER}",
+                    std::string(gf_str[0]) + std::string(gf_str[i+1]));
+
+            content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
+            
+            content = str_replace(content, "{HFILE}", 
+                    str_replace(std::string(gf_str[i]), ".", "_"));
+
+            fw << content;
+            fw.close();
+            
+        }
+        // Create a Source File
+        else if(gf_str[i].find(".cpp") != std::string::npos)
+        {
+	        fw.open( (prj + "/src/" + gf_str[i] ).c_str(), 
+                    std::fstream::out | std::fstream::trunc);
+        
+
+            content = std::string(cppfile);
+
+            // Swap in values from file templates
+            content = str_replace(content, "{HEADER}",
+                    std::string(gf_str[0]) + std::string(gf_str[i+1]));
+            
+            content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
+
+            fw << content;
+
+            if(gf_str[i].find(prj) != std::string::npose)
+            {
+                // Add the main function if name matches project name
+                fw << mainfunc;
+            }
+            fw.close();
+        }
+    }
 
 
 	

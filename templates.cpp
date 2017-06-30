@@ -113,7 +113,7 @@ const char* docfile =
 "";
 
 const char* hfile = 
-"{HEADER}\n\n"
+"/*{HEADER}\n\n"
 "{DESC}\n*/\n\n"
 "// Include Guard\n#ifndef __{HFILE}\ndefine __{HFILE}"
 "// Include Dependencies\n{INCLUDES}\n\n"
