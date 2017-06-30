@@ -303,8 +303,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	// Get Included Libraries
 	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
-	genInfo[2] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n");
+	genInfo[2] += (line.empty() ? '\n' : // Add newline if 'line' is empty
+                ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n")); // Otherwise add Include Directives 
 
     // Add Project Source File
 	genInfo.push_back(std::string(vals[2]) + ".cpp ");
@@ -317,11 +318,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
 	
-    //*** DEBUG LINE
-    std::cout << "What?: \n" << line << '\n';
-    
-    genInfo[4] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n");
+    genInfo[4] += (line.empty() ? '\n' : // Add newline if 'line' is empty
+                ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n")); // Otherwise add Include Directives 
 
 	// Cycle through and add rest of files
   	for(int i = 4; i < cnt * 2 - 3; i += 2)
@@ -336,8 +335,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
-		genInfo[(i-1)*2] += ("\n#include <" + 
-                str_replace(line, " ", ">\n#include <") + ">\n\n");
+		genInfo[(i-1)*2] += (line.empty() ? '\n' : // Add newline if 'line' is empty
+                ("\n#include <" + str_replace(line, " ", ">\n#include <")
+				+ ">\n\n")); // Otherwise add Include Directives 
 
   	}
 
