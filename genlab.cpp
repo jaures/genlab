@@ -325,9 +325,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	// Cycle through and add rest of files
   	for(int i = 4; i < cnt * 2 - 3; i += 2)
   	{ 
-     	genInfo.push_back( std::string(vals[(i-1)*2 - 1]) ); // Adds Files to Vector
+     	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
-	 	std::cout << "\nBrief Description For " << genInfo[i] << ":\n> ";
+	 	std::cout << "\nBrief Description For " << genInfo[2*(i-1 - 1)] << ":\n> ";
   		getline(std::cin, line);
 		genInfo.push_back(line);
 
