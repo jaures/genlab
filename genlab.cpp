@@ -153,9 +153,10 @@ void arg_init(int cnt, char* vals[])
     }
 
 
-    std::cout << "[/] Sucessfully Initialized Project Directory\n\n";
 
-    arg_test();
+    _init_makefile(prj);
+
+    std::cout << "[/] Sucessfully Initialized Project Directory\n\n";
 
     return;
   
@@ -405,6 +406,41 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
 
   	return genInfo;
+}
+
+
+// Create the Makefile
+bool _init_makefile(std::string prj)
+{
+    // Open File Stream for writing the make file;
+    std::fstream fw;
+    
+    std::string line, content = std::string(makefile);
+
+    content = str_replace(content, "{PROJECT}", prj);
+
+    std::cout << "Makefile Wizard\n\n" <<
+        "Any other include directories? (seperate with single space):\n> ";
+
+    getline(std::cin, line);
+
+    content = str_replace(content, "{OIDIR}",
+            (line.empty()) ? line : ("-I " + str_replace(line, " ", "-I ")));
+
+    std::cout << "Any other compiler flags?: ";
+
+    getline(std::cin, line);
+
+    content = str_replace(content, "{OFLAGS}", line);
+
+    fw.open("prj/Makefil", std::fstream::out | std::fstream::trunc);
+
+    fw << content;
+
+    fw.close();
+
+    return true;
+
 }
 
 // Check if Project has been Initialized

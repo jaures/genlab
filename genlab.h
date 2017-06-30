@@ -41,7 +41,7 @@ int _check_call(std::string);
 std::vector<std::string> _init_genFile(int,char**);
 
 // Create the Makefile
-std::string _init_makefile();
+bool _init_makefile(std::string);
 
 // Create the Project Directory & Files
 bool _init_project(char**);
