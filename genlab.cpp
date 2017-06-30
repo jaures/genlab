@@ -114,6 +114,8 @@ void arg_init(int cnt, char* vals[])
             content = str_replace(content, "{HEADER}",
                     std::string(gf_str[0]) + std::string(gf_str[i+1]));
 
+            content = str_replace(content, "{DESC}", 
+
             content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
             
             content = str_replace(content, "{HFILE}", 
@@ -126,7 +128,7 @@ void arg_init(int cnt, char* vals[])
         // Create a Source File
         else if(gf_str[i].find(".cpp") != std::string::npos)
         {
-	        fw.open( (prj + "/src/" + gf_str[i] ).c_str(), 
+	        fw.open( (prj + "/srcs/" + gf_str[i] ).c_str(), 
                     std::fstream::out | std::fstream::trunc);
         
 

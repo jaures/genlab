@@ -113,8 +113,7 @@ const char* docfile =
 "";
 
 const char* hfile = 
-"/*{HEADER}\n\n"
-"{DESC}\n*/\n\n"
+"/*\n{HEADER}\n\n"
 "// Include Guard\n#ifndef __{HFILE}\ndefine __{HFILE}"
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Function Prototypes\n\n"
@@ -123,7 +122,6 @@ const char* hfile =
 
 const char* cppfile = 
 "/*\n{HEADER}\n\n\n"
-"{DESC}\n*/\n\n"
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Global Declarations/Definitions\n\n"
 "// Function Defintions\n/* Source Code */\n"
