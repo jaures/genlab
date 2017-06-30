@@ -324,9 +324,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 				+ ">\n\n");
 
 	// Cycle through and add rest of files
-  	for(int i = 5; i < cnt * 2 - 3; i += 2)
+  	for(int i = 4; i < cnt * 2 - 3; i += 2)
   	{ 
-     	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
+     	genInfo.push_back( std::string(vals[(i-1)*2 - 1]) ); // Adds Files to Vector
 
 	 	std::cout << "\nBrief Description For " << genInfo[i] << ":\n> ";
   		getline(std::cin, line);
@@ -336,8 +336,8 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
-		genInfo[i+1] += ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n");
+		genInfo[(i-1)*2] += ("\n#include <" + 
+                str_replace(line, " ", ">\n#include <") + ">\n\n");
 
   	}
 
