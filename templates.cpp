@@ -114,7 +114,7 @@ const char* docfile =
 
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"
-"// Include Guard\n#ifndef __{HFILE}\ndefine __{HFILE}\n\n"
+"// Include Guard\n#ifndef __{HFILE}\n#define __{HFILE}\n\n"
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
