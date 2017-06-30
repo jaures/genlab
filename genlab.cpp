@@ -292,7 +292,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
     } while (!line.empty());
 
 
-    cin.ignore(1,'\0');
+    std::cin.ignore(1,'\0');
 
 	// Add All Project Files
 
