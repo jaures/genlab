@@ -94,7 +94,7 @@ const char* makefile =
 "$(PRJCT): $(INCS) $(SRCS)"
 "\n\t$(warning On Error try running 'make clean' first)"
 "\n\t$(info compiling files: $?)"
-"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) $(OUT)\n\n\n"
+"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) $(OUT)$(PRJCT)\n\n\n"
 
 "clean:"
 "\n\trm -rf include/*.gch"
@@ -128,7 +128,7 @@ const char* cppfile =
 
 
 const char* mainfunc = 
-"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\treturn 0;\n}\n\n";
+"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\n\";\n\treturn 0;\n}\n\n";
 
 
 const char* buildCMD[] =
