@@ -49,13 +49,13 @@ const char* makefile =
 "OIDIR:={OIDIRS}"
 
 "# Header Files\n"
-"INCS=(wildcard $(IDIR)*.h)\n\n"
+"INCS=$(wildcard $(IDIR)*.h)\n\n"
 
 "# Source Directory\n"
 "SDIR:=srcs/\n\n"
 
 "# Source Files\n"
-"SRCS=(wildcard $(SDIR)*.cpp)\n"
+"SRCS=$(wildcard $(SDIR)*.cpp)\n"
 
 "# Docs Directory\n"
 "DDIR:=docs/\n\n"
