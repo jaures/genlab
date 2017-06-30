@@ -128,7 +128,7 @@ const char* cppfile =
 
 
 const char* mainfunc = 
-"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\n\";\n\treturn 0;\n}\n\n";
+"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}\n\n";
 
 
 const char* buildCMD[] =
