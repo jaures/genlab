@@ -113,23 +113,22 @@ const char* docfile =
 "";
 
 const char* hfile = 
-"/*\n{HEADER}\n\n"
-"// Include Guard\n#ifndef __{HFILE}\ndefine __{HFILE}"
+"/*\n{HEADER}\n*/\n\n"
+"// Include Guard\n#ifndef __{HFILE}\ndefine __{HFILE}\n\n"
 "// Include Dependencies\n{INCLUDES}\n\n"
-"// Function Prototypes\n\n"
+"// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
 "// Close Include Guard\n#endif\n";
 
 const char* cppfile = 
-"/*\n{HEADER}\n\n\n"
+"/*\n{HEADER}\n*/\n\n"
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Global Declarations/Definitions\n\n"
-"// Function Defintions\n/* Source Code */\n"
-"";
+"// Function Defintions\n/* Source Code */\n\n\n";
 
 
 const char* mainfunc = 
-"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\treturn 0;\n}\n\n";
+"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\treturn 0;\n}\n\n";
 
 
 const char* buildCMD[] =

@@ -102,6 +102,7 @@ void arg_init(int cnt, char* vals[])
     {
         std::string content;
 
+        std::cout << "Creating " << gf_str[i] << "...\n";
         // Create a Header File
         if(gf_str[i].find(".h") != std::string::npos)
         {
@@ -147,15 +148,16 @@ void arg_init(int cnt, char* vals[])
 
             fw.close();
         }
+
+        std::cout << "\tSuccessfully Created " << gf_str[i] << "\n\n";
     }
 
 
-	
-  for (int i = 0; i < cnt; i++)
-  	{
-    	// Create Source Files
-  	}
-  
+    std::cout << "[/] Sucessfully Initialized Project Directory\n\n";
+
+    arg_test();
+
+    return;
   
 }
 
@@ -399,7 +401,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
   	}
 
 
-    std::cout << "\n[/]Project Initialization Complete.\n\n";
+    std::cout << "\n[/]Project Initialization Wizard Completed.\n\n";
 
 
   	return genInfo;
