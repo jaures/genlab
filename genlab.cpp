@@ -309,7 +309,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	// Get Included Libraries
 	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
-	genInfo[2] += 
+	genInfo[3] += 
         (line.empty() ? "\n" : // Add newline if 'line' is empty
                 ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n")); // Otherwise add Include Directives 
@@ -325,7 +325,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	std::cout << "Libraries to Include (seperate by space):\n> ";
 	getline(std::cin, line);
 	
-    genInfo[4] += 
+    genInfo[5] += 
         (line.empty() ? "\n" : // Add newline if 'line' is empty
                 ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n")); // Otherwise add Include Directives 
