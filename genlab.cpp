@@ -433,7 +433,7 @@ bool _init_makefile(std::string prj)
 
     content = str_replace(content, "{OFLAGS}", line);
 
-    fw.open("prj/Makefil", std::fstream::out | std::fstream::trunc);
+    fw.open( (prj + "/Makefile").c_str(), std::fstream::out | std::fstream::trunc);
 
     fw << content;
 
