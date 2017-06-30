@@ -320,16 +320,16 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	getline(std::cin, line);
 	
     genInfo[4] = 
-        genInfo[4] + (line.empty() ? "\n" : // Add newline if 'line' is empty
+        (line.empty() ? "\n" : // Add newline if 'line' is empty
                 ("\n#include <" + str_replace(line, " ", ">\n#include <")
-				+ ">\n\n")); // Otherwise add Include Directives 
+				+ ">\n\n")) + genInfo[4]; // Otherwise add Include Directives 
 
 	// Cycle through and add rest of files
   	for(int i = 3; i < cnt; i++)
   	{ 
      	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
-	 	std::cout << "\nBrief Description For " << genInfo[2*i-1] << ":\n> ";
+	 	std::cout << "\nBrief Description For " << genInfo[2*i+1] << ":\n> ";
   		getline(std::cin, line);
 		genInfo.push_back(line);
 
@@ -337,8 +337,8 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
-		genInfo[2*i] =
-            genInfo[2*i] + (line.empty() ? "\n" : // Add newline if 'line' is empty
+		genInfo[2*(1+i)] =
+            genInfo[2*(i+1)] + (line.empty() ? "\n" : // Add newline if 'line' is empty
                 ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n")); // Otherwise add Include Directives 
 
