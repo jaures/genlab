@@ -353,6 +353,11 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
     std::cout << "Project Initialization Complete.\n\n";
 
+
+    for(int i =0; i < cnt*2; i++)
+    {
+        std::cout << genInfo[i] << "\n";
+    }
   	return genInfo;
 }
 
