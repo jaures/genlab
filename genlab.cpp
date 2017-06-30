@@ -335,8 +335,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
   	{ 
      	genInfo.push_back( std::string(vals[i]) ); // Adds Files to Vector
 
-	 	std::cout << "\nBrief Description For " << genInfo[2*i-1] << ":\n> "
-            << genInfo[2*i] << '\n';;
+	 	std::cout << "\nBrief Description For " << genInfo[2*i] << ":\n> ";
   		getline(std::cin, line);
 		genInfo.push_back(line);
 
@@ -344,7 +343,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 		std::cout << "Libraries to Include (seperate by space):\n> ";
 
 		getline(std::cin, line);
-		genInfo[2*(i)] +=
+		genInfo[2*i+1] +=
             (line.empty() ? "\n" : // Add newline if 'line' is empty
                 ("\n#include <" + str_replace(line, " ", ">\n#include <")
 				+ ">\n\n")); // Otherwise add Include Directives 
@@ -352,13 +351,9 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
   	}
 
 
-    std::cout << "Project Initialization Complete.\n\n";
+    std::cout << "\n[/]Project Initialization Complete.\n\n";
 
 
-    for(int i =0; i < cnt*2; i++)
-    {
-        std::cout << genInfo[i] << "\n";
-    }
   	return genInfo;
 }
 
