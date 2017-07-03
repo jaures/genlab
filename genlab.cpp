@@ -185,7 +185,7 @@ void arg_doc()
 
     content = std::string(docfile);
 
-    getline(fr, prj)
+    getline(fr, prj);
 
     std::cout << "Run Documentation Wizard? (y/n): ";
 
