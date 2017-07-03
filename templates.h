@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <fstream>
 
 extern const int MAXBUFF;
 

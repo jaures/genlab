@@ -221,8 +221,7 @@ int file_count_char(std::string file, char c)
 {
     int cnt = 1;
 
-    std::ifstream ifs;
-    ifs.open(file.c_str());
+    std::ifstream ifs(file.c_str());
 
     while( !ifs.eof())
     {
