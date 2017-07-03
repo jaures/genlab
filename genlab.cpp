@@ -81,13 +81,15 @@ void arg_init(int cnt, char* vals[])
 
     std::vector<std::string> gf_str = _init_genFile(cnt, vals);
 
-    genFile << gf_str[0] << "#~\n" << gf_str[1];
+    genFile << prj << "\n#~\n" gf_str[0] << "#~\n" << gf_str[1];
 
 	for(int i = 1 ; i < cnt; i++)
 	{
         genFile << "#~\n" << gf_str[3*i-1] << '\n' << gf_str[3*i] << '\n'
             << gf_str[3*i+1] << '\n';
 	}
+
+    genFile << "#~";
 
 	//Close file
 	genFile.close();
@@ -176,6 +178,25 @@ void arg_run()
 // Run documentation Wizard and produce output
 void arg_doc()
 {
+    char ch;
+    std::string line, prj, content;
+    std::ifstream fr(".genFile");
+    std::ofstream fw;
+
+    content = std::string(docfile);
+
+    fr.getline(prj)
+
+    std::cout << "Run Documentation Wizard? (y/n): ";
+
+    if(std::string("YESYesyes").find(line) != std::string::npos)
+    {
+        fw.open("docs/" + prj + ".tex", std::fstream::trunc);
+
+    }
+
+    
+
 
 }
 
@@ -425,7 +446,7 @@ bool _init_makefile(std::string prj)
     getline(std::cin, line);
 
     content = str_replace(content, "{OIDIR}",
-            (line.empty()) ? line : ("-I " + str_replace(line, " ", "-I ")));
+            (line.empty()) ? line : ("-I " + str_replace(line, " ", " -I ")));
 
     std::cout << "Any other compiler flags?: ";
 
@@ -449,6 +470,50 @@ bool _check_init()
 	return std::ifstream(".genFile"); 
 }
 
+std::vector<std::string> _parse_genFile()
+{
+    std::vector<std::string> genFile;
+    std::ifstream fr(".genFile");
+    std::string line, lines; 
+    
+    if(!_check_init())
+    {
+        return genFile;
+    }
+
+    // Get the name of the project
+    fr.getline(line);
+    genFile.push_back(line);
+    lines = "";
+
+    // Cycle Through the resst of the content
+    while(fr.peek() != EOF)
+    {
+        // Get File Name
+        fr.getline(line);
+        genFile.push_back(line);
+
+        // Get File Description
+        fr.getline(line);
+        genFile.push_back(line);
+
+        //Get Init Content
+        while(true)
+        {
+            fr.getline(line);
+            if(line == "#~")
+            {
+                genFile.push_back(lines);
+                lines = "";
+                break;
+            }
+            lines += line;
+        }
+    }
+
+    return genFile;
+    
+}
 
 int _check_call(std::string cmd )
 {

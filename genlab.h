@@ -40,6 +40,9 @@ int _check_call(std::string);
 // Create the .gen File
 std::vector<std::string> _init_genFile(int,char**);
 
+// Returns a Vector of String Representing a Parsed GenFile
+std::vector<std::string> _parse_genFile();
+
 // Create the Makefile
 bool _init_makefile(std::string);
 

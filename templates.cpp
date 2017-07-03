@@ -1,6 +1,4 @@
 #include "templates.h"
-#include <iostream>
-#include <string>
 
 const int MAXBUFF = 1024;
 
@@ -116,14 +114,15 @@ const char* makefile =
 "\n\t./$<\n\n\n"
 
 "docs: $(DDIR)$(PRJCT).tex $(SRCS) $(INCS) "
-"\n\tlatex -output-directory docs output-format pdf $<\n\n\n"
+"\n\tlatex -output-directory $(DDIR) $<"
+"\n\tdvipdf $(DDIR)$(PRJCT).dvi $(DDIR)$(PRJCT).pdf\n\n\n"
 
 "pack: $(INCS) $(SRCS) $(DDIR)$(PRJCT).pdf"
 "\n\ttar czvf $(PDIR)$(PRJCT)_pkg.tgz $(PKGS)"
 "\n\tcp -uvf $(DDIR)$(PRJCT).pdf $(PDIR)\n\n\n"
 
 "backup: pack"
-"\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*";
+"\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*\n\n\n";
 
 
 const char* docfile = 
@@ -191,16 +190,16 @@ const char* mainfunc =
 
 
 const char* buildCMD[] =
-  {
-	  "{project}",
-	  "{project}/include",
-	  "{project}/srcs",
-	  "{project}/docs",
-	  "{project}/bin",
-	  "{project}/bin/build",
-	  "{project}/bin/package",
-	  "{project}/bin/test"
-  };
+{
+    "{project}",
+	"{project}/include",
+	"{project}/srcs",
+	"{project}/docs",
+	"{project}/bin",
+	"{project}/bin/build",
+	"{project}/bin/package",
+	"{project}/bin/test"
+};
 
 std::string str_replace(std::string str, std::string ori, std::string rep)
 {
@@ -216,4 +215,20 @@ std::string str_replace(std::string str, std::string ori, std::string rep)
 
   return res + str;
   
+}
+
+int file_count_char(std::string file, char c)
+{
+    int cnt = 1;
+
+    std::ifstream ifs(file);
+
+    while( !ifs.eof())
+    {
+        cnt += (ifs.get() == c);
+    }
+
+    ifs.close();
+
+    return cnt;
 }

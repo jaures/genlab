@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdio.h>
 
 extern const int MAXBUFF;
 
@@ -22,3 +23,5 @@ extern const char* mainfunc;
 extern const char* buildCMD[];
 
 std::string str_replace(std::string, std::string, std::string);
+
+int file_count_char(std::string, char);
