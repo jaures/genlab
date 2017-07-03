@@ -180,8 +180,8 @@ void arg_doc()
 {
     char ch;
     std::string line, prj, content;
-    std::ifstream fr(".genFile");
-    std::ofstream fw;
+    std::fstream fr(".genFile", std::fstream::in);
+    std::fstream fw;
 
     content = std::string(docfile);
 
@@ -473,7 +473,7 @@ bool _check_init()
 std::vector<std::string> _parse_genFile()
 {
     std::vector<std::string> genFile;
-    std::ifstream fr(".genFile");
+    std::fstream fr(".genFile", std::fstream::in);
     std::string line, lines; 
     
     if(!_check_init())
