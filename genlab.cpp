@@ -191,7 +191,7 @@ void arg_doc()
 
     if(std::string("YESYesyes").find(line) != std::string::npos)
     {
-        fw.open("docs/" + prj + ".tex", std::fstream::trunc);
+        fw.open( ("docs/" + prj + ".tex").c_str(), std::fstream::trunc);
 
     }
 
