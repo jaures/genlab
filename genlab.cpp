@@ -490,17 +490,17 @@ std::vector<std::string> _parse_genFile()
     while(fr.peek() != EOF)
     {
         // Get File Name
-        fr.getline(line);
+        getline(fr, line);
         genFile.push_back(line);
 
         // Get File Description
-        fr.getline(line);
+        getline(fr, line);
         genFile.push_back(line);
 
         //Get Init Content
         while(true)
         {
-            fr.getline(line);
+            getline(fr, line);
             if(line == "#~")
             {
                 genFile.push_back(lines);
