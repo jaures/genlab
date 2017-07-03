@@ -64,7 +64,11 @@ const char* makefile =
 "BDIR:=bin/build/\n\n"
 
 "# Pack Directory\n"
-"PDIR:=bin/build/\n\n"
+"PDIR:=bin/package/\n\n"
+
+"# Directories to Package\n"
+"PKGS=$(IDIR) $(OIDIR) $(SDIR) $(DDIR) $(BDIR) $(TDIR)\n\n"
+
 
 "# Test Directory\n"
 "TDIR:=bin/test/\n"
@@ -89,24 +93,37 @@ const char* makefile =
 
 "# Make sure make does not operate files\n"
 "# with reserved targets\n"
-".PHONY: clean run back\n\n"
+".PHONY: all project prjct proj pro clean run docs pack backup recover\n\n"
 
-"$(PRJCT): $(INCS) $(SRCS)"
+"all: project prjct proj pro docs"
+"\n\t$(info Making $(PRJCT) and Docs...)\n\n\n"
+
+"project: $(BDIR)$(PRJCT)\n"
+"prjct: $(BDIR)$(PRJCT)\n"
+"proj: $(BDIR)$(PRJCT)\n"
+"pro: $(BDIR)$(PRJCT)\n\n\n"
+
+"%$(PRJCT): $(INCS) $(SRCS)"
 "\n\t$(warning On Error try running 'make clean' first)"
 "\n\t$(info compiling files: $?)"
-"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) $(OUT)$(PRJCT)\n\n\n"
+"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) -o $@\n\n\n"
 
 "clean:"
 "\n\trm -rf include/*.gch"
-"\n\trm -rf bin/build/*\n\n"
+"\n\trm -rf bin/build/*\n\n\n"
 
 "run: $(BDIR)$(PRJCT)"
-"\n\t./$<\n\n"
+"\n\t./$<\n\n\n"
 
-""
-""
-"\n\t"
-"";
+"docs: $(DDIR)$(PRJCT).tex $(SRCS) $(INCS) "
+"\n\tlatex -output-directory docs output-format pdf $<\n\n\n"
+
+"pack: $(INCS) $(SRCS) $(DDIR)$(PRJCT).pdf"
+"\n\ttar czvf $(PDIR)$(PRJCT)_pkg.tgz $(PKGS)"
+"\n\tcp -uvf $(DDIR)$(PRJCT).pdf $(PDIR)\n\n\n"
+
+"backup: pack"
+"\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*"
 
 
 const char* docfile = 
