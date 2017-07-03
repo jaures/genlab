@@ -81,7 +81,7 @@ void arg_init(int cnt, char* vals[])
 
     std::vector<std::string> gf_str = _init_genFile(cnt, vals);
 
-    genFile << prj << "\n#~\n" gf_str[0] << "#~\n" << gf_str[1];
+    genFile << prj << "\n#~\n" << gf_str[0] << "#~\n" << gf_str[1];
 
 	for(int i = 1 ; i < cnt; i++)
 	{
