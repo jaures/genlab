@@ -123,7 +123,7 @@ const char* makefile =
 "\n\tcp -uvf $(DDIR)$(PRJCT).pdf $(PDIR)\n\n\n"
 
 "backup: pack"
-"\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*"
+"\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*";
 
 
 const char* docfile = 
