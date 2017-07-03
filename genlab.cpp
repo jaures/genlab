@@ -482,7 +482,7 @@ std::vector<std::string> _parse_genFile()
     }
 
     // Get the name of the project
-    fr.getline(line);
+    getline(fr, line);
     genFile.push_back(line);
     lines = "";
 
