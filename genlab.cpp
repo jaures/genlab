@@ -191,6 +191,8 @@ void arg_doc()
 
     std::cout << "Run Documentation Wizard? (y/n): ";
 
+    getline(std::cin, line);
+
     if(std::string("YESYesyes").find(line) != std::string::npos)
     {
         genInfo = _parse_genFile();
@@ -248,7 +250,7 @@ void arg_doc()
 
 
         // Go Cycle Through Files for Implementation Slides
-        for(int i = 4; i < genInfo.size(); i+=3)
+        for(int i = 5; i < genInfo.size(); i+=3)
         {
             std::string impSlide = std::string(implmntPage);
             std::string testSlide = std::string(testPage);
