@@ -210,7 +210,7 @@ void arg_doc()
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? '\n': ("\\qi{" + line + "}\n"));
+            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
         
         }while(!line.empty());
 
@@ -225,7 +225,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += 
-                (line.empty() ? '\n' : ("\\item " + line + '\n')); 
+                (line.empty() ? "\n" : ("\\item " + line + "\n")); 
         
         }while(!line.empty());
 
@@ -239,7 +239,7 @@ void arg_doc()
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? '\n': ("\\qi{" + line + "}\n"));
+            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
         
         }while(!line.empty());
 
@@ -251,7 +251,7 @@ void arg_doc()
         for(int i = 4; i < genInfo.size(); i+=3)
         {
             std::string impSlide = std::string(implmntPage);
-            std::string testSlide = std::string(testsPage
+            std::string testSlide = std::string(testPage);
             section = "";
             std::cout << "Implementation for " << genInfo[i] 
                 << ":\n(leave line empty to save entry)\n\n";
@@ -259,7 +259,7 @@ void arg_doc()
             do
             {
                 getline(std::cin, line);
-                section += line + '\n';
+                section += line + "\n";
 
             }while(!line.empty());
 
@@ -268,20 +268,20 @@ void arg_doc()
 
             impSlide = str_replace(impSlide, "{DESC}", section);
 
-            for(int i = 1; i <= numOfLines; i+= 16)
+            for(int j = 1; j <= numOfLines; j+= 16)
             {
                 // Add First Line parameter
                 impSlide = str_replace(impSlide, "{FL}", 
-                        std::string::(itoa(i)));
+                        std::string(itoa(j)));
                 // Add Last Line parameter
                 impSlide = str_replace(impSlide,"{LL}", 
-                        std::string::(itoa(std::min(i+16,numOfLines))));
+                        std::string(itoa(std::min(j+16,numOfLines))));
                 
                 // Adds a new slide If there are more lines to show
                 //  from the file
-                impSlide += '\n' + 
+                impSlide += "\n" + 
                     ((numOfLines - i) < 16 ? "" : 
-                     str_replace((implmnt), "{DESC}", ""));
+                     str_replace(implmntPage, "{DESC}", ""));
             }
 
             // Append New Implementation to content
@@ -609,10 +609,25 @@ std::vector<std::string> _parse_genFile()
     
 }
 
-std::vector<std::string> _parse_test
+std::vector<std::string> _parse_test()
 {
     std::vector<std::string> result;
+    
+    return result;
+}
 
+std::string itoa(unsigned int a)
+{
+    std::string num = "";
+
+    while(a)
+    {
+        num = (char)(48 + a%10) + num;
+
+        a /= 10;
+    }
+
+    return num;
 }
 
 int _check_call(std::string cmd )

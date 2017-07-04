@@ -15,6 +15,10 @@ extern const char* makefile;
 
 extern const char* docfile;
 
+extern const char* implmntPage;
+
+extern const char* testPage;
+
 extern const char* hfile;
 
 extern const char* cppfile;
@@ -22,6 +26,8 @@ extern const char* cppfile;
 extern const char* mainfunc;
 
 extern const char* buildCMD[];
+
+
 
 std::string str_replace(std::string, std::string, std::string);
 

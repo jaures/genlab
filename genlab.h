@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+
 // mode_t Value for all permissions (777)
 #define MOD777  S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP |\
 	S_IWGRP | S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH
@@ -42,6 +43,9 @@ std::vector<std::string> _init_genFile(int,char**);
 
 // Returns a Vector of String Representing a Parsed GenFile
 std::vector<std::string> _parse_genFile();
+
+// Niave implementation of Integer to String
+std::string itoa(unsigned int);
 
 // Create the Makefile
 bool _init_makefile(std::string);
