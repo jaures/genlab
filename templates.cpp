@@ -131,44 +131,47 @@ const char* docfile =
 "\\usepackage{fancyvrb}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
-"\\begin{document}\n"
+"\\usepackage{color}"
+"\\usepackage{listings}\n"
+"\n\\lstset{\n"
+"frame=single,\nkeepspaces=true,\n"
+"columns=flexible,\nbreaklines=true,\n"
+"breakatwhitespace=true,\nnumbers=left,\n"
+"numbersep=5pt,\nnumberstyle=\\tiny\\color{gray},\n"
+"keywordstyle=\\color{blue},stringstyle=\\color{red},\n"
+"showstringspaces=false,\ncommentstyle=\\color{green}\n}\n\n"
+"\\begin{document}\n\n"
 
 "\\normalpage{Specification}\n"
-"{Description of what program does from users point of view}\n"
+"{\\begin{lstlisting}\n{SPECS}\n\\end{lstlisting}\n}\n\n"
 
 "\\normalpage{Analysis}\n"
-"\\{\nqi{Inputs:}\n"
-"\\qi{Process:}\n"
-"\\qi{Outputs:}\n}\n"
+"{\\qi{Inputs:\n{INPUTS}\n}\n"
+"\\qi{Process:\n\\begin{enumerate}\n{PROCESSES}\n\\end{enumerate}\n}\n"
+"\\qi{Outputs:\n{OUTPUTS}\n}\n}\n\n"
 
 "\\normalpage{Design}\n"
-"{\nList each module (compilation unit)"
-"with short description\n}\n"
+"{\\begin{lstlisting}\n{DESG}\n\\end{lstlisting}\n}\n\n"
 
-"\\normalpage{Implementation: h File}\n"
-"{\nWrite algorithm for expected inputs and outputs"
-"...or describe program state (variables)"
-"\\VerbatimInput{lab.h}\n"
-"}\n"
-"%\\putfig{.1}{.7}{.8}{labh}\n"
-
-"\\normalpage{Implementation: cpp File}\n"
-"{\nWrite algorithm for expected inputs and outputs\n"
-"...or describe program state (variables)"
-"\\VerbatimInput{lab.cpp}"
-"\n}\n"
-"%\\putfig{.1}{.7}{.8}{labcpp}\n"
-
-"\\normalpage{Test}\n"
-"{\nSeveral testcases to verify that program meets requirements"
-" with expected output manually calculated for each"
-"\\qi{Testcase 1:}\n"
-"%\\putfig{.1}{.4}{.8}{labcpp}\n"
-"\\qi{Testcase 2:}\n"
-"%\\putfig{.1}{.7}{.8}{labcpp}\n"
-"\n}\n"
-
+"\n{IMPLMNT/TESTS}\n"
 "\\end{document}\n";
+
+
+const char* implmntPage = 
+"\\normalpage{Implementation: {FILE}}\n"
+"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
+"\\lstinputlisting[language=C++, "
+    "firstLine={FL}, lastLine={LL}]{{FILE}}\n"
+"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
+
+
+const char* testPage = 
+"\\normalpage{Test: {TEST}}\n"
+"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
+"\\fvset{firstline={FL}, lastline={LL}}\n"
+"\\lstinputlisting{{TEST}}\n"
+"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
+
 
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"
@@ -177,6 +180,7 @@ const char* hfile =
 "// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
 "// Close Include Guard\n#endif\n";
+
 
 const char* cppfile = 
 "/*\n{HEADER}\n*/\n\n"
@@ -201,6 +205,7 @@ const char* buildCMD[] =
 	"{project}/bin/test"
 };
 
+
 std::string str_replace(std::string str, std::string ori, std::string rep)
 {
   int p = str.find(ori, 0);
@@ -216,6 +221,7 @@ std::string str_replace(std::string str, std::string ori, std::string rep)
   return res + str;
   
 }
+
 
 int file_count_char(std::string file, char c)
 {

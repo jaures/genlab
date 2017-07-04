@@ -24,6 +24,10 @@ int main(int argc, char* argv[])
 		{
 			arg_run();
 		}
+		else if (std::string(argv[1]) == "--doc")
+		{
+			arg_doc();
+		}
 		else if (std::string(argv[1]) == "--test")
 		{
 			arg_test();
@@ -179,19 +183,111 @@ void arg_run()
 void arg_doc()
 {
     char ch;
-    std::string line, prj, content;
-    std::fstream fr(".genFile", std::fstream::in);
+    std::string line, section, content;
     std::fstream fw;
+    std::vector<std::string> genInfo;
 
     content = std::string(docfile);
-
-    getline(fr, prj);
 
     std::cout << "Run Documentation Wizard? (y/n): ";
 
     if(std::string("YESYesyes").find(line) != std::string::npos)
     {
-        fw.open( ("docs/" + prj + ".tex").c_str(), std::fstream::trunc);
+        genInfo = _parse_genFile();
+
+        fw.open( ("docs/" + genInfo[0] + ".tex").c_str(), 
+                std::fstream::out | std::fstream::trunc);
+
+        // Set the Specifications Slide
+        content = str_replace(content, "{SPECS}", genInfo[1]);
+
+        // Set Inputs, Processes, and Outputs;
+        section = "";
+        std::cout << "Analysis\n\n";
+
+        // Get the Inputs
+        std::cout << "Inputs (leave line empty to save entry): \n";
+        do
+        {
+            getline(std::cin, line);
+            section += (line.empty() ? '\n': ("\\qi{" + line + "}\n"));
+        
+        }while(!line.empty());
+
+        // Set the Inputs
+        content = str_replace(content, "{INPUTS}", section);
+        
+        
+        // Get the Processes
+        section = "";
+        std::cout << "Processes (leave line empty to save entry): \n";
+        do
+        {
+            getline(std::cin, line);
+            section += 
+                (line.empty() ? '\n' : ("\\item " + line + '\n')); 
+        
+        }while(!line.empty());
+
+        // Set the Processes
+        content = str_replace(content, "{PROCESSES}", section);
+
+        
+        // Get the Outputs
+        section = "";
+        std::cout << "\nOutputs (leave line empty to save entry): \n";
+        do
+        {
+            getline(std::cin, line);
+            section += (line.empty() ? '\n': ("\\qi{" + line + "}\n"));
+        
+        }while(!line.empty());
+
+        // Set the Outputs
+        content = str_replace(content, "{OUTPUTS}", section);
+
+
+        // Go Cycle Through Files for Implementation Slides
+        for(int i = 4; i < genInfo.size(); i+=3)
+        {
+            std::string impSlide = std::string(implmntPage);
+            std::string testSlide = std::string(testsPage
+            section = "";
+            std::cout << "Implementation for " << genInfo[i] 
+                << ":\n(leave line empty to save entry)\n\n";
+
+            do
+            {
+                getline(std::cin, line);
+                section += line + '\n';
+
+            }while(!line.empty());
+
+            // Get the Main Slide of this Implementation Slide
+            int numOfLines = file_count_char(genInfo[i], '\n');
+
+            impSlide = str_replace(impSlide, "{DESC}", section);
+
+            for(int i = 1; i <= numOfLines; i+= 16)
+            {
+                // Add First Line parameter
+                impSlide = str_replace(impSlide, "{FL}", 
+                        std::string::(itoa(i)));
+                // Add Last Line parameter
+                impSlide = str_replace(impSlide,"{LL}", 
+                        std::string::(itoa(std::min(i+16,numOfLines))));
+                
+                // Adds a new slide If there are more lines to show
+                //  from the file
+                impSlide += '\n' + 
+                    ((numOfLines - i) < 16 ? "" : 
+                     str_replace((implmnt), "{DESC}", ""));
+            }
+
+            // Append New Implementation to content
+            content += "\n" 
+                + str_replace(impSlide, "{FILE}", genInfo[i]);
+        }
 
     }
 
@@ -341,6 +437,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	// Create first item in genInfo for holding general project information
 	genInfo.push_back("Author:\t" + line + "\n");
 
+
   	std::cout << "Email: ";
   	getline(std::cin, line); 
 	// Append Onto the first item Developer Email
@@ -352,10 +449,10 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 	genInfo[0] += line +"\n";
 
     
-	genInfo.push_back("Description: \n");
+	genInfo.push_back("");
 
 	// Get Project Description
-  	std::cout <<"\nProject Description (Leave blank line to save entry):\n";
+  	std::cout <<"\nProject Description/Specificatioin (Leave blank line to save entry):\n";
 	do 
   	{
       	std::getline(std::cin, line);
@@ -374,9 +471,6 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
    	std::cout << "\nBrief Description For " << genInfo.back() << ":\n> ";
   	getline(std::cin, line);
 	
-    // DEBUG LINE
-    std::cout<<"\nBug: \n" << line << "\n\n^^^^^\n";
-
     genInfo.push_back(line);
 	// Get Included Libraries
 	std::cout << "Libraries to Include (seperate by space):\n> ";
@@ -513,6 +607,12 @@ std::vector<std::string> _parse_genFile()
 
     return genFile;
     
+}
+
+std::vector<std::string> _parse_test
+{
+    std::vector<std::string> result;
+
 }
 
 int _check_call(std::string cmd )
