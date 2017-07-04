@@ -197,6 +197,14 @@ void arg_doc()
     {
         genInfo = _parse_genFile();
 
+        // DEBUG LINE
+        std::cout << "DEBUGGING\n";
+        for(int ex = 0; ex < genInfo.size(); ex++)
+        {
+            std::cout << genInfo[ex] << "\n===============\n";
+
+        }
+        
         fw.open( ("docs/" + genInfo[0] + ".tex").c_str(), 
                 std::fstream::out | std::fstream::trunc);
 
