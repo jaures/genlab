@@ -603,6 +603,7 @@ std::vector<std::string> _parse_genFile()
     genFile.push_back(line);
 
     // Get Description
+    getline(fr, line);	// Throw Out Next '#~'
     lines = "";
     do
     {
