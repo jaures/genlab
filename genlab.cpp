@@ -592,7 +592,7 @@ std::vector<std::string> _parse_genFile()
     // Get Author Line
     getline(fr, line);	//Throw Out '#~'
     getline(fr, line);
-    genFile.push_pack(line);
+    genFile.push_back(line);
 
     // Get Email Line
     getline(fr, line);
