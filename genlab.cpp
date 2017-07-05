@@ -636,14 +636,18 @@ std::vector<std::string> _parse_genFile()
         while(fr.peek() != EOF)
         {
             getline(fr, line);
-            if(line == "#~")
+            if(line.find("#~") != std::string::npos)
             {
-		std::cout << "Pushing back:\n" << line << "\n";
+		std::cout << "Pushing back:\n" << lines << "\n";
                 genFile.push_back(lines);
                 lines = "";
                 break;
             }
-            lines += line;
+	    else
+	    {
+		    std::cout << line << "\n";
+		    lines += line + '\n';
+	    }
         }
     }
 
