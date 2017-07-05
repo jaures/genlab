@@ -611,7 +611,7 @@ std::vector<std::string> _parse_genFile()
     do
     {
 	    getline(fr, line);
-	    if(line.find("#~") == std::string::npos)
+	    if(line.find("#~") != std::string::npos)
 	    {
 		    genFile.push_back(lines);
 		    lines = "";
