@@ -602,7 +602,7 @@ std::vector<std::string> _parse_genFile()
         genFile.push_back(line);
 
         //Get Init Content
-        while(true)
+        while(fr.peek() != EOF)
         {
             getline(fr, line);
             if(line == "#~")
@@ -614,6 +614,12 @@ std::vector<std::string> _parse_genFile()
             }
             lines += line;
         }
+    }
+
+
+    for(int i = 0; i < genFile.size(); i++)
+    {
+	std::cout << i << ".\n" << genFile[i] << "\n\n";
     }
 
     return genFile;
