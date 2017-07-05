@@ -588,10 +588,41 @@ std::vector<std::string> _parse_genFile()
     // Get the name of the project
     getline(fr, line);
     genFile.push_back(line);
+
+    // Get Author Line
+    getline(fr, line);	//Throw Out '#~'
+    getline(fr, line);
+    genFile.push_pack(line);
+
+    // Get Email Line
+    getline(fr, line);
+    genFile.push_back(line);
+    
+    // Get Tag line
+    getline(fr, line);
+    genFile.push_back(line);
+
+    // Get Description
+    lines = "";
+    do
+    {
+	    getline(fr, line);
+	    if(line.find("#~") == std::string::npos)
+	    {
+		    genFile.push_back(lines);
+		    lines = "";
+	    }
+	    else
+	    {
+		    lines += line + '\n';
+	    }
+    }while(fr.peek() != EOF && fr.good());
+
+    // Cycle through and get Rest of the file information
     lines = "";
 
     // Cycle Through the resst of the content
-    while(fr.peek() != EOF)
+    while(fr.peek() != EOF && fr.good())
     {
         // Get File Name
         getline(fr, line);
