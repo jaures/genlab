@@ -607,6 +607,7 @@ std::vector<std::string> _parse_genFile()
             getline(fr, line);
             if(line == "#~")
             {
+		std::cout << "Pushing back:\n" << line << "\n";
                 genFile.push_back(lines);
                 lines = "";
                 break;
