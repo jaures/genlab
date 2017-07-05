@@ -605,8 +605,6 @@ std::vector<std::string> _parse_genFile()
     // Get Description
     getline(fr, line);	// Throw Out Next '#~'
     
-    std::cout << "Throwing out: " << line << "\n\n";
-
     lines = "";
     do
     {
