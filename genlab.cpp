@@ -549,7 +549,7 @@ bool _init_makefile(std::string prj)
 
     getline(std::cin, line);
 
-    content = str_replace(content, "{OIDIR}",
+    content = str_replace(content, "{OIDIRS}",
             (line.empty()) ? line : ("-I " + str_replace(line, " ", " -I ")));
 
     std::cout << "Any other compiler flags?: ";

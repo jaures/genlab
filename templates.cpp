@@ -43,8 +43,8 @@ const char* makefile =
 "# Include Directory\n"
 "IDIR:=include/\n\n"
 
-"# Other Include Directories"
-"OIDIR:={OIDIRS}"
+"# Other Include Directories\n"
+"OIDIR:={OIDIRS}\n\n"
 
 "# Header Files\n"
 "INCS=$(wildcard $(IDIR)*.h)\n\n"
