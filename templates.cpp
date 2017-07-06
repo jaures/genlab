@@ -104,7 +104,7 @@ const char* makefile =
 "%$(PRJCT): $(INCS) $(SRCS)"
 "\n\t$(warning On Error try running 'make clean' first)"
 "\n\t$(info compiling files: $?)"
-"\n\t$(CXX) $(SRCS) $(OFLAGS) $(CXXFLAGS) -o $@\n\n\n"
+"\n\t$(CXX) $(SRCS) $(OFLAGS) $(OIDIR) $(CXXFLAGS) -o $@\n\n\n"
 
 "clean:"
 "\n\trm -rf include/*.gch"
