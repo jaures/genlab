@@ -279,12 +279,12 @@ void arg_doc()
             // Generate the Directory name
             std::string dir = "";
             int len = genInfo[i].size();
-            if( genInfo[i].subtr(len - 5, len - 1) == ".cpp")
+            if( genInfo[i].substr(len - 5, len - 1) == ".cpp")
             {
                 dir += "include/"; 
 
             }
-            else if( genInfo[i].subtr(len - 3, len - 1) == ".h")
+            else if( genInfo[i].substr(len - 3, len - 1) == ".h")
             {
                 dir += "srcs/";
             }
