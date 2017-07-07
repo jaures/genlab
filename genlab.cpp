@@ -268,16 +268,16 @@ void arg_doc()
 
             getline(std::cin, line);
             
-            std::cout << "rlLine: " << line;
             while(!line.empty())
             {
-                std::cout << "Line: " << line;
                 section += line + "\n";
                 getline(std::cin, line);
             }
 
             // Get the Main Slide of this Implementation Slide
             int numOfLines = file_count_char(genInfo[i], '\n');
+
+            std::cout << "\nDone Counting Lines\n\n";
 
             impSlide = str_replace(impSlide, "{DESC}", section);
 

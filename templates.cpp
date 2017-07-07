@@ -229,10 +229,15 @@ int file_count_char(std::string file, char c)
 
     std::ifstream ifs(file.c_str());
 
+    std::cout << "Made It this Far\n\n";
+
     while( !ifs.eof())
     {
         cnt += (ifs.get() == c);
+        std::cout << ifs.peek();
     }
+
+    std::cout << "Oh Yeah Got out!\n";
 
     ifs.close();
 
