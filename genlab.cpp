@@ -608,6 +608,7 @@ std::vector<std::string> _parse_genFile()
     
     while(!line.empty())
     {
+        getline(std::cin, line);
         lines += line + "\n";
     }
 
@@ -615,7 +616,8 @@ std::vector<std::string> _parse_genFile()
 
 
     lines = "";
-
+    getline(fr, line);	// Throw Out Next '#~'
+    
     // Cycle Through the rest of the content
     while(fr.peek() != EOF && fr.good())
     {
