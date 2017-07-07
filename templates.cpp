@@ -231,7 +231,9 @@ int file_count_char(std::string file, char c)
 
     std::ifstream ifs(file.c_str());
 
-    getline(std::cin, new std::string());
+    std::string tmp; 
+
+    getline(std::cin,tmp);
 
     std::cout << "Made It this Far\n\n";
 
