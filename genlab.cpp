@@ -616,7 +616,6 @@ std::vector<std::string> _parse_genFile()
 	    }
 	    else
 	    {
-		    std::cout << "Current Lines: " << lines << "\n\n";
 		    lines += line + '\n';
 	    }
     }while(fr.peek() != EOF && fr.good());
