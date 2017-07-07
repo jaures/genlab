@@ -284,12 +284,12 @@ void arg_doc()
             
             if( genInfo[i].substr(len - 4, 4) == ".cpp")
             {
-                dir += "include/"; 
+                dir += "srcs/"; 
 
             }
             else if( genInfo[i].substr(len - 2, 2) == ".h")
             {
-                dir += "srcs/";
+                dir += "include/";
             }
 
             int numOfLines = file_count_char(dir + genInfo[i], '\n');
