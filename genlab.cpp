@@ -280,14 +280,14 @@ void arg_doc()
             std::string dir = "";
             int len = genInfo[i].size();
             
-            std::cout << genInfo[i].substr(len - 5, len - 1) << '\n'; 
+            std::cout << genInfo[i].substr(len - 5, len) << '\n'; 
             
-            if( genInfo[i].substr(len - 5, len - 1) == ".cpp")
+            if( genInfo[i].substr(len - 4, 4) == ".cpp")
             {
                 dir += "include/"; 
 
             }
-            else if( genInfo[i].substr(len - 3, len - 1) == ".h")
+            else if( genInfo[i].substr(len - 2, 2) == ".h")
             {
                 dir += "srcs/";
             }
