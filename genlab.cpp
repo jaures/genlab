@@ -321,8 +321,8 @@ void arg_doc()
 
     }
 
-    
-
+    fw << content;
+    fw.close();
 
 }
 
