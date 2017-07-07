@@ -227,7 +227,7 @@ int file_count_char(std::string file, char c)
 {
     int cnt = 1;
 
-    std::cout << "Couting lines for:\n:" << file << "|\n";
+    std::cout << "Couting lines for:\n" << file << "|\n";
 
     std::ifstream ifs(file.c_str());
 
@@ -240,8 +240,10 @@ int file_count_char(std::string file, char c)
     getline(std::cin,tmp);
     while( !ifs.eof())
     {
-        cnt += (ifs.get() == c);
-        std::cout << ifs.peek();
+        ifs.getline(tmp, 256);
+        cnt++;
+        std::cout << tmp << "\n";
+        getline(std::cin, tmp);
     }
 
     getline(std::cin,tmp);
