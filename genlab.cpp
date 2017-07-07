@@ -279,6 +279,9 @@ void arg_doc()
             // Generate the Directory name
             std::string dir = "";
             int len = genInfo[i].size();
+            
+            std::cout << genInfo[i].substr(len - 5, len - 1) << '\n'; 
+            
             if( genInfo[i].substr(len - 5, len - 1) == ".cpp")
             {
                 dir += "include/"; 
