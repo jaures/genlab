@@ -608,7 +608,7 @@ std::vector<std::string> _parse_genFile()
     
     do
     {
-        lines += line "\n";
+        lines += line + "\n";
 
     }while(!line.empty());
 
