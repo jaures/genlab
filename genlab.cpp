@@ -201,7 +201,7 @@ void arg_doc()
         std::cout << "DEBUGGING\n";
         for(int ex = 0; ex < genInfo.size(); ex++)
         {
-            std::cout << genInfo[ex] << "\n===============\n";
+            std::cout << genInfo[ex] << "===============\n";
 
         }
         
@@ -257,6 +257,7 @@ void arg_doc()
         content = str_replace(content, "{OUTPUTS}", section);
 
 
+        section = "";
         // Go Cycle Through Files for Implementation Slides
         for(int i = 5; i < genInfo.size(); i+=3)
         {
@@ -266,12 +267,13 @@ void arg_doc()
             std::cout << "Implementation for " << genInfo[i] 
                 << ":\n(leave line empty to save entry)\n\n";
 
-            do
+            getline(std::cin, line);
+            
+            while(!line.empty())
             {
-                getline(std::cin, line);
                 section += line + "\n";
-
-            }while(!line.empty());
+                getline(std::cin, line);
+            }
 
             // Get the Main Slide of this Implementation Slide
             int numOfLines = file_count_char(genInfo[i], '\n');
@@ -609,7 +611,7 @@ std::vector<std::string> _parse_genFile()
     while(!line.empty())
     {
         getline(fr, line);
-        lines += line + "\n";
+        lines += ((line.empty()) ? line : (line + "\n"));
     }
 
     genFile.push_back(lines);
@@ -627,18 +629,11 @@ std::vector<std::string> _parse_genFile()
             getline(fr, line);
         }while(line.empty());
         
-        std::cout << "Fname: " << line << "\n";
-
         genFile.push_back(line);
-
-        std::cout <<"Bug1:\n" << genFile.back() << "\n";
 
         // Get File Description
         getline(fr, line);
         genFile.push_back(line);
-
-        
-        std::cout <<"Bug1:\n" << genFile.back() << "\n";
         
         //Get Init Content
         while(fr.peek() != EOF)
