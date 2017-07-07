@@ -603,8 +603,18 @@ std::vector<std::string> _parse_genFile()
     genFile.push_back(line);
 
     // Get Description
+    lines = "";
     getline(fr, line);	// Throw Out Next '#~'
     
+    do
+    {
+        lines += line "\n";
+
+    }while(!line.empty());
+
+    genFile.push_back(lines);
+
+
     lines = "";
 
     // Cycle Through the rest of the content
