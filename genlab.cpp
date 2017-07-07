@@ -629,7 +629,10 @@ std::vector<std::string> _parse_genFile()
     while(fr.peek() != EOF && fr.good())
     {
         // Get File Name
-        getline(fr, line);
+        do
+        {
+            getline(fr, line);
+        }while(line.empty());
         genFile.push_back(line);
 
         std::cout <<"Bug1:\n" << genFile.back() << "\n";
@@ -647,16 +650,16 @@ std::vector<std::string> _parse_genFile()
             getline(fr, line);
             if(line.find("#~") != std::string::npos)
             {
-		std::cout << "Pushing back:\n" << lines << "\n";
+		        //**DB std::cout << "Pushing back:\n" << lines << "\n";
                 genFile.push_back(lines);
                 lines = "";
                 break;
             }
-	    else
-	    {
-		    std::cout << line << "\n";
-		    lines += line + '\n';
-	    }
+	        else
+	        {
+		        //std::cout << line << "\n";
+		        lines += line + '\n';
+	        }
         }
     }
 
