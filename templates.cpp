@@ -237,14 +237,14 @@ int file_count_char(std::string file, char c)
 
     std::cout << "Made It this Far\n\n";
 
-    getline(std::cin, new std::string());
+    getline(std::cin,tmp);
     while( !ifs.eof())
     {
         cnt += (ifs.get() == c);
         std::cout << ifs.peek();
     }
 
-    getline(std::cin, new std::string());
+    getline(std::cin,tmp);
     std::cout << "Oh Yeah Got out!\n";
 
     ifs.close();
