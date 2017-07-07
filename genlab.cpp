@@ -257,7 +257,6 @@ void arg_doc()
         content = str_replace(content, "{OUTPUTS}", section);
 
 
-        section = "";
         // Go Cycle Through Files for Implementation Slides
         for(int i = 5; i < genInfo.size(); i+=3)
         {
@@ -265,12 +264,14 @@ void arg_doc()
             std::string testSlide = std::string(testPage);
             section = "";
             std::cout << "Implementation for " << genInfo[i] 
-                << ":\n(leave line empty to save entry)\n\n";
+                << ":\n(leave line empty to save entry)\n";
 
             getline(std::cin, line);
             
+            std::cout << "rlLine: " << line;
             while(!line.empty())
             {
+                std::cout << "Line: " << line;
                 section += line + "\n";
                 getline(std::cin, line);
             }
