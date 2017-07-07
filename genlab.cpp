@@ -275,6 +275,20 @@ void arg_doc()
             }
 
             // Get the Main Slide of this Implementation Slide
+            
+            // Generate the Directory name
+            std::string dir = "";
+            int len = genInfo[i].size();
+            if( genInfo[i].subtr(len - 5, len - 1) == ".cpp")
+            {
+                dir += "include/"; 
+
+            }
+            else if( genInfo[i].subtr(len - 3, len - 1) == ".h")
+            {
+                dir += "srcs/";
+            }
+
             int numOfLines = file_count_char(genInfo[i], '\n');
 
             std::cout << "\nDone Counting Lines\n\n";
