@@ -605,7 +605,7 @@ std::vector<std::string> _parse_genFile()
     // Get Description
     getline(fr, line);	// Throw Out Next '#~'
     
-    lines = "";
+  /*  lines = "";
     do
     {
 	    getline(fr, line);
@@ -619,7 +619,7 @@ std::vector<std::string> _parse_genFile()
 		    lines += line + '\n';
 	    }
     }while(fr.peek() != EOF && fr.good());
-
+*/
 
     // Cycle through and get Rest of the file information
     lines = "";
