@@ -289,7 +289,7 @@ void arg_doc()
                 dir += "srcs/";
             }
 
-            int numOfLines = file_count_char(genInfo[i], '\n');
+            int numOfLines = file_count_char(dir + genInfo[i], '\n');
 
             std::cout << "\nDone Counting Lines\n\n";
 
