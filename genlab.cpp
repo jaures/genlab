@@ -606,11 +606,10 @@ std::vector<std::string> _parse_genFile()
     lines = "";
     getline(fr, line);	// Throw Out Next '#~'
     
-    do
+    while(!line.empty())
     {
         lines += line + "\n";
-
-    }while(!line.empty());
+    }
 
     genFile.push_back(lines);
 
