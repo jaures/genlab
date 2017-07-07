@@ -231,7 +231,7 @@ int file_count_char(std::string file, char c)
 
     std::ifstream ifs(file.c_str());
 
-    std::string tmp; 
+    char* tmp = new char[256]; 
 
     getline(std::cin,tmp);
 
