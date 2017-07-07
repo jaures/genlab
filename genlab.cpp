@@ -605,23 +605,6 @@ std::vector<std::string> _parse_genFile()
     // Get Description
     getline(fr, line);	// Throw Out Next '#~'
     
-  /*  lines = "";
-    do
-    {
-	    getline(fr, line);
-	    if(line.find("#~") != std::string::npos)
-	    {
-		    genFile.push_back(lines);
-		    lines = "";
-	    }
-	    else
-	    {
-		    lines += line + '\n';
-	    }
-    }while(fr.peek() != EOF && fr.good());
-*/
-
-    // Cycle through and get Rest of the file information
     lines = "";
 
     // Cycle Through the rest of the content
@@ -632,6 +615,9 @@ std::vector<std::string> _parse_genFile()
         {
             getline(fr, line);
         }while(line.empty());
+        
+        std::cout << "Fname: " << line << "\n";
+
         genFile.push_back(line);
 
         std::cout <<"Bug1:\n" << genFile.back() << "\n";
