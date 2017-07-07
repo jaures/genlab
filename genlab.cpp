@@ -621,20 +621,26 @@ std::vector<std::string> _parse_genFile()
 	    }
     }while(fr.peek() != EOF && fr.good());
 
+
     // Cycle through and get Rest of the file information
     lines = "";
 
-    // Cycle Through the resst of the content
+    // Cycle Through the rest of the content
     while(fr.peek() != EOF && fr.good())
     {
         // Get File Name
         getline(fr, line);
         genFile.push_back(line);
 
+        std::cout <<"Bug1:\n" << genFile.back() << "\n";
+
         // Get File Description
         getline(fr, line);
         genFile.push_back(line);
 
+        
+        std::cout <<"Bug1:\n" << genFile.back() << "\n";
+        
         //Get Init Content
         while(fr.peek() != EOF)
         {
