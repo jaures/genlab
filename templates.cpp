@@ -227,16 +227,22 @@ int file_count_char(std::string file, char c)
 {
     int cnt = 1;
 
+    std::cout << "Couting lines for:\n:" << file << "|\n";
+
     std::ifstream ifs(file.c_str());
+
+    getline(std::cin, new std::string());
 
     std::cout << "Made It this Far\n\n";
 
+    getline(std::cin, new std::string());
     while( !ifs.eof())
     {
         cnt += (ifs.get() == c);
         std::cout << ifs.peek();
     }
 
+    getline(std::cin, new std::string());
     std::cout << "Oh Yeah Got out!\n";
 
     ifs.close();
