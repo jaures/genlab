@@ -143,7 +143,7 @@ const char* docfile =
 "\\begin{document}\n\n"
 
 "\\normalpage{Specification}\n"
-"{\\begin{lstlisting}\n{SPECS}\n\\end{lstlisting}\n}\n\n"
+"{\n\t{SPECS}\n\\end{lstlisting}\n}\n\n"
 
 "\\normalpage{Analysis}\n"
 "{\\qi{Inputs:\n{INPUTS}\n}\n"
@@ -161,7 +161,7 @@ const char* implmntPage =
 "\\normalpage{Implementation: {FILE}}\n"
 "{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
 "\\lstinputlisting[language=C++, "
-    "firstLine={FL}, lastLine={LL}]{{FILE}}\n"
+    "firstline={FL}, lastline={LL}]{{FILE}}\n"
 "}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
 
 
