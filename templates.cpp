@@ -156,7 +156,6 @@ const char* docfile =
 // Specification Page
 "\\normalpage{Specification}\n"
 "{%Description of the Expected Functionality\n{SPECS}\n}\n\n"
-"{\n\t{SPECS}\n\\end{lstlisting}\n}\n\n"
 
 // Analysis Page
 "\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
@@ -170,7 +169,7 @@ const char* docfile =
 "{%\n{DESG}\n}\n\n"
 
 // Implementation and Test Pages Insert
-"{IMPL/TESTS}\n\n"
+"{IMPL}\n\n{TESTS}\n\n"
 
 "\\end{document}\n";
 

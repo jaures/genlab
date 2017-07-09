@@ -319,9 +319,11 @@ void arg_doc()
 
 
             // Append New Implementation to content
-            content += "\n" 
-                + str_replace(impSlide, "{FILE}", genInfo[i]);
+            content = str_replace(content, "{IMPL}", 
+                    impSlide + "\n{IMPL}\n");
         }
+
+        content = str_replace(content, "{IMPL}", "");
 
     }
 
