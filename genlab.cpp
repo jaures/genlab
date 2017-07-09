@@ -267,38 +267,40 @@ void arg_doc()
                 << ":\n(leave line empty to save entry)\n";
 
             getline(std::cin, line);
-            
+           
+            // Get File Implementation Description
             while(!line.empty())
             {
                 section += line + "\n";
                 getline(std::cin, line);
             }
 
-            // Get the Main Slide of this Implementation Slide
-            
             // Generate the Directory name
             std::string dir = "";
             int len = genInfo[i].size();
             
             std::cout << genInfo[i].substr(len - 5, len) << '\n'; 
-            
-            if( genInfo[i].substr(len - 4, 4) == ".cpp")
-            {
-                dir += "srcs/"; 
-
-            }
-            else if( genInfo[i].substr(len - 2, 2) == ".h")
+            if( genInfo[i].substr(len - 2, 2) == ".h")
             {
                 dir += "include/";
+            }
+            else if( genInfo[i].substr(len - 4, 4) == ".cpp")
+            {
+                dir += "srcs/"; 
             }
 
             int numOfLines = file_count_char(dir + genInfo[i], '\n');
 
-            std::cout << "\nDone Counting Lines\n\n";
+            std::cout << "\nDone Counting Lines\nCount: " 
+                << numOfLines << "\n";
 
-            impSlide = str_replace(impSlide, "{DESC}", section);
+            impSlide = str_replace(impSlide, "{FN}", genInfo[i]);
+            impSlide = str_replace(impSlide, "{FFN}", 
+                    "../"+dir+genInfo[i]); 
+            impSlide = str_replace(impSlide,"{DESC}", section);
 
-            for(int j = 1; j <= numOfLines; j+= 16)
+            
+            for(int j = 1; j <= numOfLines; j+= 15)
             {
                 // Add First Line parameter
                 impSlide = str_replace(impSlide, "{FL}", 
@@ -307,8 +309,6 @@ void arg_doc()
                 impSlide = str_replace(impSlide,"{LL}", 
                         std::string(itoa(std::min(j+16,numOfLines))));
                 
-                // Adds a new slide If there are more lines to show
-                //  from the file
                 impSlide += "\n" + 
                     ((numOfLines - i) < 16 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
