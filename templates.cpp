@@ -246,8 +246,6 @@ int file_count_char(std::string file, char c = '\n')
 {
     int cnt = 1;
 
-    std::cout << "Couting lines for:\n" << file << "|\n";
-
     std::ifstream ifs(file.c_str());
     
     char* buff = new char[MAXBUFF];
@@ -258,7 +256,6 @@ int file_count_char(std::string file, char c = '\n')
         cnt++;
     }
 
-    getline(std::cin,temp);
     std::cout << "Oh Yeah Got out!\n";
 
     ifs.close();
