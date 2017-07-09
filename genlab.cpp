@@ -195,6 +195,8 @@ void arg_doc()
 
     if(std::string("YESYesyes").find(line) != std::string::npos)
     {
+        std::string designSlide = "";
+
         genInfo = _parse_genFile();
 
         // DEBUG LINE
@@ -220,7 +222,8 @@ void arg_doc()
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
+            section += (line.empty() ? "\n": 
+                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
         
         }while(!line.empty());
 
@@ -235,7 +238,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += 
-                (line.empty() ? "\n" : ("\\item " + line + "\n")); 
+                (line.empty() ? "\n" : ("\t\t\\item " + line + "\n")); 
         
         }while(!line.empty());
 
@@ -249,8 +252,9 @@ void arg_doc()
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
-        
+            section += (line.empty() ? "\n":
+                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
+
         }while(!line.empty());
 
         // Set the Outputs
@@ -260,6 +264,8 @@ void arg_doc()
         // Go Cycle Through Files for Implementation Slides
         for(int i = 5; i < genInfo.size(); i+=3)
         {
+            designSlide += "\t\t\\item["+ genInfo[i] 
+                            + "]\\hfill \\\\ " + genInfo[i+1] + "\n"; 
             std::string impSlide = std::string(implmntPage);
             std::string testSlide = std::string(testPage);
             section = "";
@@ -304,10 +310,10 @@ void arg_doc()
                         std::string(itoa(j)));
                 // Add Last Line parameter
                 impSlide = str_replace(impSlide,"{LL}", 
-                        std::string(itoa(std::min(j+15,numOfLines))));
+                        std::string(itoa(std::min(j+14,numOfLines))));
                 
                 impSlide += "\n" + 
-                    ((numOfLines - i) < 16 ? "" : 
+                    ((numOfLines - j) < 1 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
             }
 
@@ -323,6 +329,7 @@ void arg_doc()
                     impSlide + "\n{IMPL}\n");
         }
 
+        content = str_replace(content, "{DESG}", designSlide);
         content = str_replace(content, "{IMPL}", "");
 
     }

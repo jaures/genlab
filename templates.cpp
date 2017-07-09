@@ -159,14 +159,14 @@ const char* docfile =
 
 // Analysis Page
 "\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
-"\\qi{Inputs:\n{INPUTS}\n\t}\n\t"
-"\\qi{Process:\n\t\\begin{enumerate}\n\t"
-"{PROCESSES}\n\t\\end{enumerate}\n}\n\t"
-"\\qi{Outputs:\n{OUTPUTS}\n\t}\n}\n\n"
+"\\qi{Inputs:\n{INPUTS}\t}\n\t"
+"\\qi{Process:\n\t\\begin{enumerate}\n"
+"{PROCESSES}\t\\end{enumerate}\n}\n\t"
+"\\qi{Outputs:\n{OUTPUTS}\t}\n}\n\n"
 
 // Design Page
 "\\normalpage{Design}\n"
-"{%\n{DESG}\n}\n\n"
+"{%\n\t\\begin{description}\n{DESG}\t\\end{description}\n}\n\n"
 
 // Implementation and Test Pages Insert
 "{IMPL}\n\n{TESTS}\n\n"
