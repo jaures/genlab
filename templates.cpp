@@ -178,11 +178,6 @@ const char* docfile =
 // Implementation Page
 const char* implmntPage = 
 "\\implpage{{FN}}{{FFN}}{{DESC}}{{FL}}{{LL}}\n\n";
-"\\normalpage{Implementation: {FILE}}\n"
-"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
-"\\lstinputlisting[language=C++, "
-    "firstline={FL}, lastline={LL}]{{FILE}}\n"
-"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
 
 
 const char* testPage = 
