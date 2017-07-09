@@ -263,6 +263,7 @@ void arg_doc()
             std::string impSlide = std::string(implmntPage);
             std::string testSlide = std::string(testPage);
             section = "";
+
             std::cout << "Implementation for " << genInfo[i] 
                 << ":\n(leave line empty to save entry)\n";
 
@@ -294,12 +295,8 @@ void arg_doc()
             std::cout << "\nDone Counting Lines\nCount: " 
                 << numOfLines << "\n";
 
-            impSlide = str_replace(impSlide, "{FN}", genInfo[i]);
-            impSlide = str_replace(impSlide, "{FFN}", 
-                    "../"+dir+genInfo[i]); 
             impSlide = str_replace(impSlide,"{DESC}", section);
 
-            
             for(int j = 1; j <= numOfLines; j+= 15)
             {
                 // Add First Line parameter
@@ -307,12 +304,19 @@ void arg_doc()
                         std::string(itoa(j)));
                 // Add Last Line parameter
                 impSlide = str_replace(impSlide,"{LL}", 
-                        std::string(itoa(std::min(j+16,numOfLines))));
+                        std::string(itoa(std::min(j+15,numOfLines))));
                 
                 impSlide += "\n" + 
                     ((numOfLines - i) < 16 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
             }
+
+            
+            // Replace all the Filename & Full Filename Placeholders
+            impSlide = str_replace(impSlide, "{FN}", genInfo[i]);
+            impSlide = str_replace(impSlide, "{FFN}", 
+                    "../"+dir+genInfo[i]); 
+
 
             // Append New Implementation to content
             content += "\n" 

@@ -170,7 +170,7 @@ const char* docfile =
 "{%\n{DESG}\n}\n\n"
 
 // Implementation and Test Pages Insert
-"{IMPLMNT/TESTS}\n\n"
+"{IMPL/TESTS}\n\n"
 
 "\\end{document}\n";
 
