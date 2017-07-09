@@ -155,7 +155,11 @@ const char* docfile =
 
 // Specification Page
 "\\normalpage{Specification}\n"
+<<<<<<< HEAD
 "{%Description of the Expected Functionality\n{SPECS}\n}\n\n"
+=======
+"{\n\t{SPECS}\n\\end{lstlisting}\n}\n\n"
+>>>>>>> 1f099450956cad5f88b7f55968593b1274c7b1cf
 
 // Analysis Page
 "\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
@@ -176,7 +180,15 @@ const char* docfile =
 
 // Implementation Page
 const char* implmntPage = 
+<<<<<<< HEAD
 "\\implpage{{FN}}{{FFN}}{{DESC}}{{FL}}{{LL}}\n\n";
+=======
+"\\normalpage{Implementation: {FILE}}\n"
+"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
+"\\lstinputlisting[language=C++, "
+    "firstline={FL}, lastline={LL}]{{FILE}}\n"
+"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
+>>>>>>> 1f099450956cad5f88b7f55968593b1274c7b1cf
 
 
 const char* testPage = 
