@@ -694,9 +694,9 @@ std::vector<std::string> _parse_genFile()
 }
 
 
-std::vector<std::vector<std::string>> _parse_testFile()
+std::vector<std::vector<std::string> > _parse_testFile()
 {
-    std::vector<std::vector<std::string>> tests;
+    std::vector< std::vector<std::string> > tests;
     std::string lines, line;
 
     std::fstream fr("bin/test/.tests", std::fstream::in);
@@ -708,7 +708,7 @@ std::vector<std::vector<std::string>> _parse_testFile()
     {
         std::vector<std::string> test;
      
-        if(line.subtr(0,2) == "#~")
+        if(line.substr(0,2) == "#~")
         {
             // Get Test Name
             test.push_back(str_replace(line, "#~", ""));
@@ -736,10 +736,10 @@ std::vector<std::vector<std::string>> _parse_testFile()
 
     for(int i = 0; i < tests.size(); i++)
     {
-        std::cout << "Test #" << i << "\n"
+        std::cout << "Test #" << i << "\n";
         for(int j = 0; j < 2; j++)
         {
-            std::cout << "\t" << tests[i][j] << "\n;
+            std::cout << "\t" << tests[i][j] << "\n";
         }
 
         std::cout << "\n";
