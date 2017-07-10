@@ -719,6 +719,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
 
             // Push Empty String for holding rest of test
             test.push_back("");
+	    	test.push_back("");
 
             // Cycle through rest of lines for the test
             while( !fr.eof() )
@@ -728,6 +729,12 @@ std::vector<std::vector<std::string> > _parse_testFile()
                 if(line.find("#~") == std::string::npos)
                 {
                     test[1] += line + "\n";
+		    		if(line[0] == '$')
+					{
+						// Track Any lines that are meant to be
+						// 	sent to STDIN
+						test[2] += line.substr(1,line.size()-2);
+					}
                 }
                 else
                 {
@@ -738,12 +745,15 @@ std::vector<std::vector<std::string> > _parse_testFile()
         }
     }
 
+    // Make Sure to add Last Test
+    test.push_back(test);
+
     for(int i = 0; i < tests.size(); i++)
     {
-        std::cout << "Test #" << i << "\n";
-        for(int j = 0; j < 2; j++)
+        std::cout << "\nTest #" << i << "\n";
+        for(int j = 0; j < 3; j++)
         {
-            std::cout << "\t" << tests[i][j] << "\n";
+            std::cout << "" << tests[i][j] << "\n";
         }
 
         std::cout << "\n";
