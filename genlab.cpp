@@ -449,6 +449,9 @@ void arg_test()
 
 	std::cout << "Testing now...\n\n";
 
+
+    std::vector<std::vector<std::string> > tests = _parse_testFile();
+
 }
 
 
