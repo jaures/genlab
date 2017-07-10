@@ -734,7 +734,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
 					{
 						// Track Any lines that are meant to be
 						// 	sent to STDIN
-						test[2] += line.substr(1,line.size()-2);
+						test[2] += line.substr(1, line.size() - 1) + "\n";
 					}
                 }
                 else
@@ -757,7 +757,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
             std::cout << "" << tests[i][j] << "\n";
         }
 
-        std::cout << "\n";
+        //std::cout << "\n";
     }
     
     return tests;
