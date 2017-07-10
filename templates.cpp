@@ -119,7 +119,7 @@ const char* docfile =
 // Import Packages
 "\\documentclass{ffslides}\n"
 "\\ffpage{25}{\\numexpr 16/9}\n"
-"\\usepackage{fancyvrb}\n"
+"\\usepackage{enumitem}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
 "\\usepackage{color}"
@@ -159,14 +159,14 @@ const char* docfile =
 
 // Analysis Page
 "\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
-"\\qi{Inputs:\n{INPUTS}\t}\n\t"
-"\\qi{Process:\n\t\\begin{enumerate}\n"
-"{PROCESSES}\t\\end{enumerate}\n}\n\t"
+"\\qi{Inputs: \\\\\n{INPUTS}\t}\n\n\t"
+"\\qi{Process:\n\t\\begin{enumerate}[nolistsep]\n"
+"{PROCESSES}\t\\end{enumerate}\n\t}\n\n\t"
 "\\qi{Outputs:\n{OUTPUTS}\t}\n}\n\n"
 
 // Design Page
-"\\normalpage{Design}\n"
-"{%\n\t\\begin{description}\n{DESG}\t\\end{description}\n}\n\n"
+"\\normalpage{Design}\n{\n\t"
+"\\begin{description}[nolistsep]\n{DESG}\t\\end{description}\n}\n\n"
 
 // Implementation and Test Pages Insert
 "{IMPL}\n\n{TESTS}\n\n"
@@ -189,18 +189,18 @@ const char* hfile =
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
-"// Close Include Guard\n#endif\n";
+"// Close Include Guard\n#endif";
 
 
 const char* cppfile = 
 "/*\n{HEADER}\n*/\n\n"
 "// Include Dependencies\n{INCLUDES}\n\n"
 "// Global Declarations/Definitions\n\n"
-"// Function Defintions\n/* Source Code */\n\n";
+"// Function Defintions\n/* Source Code */";
 
 
 const char* mainfunc = 
-"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}\n\n";
+"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}";
 
 
 const char* buildCMD[] =

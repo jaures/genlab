@@ -211,7 +211,7 @@ void arg_doc()
                 std::fstream::out | std::fstream::trunc);
 
         // Set the Specifications Slide
-        content = str_replace(content, "{SPECS}", genInfo[1]);
+        content = str_replace(content, "{SPECS}", genInfo[4]);
 
         // Set Inputs, Processes, and Outputs;
         section = "";
@@ -324,12 +324,14 @@ void arg_doc()
                     "../"+dir+genInfo[i]); 
 
 
-            // Append New Implementation to content
+            // Append New Implementation Slide
             content = str_replace(content, "{IMPL}", 
                     impSlide + "\n{IMPL}\n");
         }
 
+        // Add In Content For Design Slide 
         content = str_replace(content, "{DESG}", designSlide);
+        // Remove Any Trailing Implementation Slides
         content = str_replace(content, "{IMPL}", "");
 
     }
