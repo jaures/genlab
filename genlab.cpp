@@ -754,7 +754,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
         std::cout << "\nTest #" << i << "\n";
         for(int j = 0; j < 3; j++)
         {
-            std::cout << "" << tests[i][j] << "\n";
+            std::cout << tests[i][j];
         }
 
         //std::cout << "\n";
