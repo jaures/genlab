@@ -428,7 +428,7 @@ void arg_test()
 				<< "\n\tlines begining with '$' are sent to STDIN"
 				<< "\n\tleave the line empty to  save test\n";
 				
-			testFile <<"#%" << choice << "\n";
+			testFile <<"#~" << choice << "\n";
 
 			// Get Lines for the test
 			do
@@ -686,18 +686,66 @@ std::vector<std::string> _parse_genFile()
 
     for(int i = 0; i < genFile.size(); i++)
     {
-	std::cout << i << ".\n" << genFile[i] << "\n\n";
+	    std::cout << i << ".\n" << genFile[i] << "\n\n";
     }
 
     return genFile;
     
 }
 
-std::vector<std::string> _parse_test()
+
+std::vector<std::vector<std::string>> _parse_testFile()
 {
-    std::vector<std::string> result;
+    std::vector<std::vector<std::string>> tests;
+    std::string lines, line;
+
+    std::fstream fr("bin/test/.tests", std::fstream::in);
     
-    return result;
+
+    getline(fr, line);
+
+    while(fr.good() && !fr.eof())
+    {
+        std::vector<std::string> test;
+     
+        if(line.subtr(0,2) == "#~"i)
+        {
+            // Get Test Name
+            test.push_back(str_replace(line, "#~", ""));
+
+            // Push Empty String for holding rest of test
+            test.push_back("");
+
+            // Cycle through rest of lines for the test
+            while( !fr.eof() )
+            {
+                getline(fr, line);
+
+                if(line.find("#~") == std::string::npos)
+                {
+                    test[1] += line + "\n";
+                }
+                else
+                {
+                    tests.push_back(test);
+                    break;
+                }   
+            }
+        }
+    }
+
+    for(int i = 0; i < tests.size(); i++)
+    {
+        std::cout << "Test #" << i << "\n"
+        for(int j = 0; j < 2; j++)
+        {
+            std::cout << "\t" << tests[i][j] << "\n;
+        }
+
+        std::cout << "\n";
+    }
+    
+    return tests;
 }
 
 std::string itoa(unsigned int a)

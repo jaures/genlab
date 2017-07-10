@@ -44,6 +44,9 @@ std::vector<std::string> _init_genFile(int,char**);
 // Returns a Vector of String Representing a Parsed GenFile
 std::vector<std::string> _parse_genFile();
 
+// Returns a 2D Vector of String Representing a Parsed TestFile
+std::vector<std::vector<std::string>> _parse_testFile();
+
 // Niave implementation of Integer to String
 std::string itoa(unsigned int);
 
