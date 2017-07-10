@@ -280,7 +280,6 @@ void arg_doc()
             std::string dir = "";
             int len = genInfo[i].size();
             
-            std::cout << genInfo[i].substr(len - 5, len) << '\n'; 
             if( genInfo[i].substr(len - 2, 2) == ".h")
             {
                 dir += "include/";
@@ -310,7 +309,7 @@ void arg_doc()
                     << numOfLines << "\n";
 
                 impSlide += "\n" + 
-                    ((numOfLines - j) < 1 ? "" : 
+                    ((numOfLines - j) < 15 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
             }
 
