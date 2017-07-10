@@ -144,15 +144,17 @@ void arg_init(int cnt, char* vals[])
             
             content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
 
-            fw << content;
 
             if(gf_str[i].find(prj) != std::string::npos)
             {
                 // Add the main function if name matches project name
-                fw << mainfunc;
+                content = str_replace(content, "/* Source Code */", 
+                        mainfunc);
             }
 
+            fw << content;
             fw.close();
+
         }
 
         std::cout << "\tSuccessfully Created " << gf_str[i] << "\n\n";
@@ -198,14 +200,6 @@ void arg_doc()
         std::string designSlide = "";
 
         genInfo = _parse_genFile();
-
-        // DEBUG LINE
-        std::cout << "DEBUGGING\n";
-        for(int ex = 0; ex < genInfo.size(); ex++)
-        {
-            std::cout << genInfo[ex] << "===============\n";
-
-        }
         
         fw.open( ("docs/" + genInfo[0] + ".tex").c_str(), 
                 std::fstream::out | std::fstream::trunc);
@@ -248,7 +242,7 @@ void arg_doc()
         
         // Get the Outputs
         section = "";
-        std::cout << "\nOutputs (leave line empty to save entry): \n";
+        std::cout << "Outputs (leave line empty to save entry): \n";
         do
         {
             getline(std::cin, line);

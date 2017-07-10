@@ -119,10 +119,11 @@ const char* docfile =
 // Import Packages
 "\\documentclass{ffslides}\n"
 "\\ffpage{25}{\\numexpr 16/9}\n"
+"\\usepackage{fancyvrb}
 "\\usepackage{enumitem}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
-"\\usepackage{color}"
+"\\usepackage{color}\n"
 "\\usepackage{listings}\n\n"
 
 // Add Implementation Page Command
@@ -162,7 +163,7 @@ const char* docfile =
 "\\qi{Inputs: \\\\\n{INPUTS}\t}\n\n\t"
 "\\qi{Process:\n\t\\begin{enumerate}[nolistsep]\n"
 "{PROCESSES}\t\\end{enumerate}\n\t}\n\n\t"
-"\\qi{Outputs:\n{OUTPUTS}\t}\n}\n\n"
+"\\qi{Outputs: \\\\\n{OUTPUTS}\t}\n}\n\n"
 
 // Design Page
 "\\normalpage{Design}\n{\n\t"
@@ -186,7 +187,7 @@ const char* testPage =
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"
 "// Include Guard\n#ifndef __{HFILE}\n#define __{HFILE}\n\n"
-"// Include Dependencies\n{INCLUDES}\n\n"
+"// Include Dependencies{INCLUDES}\n"
 "// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
 "// Close Include Guard\n#endif";
@@ -194,7 +195,7 @@ const char* hfile =
 
 const char* cppfile = 
 "/*\n{HEADER}\n*/\n\n"
-"// Include Dependencies\n{INCLUDES}\n\n"
+"// Include Dependencies{INCLUDES}\n"
 "// Global Declarations/Definitions\n\n"
 "// Function Defintions\n/* Source Code */";
 
