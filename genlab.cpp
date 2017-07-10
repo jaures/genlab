@@ -759,6 +759,8 @@ std::vector<std::vector<std::string> > _parse_testFile()
 
         //std::cout << "\n";
     }
+
+    std::cout << "\n\n=====\n" << tests[1][1] << ".\n\n====\n" << tests[1][2];
     
     return tests;
 }
