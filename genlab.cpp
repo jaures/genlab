@@ -746,7 +746,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
     }
 
     // Make Sure to add Last Test
-    test.push_back(test);
+    tests.push_back(test);
 
     for(int i = 0; i < tests.size(); i++)
     {
