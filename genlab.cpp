@@ -309,7 +309,7 @@ void arg_doc()
                     << numOfLines << "\n";
 
                 impSlide += "\n" + 
-                    ((numOfLines - j) < 15 ? "" : 
+                    ((numOfLines - j) < 16 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
             }
 
