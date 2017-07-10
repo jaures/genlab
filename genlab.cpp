@@ -708,7 +708,7 @@ std::vector<std::vector<std::string>> _parse_testFile()
     {
         std::vector<std::string> test;
      
-        if(line.subtr(0,2) == "#~"i)
+        if(line.subtr(0,2) == "#~")
         {
             // Get Test Name
             test.push_back(str_replace(line, "#~", ""));
