@@ -708,10 +708,11 @@ std::vector<std::vector<std::string> > _parse_testFile()
 
     getline(fr, line);
 
+   	std::vector<std::string> test;
+
     while(fr.good() && !fr.eof())
     {
-        std::vector<std::string> test;
-     
+		test.clear();   
         if(line.substr(0,2) == "#~")
         {
             // Get Test Name
