@@ -1,5 +1,6 @@
 #include "templates.h"
 
+// Maximum Buffer Size
 const int MAXBUFF = 1024;
 
 const char* help =
@@ -23,19 +24,9 @@ const char* help =
   "\t\t\tproject submission.\n\n"
   "\t--help\t\tPrints Help.\n\n";
 
-
 const char* header =
   "/**\n@author: {AUTHOR}\n@email:\t{EMAIL}\n{DATE}\n{TAG}\nDesc:\t{DESC}\n\n\n*/";
   
-  
-const char* genfile =
-"#hfiles\n{hfiles}\n"
-"#cfiles\n{cfilles}\n"
-"#head\n{head}\n"
-"#make\n{make}\n"
-"#doc\n{doc}\n"
-"#test\n{test}\n";
-
 const char* makefile =
 "# {PROJECT} Makefile\n"
 "PRJCT={PROJECT}\n\n"
@@ -66,7 +57,6 @@ const char* makefile =
 
 "# Directories to Package\n"
 "PKGS=$(IDIR) $(OIDIR) $(SDIR) $(DDIR) $(BDIR) $(TDIR)\n\n"
-
 
 "# Test Directory\n"
 "TDIR:=bin/test/\n"
@@ -126,71 +116,92 @@ const char* makefile =
 
 
 const char* docfile = 
+// Import Packages
 "\\documentclass{ffslides}\n"
 "\\ffpage{25}{\\numexpr 16/9}\n"
-"\\usepackage{fancyvrb}\n"
+"\\usepackage{fancyvrb}"
+"\\usepackage{enumitem}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
-"\\usepackage{color}"
-"\\usepackage{listings}\n"
-"\n\\lstset{\n"
-"frame=single,\nkeepspaces=true,\n"
-"columns=flexible,\nbreaklines=true,\n"
-"breakatwhitespace=true,\nnumbers=left,\n"
-"numbersep=5pt,\nnumberstyle=\\tiny\\color{gray},\n"
-"keywordstyle=\\color{blue},stringstyle=\\color{red},\n"
-"showstringspaces=false,\ncommentstyle=\\color{green}\n}\n\n"
+"\\usepackage{color}\n"
+"\\usepackage{listings}\n\n"
+
+// Add Implementation Page Command
+"\\newcommand{\\implpage}[5]\n{%\n\t"
+"\\normalpage{Implementation of #1}\n\t{%\n\t\t"
+"#3\n\t\t"
+"\\lstinputlisting[language=C++, firstnumber=#4, firstline=#4, "
+"lastline=#5]\n\t\t{#2}\n\t}\n}\n\n"
+
+// Add Test Page Command
+"\\newcommand{\\testpage}[4]\n{%\n\t"
+"\\normalpage{Test: #1}\n\t{%\n\t\t"
+"\\ctext{0}{0}{0.24}\n\t\t{%\n\t\t\t"
+"#2\\\\\\\\%\n\t\t\tTest:\n\t\t\t"
+"\\lstinputlisting[language=C++, firstnumber=#3, firstline=#3, "
+"lastline=#4]\n\t\t\t{../bin/test/#1.test}\n\t\t}\n\t\t"
+"\\putfig{0.26}{0}{0.68}{#1}\n\t}\n}\n\n"
+
+// Begin the Document
 "\\begin{document}\n\n"
 
+// Set Listings Style
+"\\lstset{\n\t"
+"frame=single,\n\tkeepspaces=true,\n\t"
+"columns=flexible,\n\tbreaklines=true,\n\t"
+"breakatwhitespace=true,\n\tnumbers=left,\n\t"
+"numbersep=5pt,\n\tnumberstyle=\\tiny\\color{gray},\n\t"
+"keywordstyle=\\color{blue},\n\tstringstyle=\\color{red},\n\t"
+"showstringspaces=false,\n\tcommentstyle=\\color{green}\n}\n\n"
+
+// Specification Page
 "\\normalpage{Specification}\n"
-"{\\begin{lstlisting}\n{SPECS}\n\\end{lstlisting}\n}\n\n"
+"{%Description of the Expected Functionality\n{SPECS}\n}\n\n"
 
-"\\normalpage{Analysis}\n"
-"{\\qi{Inputs:\n{INPUTS}\n}\n"
-"\\qi{Process:\n\\begin{enumerate}\n{PROCESSES}\n\\end{enumerate}\n}\n"
-"\\qi{Outputs:\n{OUTPUTS}\n}\n}\n\n"
+// Analysis Page
+"\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
+"\\qi{Inputs: \\\\\n{INPUTS}\t}\n\n\t"
+"\\qi{Process:\n\t\\begin{enumerate}[nolistsep]\n"
+"{PROCESSES}\t\\end{enumerate}\n\t}\n\n\t"
+"\\qi{Outputs: \\\\\n{OUTPUTS}\t}\n}\n\n"
 
-"\\normalpage{Design}\n"
-"{\\begin{lstlisting}\n{DESG}\n\\end{lstlisting}\n}\n\n"
+// Design Page
+"\\normalpage{Design}\n{\n\t"
+"\\begin{description}[nolistsep]\n{DESG}\t\\end{description}\n}\n\n"
 
-"\n{IMPLMNT/TESTS}\n"
+// Implementation and Test Pages Insert
+"{IMPL}\n\n{TESTS}\n\n"
+
 "\\end{document}\n";
 
 
+// Implementation Page
 const char* implmntPage = 
-"\\normalpage{Implementation: {FILE}}\n"
-"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
-"\\lstinputlisting[language=C++, "
-    "firstLine={FL}, lastLine={LL}]{{FILE}}\n"
-"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
+"\\implpage{{FN}}{{FFN}}{{DESC}}{{FL}}{{LL}}\n\n";
 
 
 const char* testPage = 
-"\\normalpage{Test: {TEST}}\n"
-"{\\begin{lstlisting}\n{DESC}\n\\end{lstlisting}\n}\n\n"
-"\\fvset{firstline={FL}, lastline={LL}}\n"
-"\\lstinputlisting{{TEST}}\n"
-"}%%\\putfig{0.1}{0.7}{0.8}{{IMG}}\n\n";
+"\\testpage{{TN}}{{DESC}}{{FL}}{{LL}}\n\n";
 
 
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"
 "// Include Guard\n#ifndef __{HFILE}\n#define __{HFILE}\n\n"
-"// Include Dependencies\n{INCLUDES}\n\n"
+"// Include Dependencies{INCLUDES}\n"
 "// Function Prototypes\n/* Prototypes */\n\n"
 "// Global Extern Variables & Other Foward Declarations\n\n"
-"// Close Include Guard\n#endif\n";
+"// Close Include Guard\n#endif";
 
 
 const char* cppfile = 
 "/*\n{HEADER}\n*/\n\n"
-"// Include Dependencies\n{INCLUDES}\n\n"
+"// Include Dependencies{INCLUDES}\n"
 "// Global Declarations/Definitions\n\n"
-"// Function Defintions\n/* Source Code */\n\n\n";
+"// Function Defintions\n/* Source Code */";
 
 
 const char* mainfunc = 
-"\n// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}\n\n";
+"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}";
 
 
 const char* buildCMD[] =
@@ -206,6 +217,8 @@ const char* buildCMD[] =
 };
 
 
+// Return a string with original substrings swapped for their
+//  replacement
 std::string str_replace(std::string str, std::string ori, std::string rep)
 {
   int p = str.find(ori, 0);
@@ -223,18 +236,25 @@ std::string str_replace(std::string str, std::string ori, std::string rep)
 }
 
 
-int file_count_char(std::string file, char c)
+// Count the number of charactrs in a file
+int file_count_char(std::string file, char c = '\n')
 {
     int cnt = 1;
 
     std::ifstream ifs(file.c_str());
+    
+    char* buff = new char[MAXBUFF];
 
     while( !ifs.eof())
     {
-        cnt += (ifs.get() == c);
+        ifs.getline(buff, MAXBUFF);
+        cnt++;
     }
+
+    std::cout << "Oh Yeah Got out!\n";
 
     ifs.close();
 
     return cnt;
 }
+

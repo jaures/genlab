@@ -144,15 +144,17 @@ void arg_init(int cnt, char* vals[])
             
             content = str_replace(content, "{INCLUDES}", gf_str[i+2]);
 
-            fw << content;
 
             if(gf_str[i].find(prj) != std::string::npos)
             {
                 // Add the main function if name matches project name
-                fw << mainfunc;
+                content = str_replace(content, "/* Source Code */", 
+                        mainfunc);
             }
 
+            fw << content;
             fw.close();
+
         }
 
         std::cout << "\tSuccessfully Created " << gf_str[i] << "\n\n";
@@ -195,21 +197,15 @@ void arg_doc()
 
     if(std::string("YESYesyes").find(line) != std::string::npos)
     {
+        std::string designSlide = "";
+
         genInfo = _parse_genFile();
-
-        // DEBUG LINE
-        std::cout << "DEBUGGING\n";
-        for(int ex = 0; ex < genInfo.size(); ex++)
-        {
-            std::cout << genInfo[ex] << "\n===============\n";
-
-        }
         
         fw.open( ("docs/" + genInfo[0] + ".tex").c_str(), 
                 std::fstream::out | std::fstream::trunc);
 
         // Set the Specifications Slide
-        content = str_replace(content, "{SPECS}", genInfo[1]);
+        content = str_replace(content, "{SPECS}", genInfo[4]);
 
         // Set Inputs, Processes, and Outputs;
         section = "";
@@ -220,7 +216,8 @@ void arg_doc()
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
+            section += (line.empty() ? "\n": 
+                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
         
         }while(!line.empty());
 
@@ -235,7 +232,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += 
-                (line.empty() ? "\n" : ("\\item " + line + "\n")); 
+                (line.empty() ? "\n" : ("\t\t\\item " + line + "\n")); 
         
         }while(!line.empty());
 
@@ -245,12 +242,13 @@ void arg_doc()
         
         // Get the Outputs
         section = "";
-        std::cout << "\nOutputs (leave line empty to save entry): \n";
+        std::cout << "Outputs (leave line empty to save entry): \n";
         do
         {
             getline(std::cin, line);
-            section += (line.empty() ? "\n": ("\\qi{" + line + "}\n"));
-        
+            section += (line.empty() ? "\n":
+                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
+
         }while(!line.empty());
 
         // Set the Outputs
@@ -260,49 +258,82 @@ void arg_doc()
         // Go Cycle Through Files for Implementation Slides
         for(int i = 5; i < genInfo.size(); i+=3)
         {
+            designSlide += "\t\t\\item["+ genInfo[i] 
+                            + "]\\hfill \\\\ " + genInfo[i+1] + "\n"; 
             std::string impSlide = std::string(implmntPage);
             std::string testSlide = std::string(testPage);
             section = "";
+
             std::cout << "Implementation for " << genInfo[i] 
-                << ":\n(leave line empty to save entry)\n\n";
+                << ":\n(leave line empty to save entry)\n";
 
-            do
+            getline(std::cin, line);
+           
+            // Get File Implementation Description
+            while(!line.empty())
             {
-                getline(std::cin, line);
                 section += line + "\n";
+                getline(std::cin, line);
+            }
 
-            }while(!line.empty());
+            // Generate the Directory name
+            std::string dir = "";
+            int len = genInfo[i].size();
+            
+            if( genInfo[i].substr(len - 2, 2) == ".h")
+            {
+                dir += "include/";
+            }
+            else if( genInfo[i].substr(len - 4, 4) == ".cpp")
+            {
+                dir += "srcs/"; 
+            }
 
-            // Get the Main Slide of this Implementation Slide
-            int numOfLines = file_count_char(genInfo[i], '\n');
+            int numOfLines = file_count_char(dir + genInfo[i], '\n');
 
-            impSlide = str_replace(impSlide, "{DESC}", section);
+            std::cout << "\nDone Counting Lines\nCount: " 
+                << numOfLines << "\n";
 
-            for(int j = 1; j <= numOfLines; j+= 16)
+            impSlide = str_replace(impSlide,"{DESC}", section);
+
+            for(int j = 1; j <= numOfLines; j+= 15)
             {
                 // Add First Line parameter
                 impSlide = str_replace(impSlide, "{FL}", 
                         std::string(itoa(j)));
                 // Add Last Line parameter
                 impSlide = str_replace(impSlide,"{LL}", 
-                        std::string(itoa(std::min(j+16,numOfLines))));
-                
-                // Adds a new slide If there are more lines to show
-                //  from the file
+                        std::string(itoa(std::min(j+14,numOfLines))));
+               
+                std::cout << "J: " << j << "vs num "
+                    << numOfLines << "\n";
+
                 impSlide += "\n" + 
-                    ((numOfLines - i) < 16 ? "" : 
+                    ((numOfLines - j) < 16 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
             }
 
-            // Append New Implementation to content
-            content += "\n" 
-                + str_replace(impSlide, "{FILE}", genInfo[i]);
+            
+            // Replace all the Filename & Full Filename Placeholders
+            impSlide = str_replace(impSlide, "{FN}", genInfo[i]);
+            impSlide = str_replace(impSlide, "{FFN}", 
+                    "../"+dir+genInfo[i]); 
+
+
+            // Append New Implementation Slide
+            content = str_replace(content, "{IMPL}", 
+                    impSlide + "\n{IMPL}");
         }
+
+        // Add In Content For Design Slide 
+        content = str_replace(content, "{DESG}", designSlide);
+        // Remove Any Trailing Implementation Slides
+        content = str_replace(content, "{IMPL}", "");
 
     }
 
-    
-
+    fw << content;
+    fw.close();
 
 }
 
@@ -397,7 +428,7 @@ void arg_test()
 				<< "\n\tlines begining with '$' are sent to STDIN"
 				<< "\n\tleave the line empty to  save test\n";
 				
-			testFile <<"#%" << choice << "\n";
+			testFile <<"#~" << choice << "\n";
 
 			// Get Lines for the test
 			do
@@ -417,6 +448,9 @@ void arg_test()
     if(testFile.is_open()){ testFile.close(); }
 
 	std::cout << "Testing now...\n\n";
+
+
+    std::vector<std::vector<std::string> > testFile = _parse_testFile();
 
 }
 
@@ -603,72 +637,118 @@ std::vector<std::string> _parse_genFile()
     genFile.push_back(line);
 
     // Get Description
+    lines = "";
     getline(fr, line);	// Throw Out Next '#~'
     
-    lines = "";
-    do
+    while(!line.empty())
     {
-	    getline(fr, line);
-	    if(line.find("#~") != std::string::npos)
-	    {
-		    genFile.push_back(lines);
-		    lines = "";
-	    }
-	    else
-	    {
-		    std::cout << "Current Lines: " << lines << "\n\n";
-		    lines += line + '\n';
-	    }
-    }while(fr.peek() != EOF && fr.good());
+        getline(fr, line);
+        lines += ((line.empty()) ? line : (line + "\n"));
+    }
 
-    // Cycle through and get Rest of the file information
+    genFile.push_back(lines);
+
+
     lines = "";
-
-    // Cycle Through the resst of the content
+    getline(fr, line);	// Throw Out Next '#~'
+    
+    // Cycle Through the rest of the content
     while(fr.peek() != EOF && fr.good())
     {
         // Get File Name
-        getline(fr, line);
+        do
+        {
+            getline(fr, line);
+        }while(line.empty());
+        
         genFile.push_back(line);
 
         // Get File Description
         getline(fr, line);
         genFile.push_back(line);
-
+        
         //Get Init Content
         while(fr.peek() != EOF)
         {
             getline(fr, line);
             if(line.find("#~") != std::string::npos)
             {
-		std::cout << "Pushing back:\n" << lines << "\n";
+		        //**DB std::cout << "Pushing back:\n" << lines << "\n";
                 genFile.push_back(lines);
                 lines = "";
                 break;
             }
-	    else
-	    {
-		    std::cout << line << "\n";
-		    lines += line + '\n';
-	    }
+	        else
+	        {
+		        //std::cout << line << "\n";
+		        lines += line + '\n';
+	        }
         }
     }
 
 
     for(int i = 0; i < genFile.size(); i++)
     {
-	std::cout << i << ".\n" << genFile[i] << "\n\n";
+	    std::cout << i << ".\n" << genFile[i] << "\n\n";
     }
 
     return genFile;
     
 }
 
-std::vector<std::string> _parse_test()
+
+std::vector<std::vector<std::string> > _parse_testFile()
 {
-    std::vector<std::string> result;
+    std::vector< std::vector<std::string> > tests;
+    std::string lines, line;
+
+    std::fstream fr("bin/test/.tests", std::fstream::in);
     
-    return result;
+
+    getline(fr, line);
+
+    while(fr.good() && !fr.eof())
+    {
+        std::vector<std::string> test;
+     
+        if(line.substr(0,2) == "#~")
+        {
+            // Get Test Name
+            test.push_back(str_replace(line, "#~", ""));
+
+            // Push Empty String for holding rest of test
+            test.push_back("");
+
+            // Cycle through rest of lines for the test
+            while( !fr.eof() )
+            {
+                getline(fr, line);
+
+                if(line.find("#~") == std::string::npos)
+                {
+                    test[1] += line + "\n";
+                }
+                else
+                {
+                    tests.push_back(test);
+                    break;
+                }   
+            }
+        }
+    }
+
+    for(int i = 0; i < tests.size(); i++)
+    {
+        std::cout << "Test #" << i << "\n";
+        for(int j = 0; j < 2; j++)
+        {
+            std::cout << "\t" << tests[i][j] << "\n";
+        }
+
+        std::cout << "\n";
+    }
+    
+    return tests;
 }
 
 std::string itoa(unsigned int a)
