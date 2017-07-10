@@ -727,7 +727,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
             {
                 getline(fr, line);
 
-                if(line.find("#~") == std::string::npos)
+                if(line.find("#~") == std::string::npos && !line.empty())
                 {
                     test[1] += line + "\n";
 		    		if(line[0] == '$')
@@ -737,7 +737,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
 						test[2] += line.substr(1, line.size() - 1) + "\n";
 					}
                 }
-                else
+                else if(line.find("#~") == 0)
                 {
                     tests.push_back(test);
                     break;
