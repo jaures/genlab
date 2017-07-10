@@ -119,7 +119,7 @@ const char* docfile =
 // Import Packages
 "\\documentclass{ffslides}\n"
 "\\ffpage{25}{\\numexpr 16/9}\n"
-"\\usepackage{fancyvrb}
+"\\usepackage{fancyvrb}"
 "\\usepackage{enumitem}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
