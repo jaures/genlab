@@ -450,7 +450,7 @@ void arg_test()
 	std::cout << "Testing now...\n\n";
 
 
-    std::vector<std::vector<std::string> > tests = _parse_testFile();
+    std::vector<std::vector<std::string> > testFile = _parse_testFile();
 
 }
 
