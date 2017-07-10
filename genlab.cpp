@@ -305,7 +305,10 @@ void arg_doc()
                 // Add Last Line parameter
                 impSlide = str_replace(impSlide,"{LL}", 
                         std::string(itoa(std::min(j+14,numOfLines))));
-                
+               
+                std::cout << "J: " << j << "vs num "
+                    << numOfLines << "\n";
+
                 impSlide += "\n" + 
                     ((numOfLines - j) < 1 ? "" : 
                      str_replace(implmntPage, "{DESC}", ""));
@@ -320,7 +323,7 @@ void arg_doc()
 
             // Append New Implementation Slide
             content = str_replace(content, "{IMPL}", 
-                    impSlide + "\n{IMPL}\n");
+                    impSlide + "\n{IMPL}");
         }
 
         // Add In Content For Design Slide 
