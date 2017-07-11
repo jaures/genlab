@@ -201,7 +201,8 @@ const char* cppfile =
 
 
 const char* mainfunc = 
-"// Main Function\nint main(int argc, char* argv[])\n{\n\t/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}";
+"// Main Function\nint main(int argc, char* argv[])\n{\n\t"
+"/* Source Code */\n\tstd::cout << \"Hello World!\\n\";\n\n\treturn 0;\n}";
 
 
 const char* buildCMD[] =
@@ -216,6 +217,11 @@ const char* buildCMD[] =
 	"{project}/bin/test"
 };
 
+
+const char* testfile = 
+"#!/usr/bin/env bash\n\n"
+"echo \"Test {TN}:\n[INPUT]:\n{STDIN}\n\n[OUTPUT]:\n\"\n"
+"echo \"{STDIN}\" | bin/build/{PRJ}"; 
 
 // Return a string with original substrings swapped for their
 //  replacement
