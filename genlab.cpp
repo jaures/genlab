@@ -173,7 +173,15 @@ void arg_init(int cnt, char* vals[])
 // Build and Compile the Project
 void arg_build()
 {
-  
+    if(_check_init())
+    {
+        _check_call("make project");
+    }
+    else
+    {
+        std::cout << "Error: No Project Found in Directory."
+            << " Make sure to init the project first.\n";
+    }
 }
 
 // Run the Project
