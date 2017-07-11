@@ -460,14 +460,46 @@ void arg_test()
 
 		std::cout << "\nContinue with Test Wizard? (y/n): ";
 		getline(std::cin, choice);
+
 	}
 
     if(testFile.is_open()){ testFile.close(); }
 
-	std::cout << "Testing now...\n\n";
-
-
     std::vector<std::vector<std::string> > testInfo = _parse_testFile();
+	
+
+	// Init the Test Files and then test them
+	if(_init_testFiles(testInfo))
+	{
+		std::cout << "Testing now...\n\n";
+
+		for(int i = 0; i < testInfo.size(); i++)
+		{
+			std::string ch;
+			std::cout << "Test " << testInfo[i][0] << "? (y/n): ";
+			
+			getline(std::cin, ch);
+
+			if(std::string("YESYesyes").find(ch) != std::string::npos)
+			{
+				if(!_check_call("make test-" + testInfo[i][0] + ".test");
+				{
+					std::cout << "Take Image of Test? (y/n): ";
+					getline(std::cin, ch);
+
+					if(std::string("YESYesyes").find(ch) != std::string::npos)
+					{
+						
+					}
+	
+				}
+			}
+
+		}
+	}
+
+	
+
 
     
 }
@@ -627,6 +659,28 @@ bool _init_makefile(std::string prj)
 
     return true;
 
+}
+
+bool _init_testFiles(std::vector<std::vector<std::string> > tests)
+{
+
+	std::ofstream fw;
+	std::string testdir = "bin/test/";
+
+	// Loop Through and Test files
+	for(int i = 0; i < tests.size(); i++)
+	{
+		fw.open(testdir + test[i][0] + ".test", std::ofstream::out | std::ofstream::trunc);
+		
+		std::string content = str_replace(testfile, "{TN}", tests[i][0]);
+		content = str_replace(content, "{STDIN}", test[i][2]);
+
+		fw << content;
+
+		fw.close();
+
+		std::cout << "Successfully Created " << tests[i][0] << " Test\n";
+	}
 }
 
 // Check if Project has been Initialized

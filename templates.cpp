@@ -221,7 +221,7 @@ const char* buildCMD[] =
 const char* testfile = 
 "#!/usr/bin/env bash\n\n"
 "echo \"Test {TN}:\n[INPUT]:\n{STDIN}\n\n[OUTPUT]:\n\"\n"
-"echo \"{STDIN}\" | bin/build/{PRJ}"; 
+"echo \"{STDIN}\" | bin/build/*"; 
 
 // Return a string with original substrings swapped for their
 //  replacement

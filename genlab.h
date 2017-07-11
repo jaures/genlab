@@ -53,6 +53,9 @@ std::string itoa(unsigned int);
 // Create the Makefile
 bool _init_makefile(std::string);
 
+// Create the test files
+bool _init_testFiles(std::vector<std::vector<std::string> >);
+
 // Create the Project Directory & Files
 bool _init_project(char**);
 
