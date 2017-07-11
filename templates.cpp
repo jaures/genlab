@@ -119,7 +119,7 @@ const char* docfile =
 // Import Packages
 "\\documentclass{ffslides}\n"
 "\\ffpage{25}{\\numexpr 16/9}\n"
-"\\usepackage{fancyvrb}"
+"\\usepackage{fancyvrb}\n"
 "\\usepackage{enumitem}\n"
 "\\usepackage[T1]{fontenc}\n"
 "\\usepackage{underscore}\n"
@@ -160,10 +160,10 @@ const char* docfile =
 
 // Analysis Page
 "\\normalpage{Analysis}\n{%Input, Outputs, and Processes\n\t"
-"\\qi{Inputs: \\\\\n{INPUTS}\t}\n\n\t"
-"\\qi{Process:\n\t\\begin{enumerate}[nolistsep]\n"
+"\\qi[\\textsc{\\textbf{Inputs:}}]{ \\\\\n{INPUTS}\t}\n\n\t"
+"\\qi[\\textsc{\\textbf{Process:}}]{\n\t\\begin{enumerate}[nolistsep]\n"
 "{PROCESSES}\t\\end{enumerate}\n\t}\n\n\t"
-"\\qi{Outputs: \\\\\n{OUTPUTS}\t}\n}\n\n"
+"\\qi[\\textsc{\\textbf{Outputs:}}]{ \\\\\n{OUTPUTS}\t}\n}\n\n"
 
 // Design Page
 "\\normalpage{Design}\n{\n\t"

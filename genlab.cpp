@@ -188,6 +188,15 @@ void arg_build()
 void arg_run()
 {
   
+    if(_check_init())
+    {
+        _check_call("make run");
+    }
+    else
+    {
+        std::cout << "Error: No Project Found in Directory."
+            << " Make sure to init the project first.\n";
+    }
 }
 // Run documentation Wizard and produce output
 void arg_doc()
@@ -225,7 +234,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += (line.empty() ? "\n": 
-                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
+                    ("\t\t\\qi{" + str_replace(line,"\t","i")+"}\n"));
         
         }while(!line.empty());
 
@@ -255,7 +264,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += (line.empty() ? "\n":
-                    ("\t\t\\qii{" + str_replace(line,"\t","i")+"}\n"));
+                    ("\t\t\\qi{" + str_replace(line,"\t","i")+"}\n"));
 
         }while(!line.empty());
 
@@ -468,6 +477,15 @@ void arg_test()
 void arg_pack()
 {
 
+    if(_check_init())
+    {
+        _check_call("make pack");
+    }
+    else
+    {
+        std::cout << "Error: No Project Found in Directory."
+            << " Make sure to init the project first.\n";
+    }
 }
 
 // Produce the Help Message
@@ -682,7 +700,6 @@ std::vector<std::string> _parse_genFile()
             getline(fr, line);
             if(line.find("#~") != std::string::npos)
             {
-		        //**DB std::cout << "Pushing back:\n" << lines << "\n";
                 genFile.push_back(lines);
                 lines = "";
                 break;
@@ -799,7 +816,7 @@ int _check_call(std::string cmd )
     std::cout << std::string(buff);
   }
 
-  std::cout << buff << "\n";
+  std::cout << "\n";
   
   return  pclose(cmd_stream);
 }
