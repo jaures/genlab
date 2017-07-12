@@ -138,14 +138,26 @@ const char* docfile =
 "\\lstinputlisting[language=C++, firstnumber=#4, firstline=#4, "
 "lastline=#5]\n\t\t{#2}\n\t}\n}\n\n"
 
-// Add Test Page Command
-"\\newcommand{\\testpage}[4]\n{%\n\t"
+// Add Test Page Commands
+"\\newcommand{\\testpagea}[4]\n{%\n\t"
 "\\normalpage{Test: #1}\n\t{%\n\t\t"
 "\\ctext{0}{0}{0.24}\n\t\t{%\n\t\t\t"
 "#2\\\\\\\\%\n\t\t\tTest:\n\t\t\t"
 "\\lstinputlisting[language=C++, firstnumber=#3, firstline=#3, "
 "lastline=#4]\n\t\t\t{../bin/test/#1.test}\n\t\t}\n\t\t"
 "\\putfig{0.26}{0}{0.68}{#1}\n\t}\n}\n\n"
+
+"\\newcommand{\\testpageb}[6]\n{%\n\t"
+"\\normalpage{Test: #1}\n\t{%\n\t\t"
+"\\ctext{0}{0}{0.24}\n\t\t{%\n\t\t\t"
+"#2\\\\\\\\%\n\t\t\tTest:\n\t\t\t"
+"\\lstinputlisting[language=C++, firstnumber=#3, firstline=#3, "
+"lastline=#4]\n\t\t\t{../bin/test/#1.test}\n\t\t}\n\t\t"
+"\\ctext{0}{0}{0.24}\n\t\t{%\n\t\t\t"
+"%\n\t\t\tResults:\n\t\t\t"
+"\\lstinputlisting[language=C++, firstnumber=#5, firstline=#5, "
+"lastline=#6]\n\t\t\t{#1.out}\n\t\t}\n\t\t"
+"\n\t}\n}\n\n"
 
 // Begin the Document
 "\\begin{document}\n\n"
@@ -185,9 +197,11 @@ const char* implmntPage =
 "\\implpage{{FN}}{{FFN}}{{DESC}}{{FL}}{{LL}}\n\n";
 
 
-const char* testPage = 
-"\\testpage{{TN}}{{DESC}}{{FL}}{{LL}}\n\n";
+const char* testPageA = 
+"\\testpagea{{TN}}{{DESC}}{{FL}}{{LL}}\n\n";
 
+const char* testPageB =
+"\\testpageb{{TN}}{{DESC}}{{FL1}}{{LL1}}{{FL2}}{{LL2}}\\n\n";
 
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"

@@ -308,8 +308,9 @@ void arg_doc()
 
             int numOfLines = file_count_char(dir + genInfo[i], '\n');
 
-            std::cout << "\nDone Counting Lines\nCount: " 
-                << numOfLines << "\n";
+			// DEBUG LINE
+            //std::cout << "\nDone Counting Lines\nCount: " 
+            //    << numOfLines << "\n";
 
             impSlide = str_replace(impSlide,"{DESC}", section);
 
@@ -473,6 +474,9 @@ void arg_test()
 	{
 		std::cout << "Testing now...\n\n";
 
+		// Stream to write test latex 
+		std::ofstream tw("bin/test/.tests.tex")
+		
 		for(int i = 0; i < testInfo.size(); i++)
 		{
 			std::string ch;
@@ -484,13 +488,59 @@ void arg_test()
 			{
 				if(!_check_call("make test-" + testInfo[i][0] + ".test");
 				{
+					
+					std::string content;
+					
 					std::cout << "Take Image of Test? (y/n): ";
 					getline(std::cin, ch);
 
 					if(std::string("YESYesyes").find(ch) != std::string::npos)
 					{
+						// Set Right Type of test Template
+						content = std::string(testPageA); 
 						
+						
+						// Assume That TestFiles are somewhat short
+						content = str_replace(content, "{FL}", "1");
+						content = str_replace(content, "{LL}", 
+										itoa(file_count_char("bin/test/" +
+												testInfo[i][0] + ".test", '\n')));
 					}
+					else
+					{
+						content = std::string(testPageB);   
+						// Loop Through and Add Pages
+						int numOfLines = file_count_char("docs/" + testInfo[i][0] + ".out", "\n");
+
+						for(int j = 1; j <= numOfLines; j += 15)
+						{
+							// Add first line number for test output
+							content = str_replace(content, "{FL2}", itoa{j});
+
+							// Add Second Line
+							content = str_replace(content, "{LL2}",
+										itoa(std::min(j + 14, numOfLines)));
+
+							content += "\n\n" + 
+									(numOfLines - j) < 16 ? "" : std::string(testPageB);
+
+						}
+					
+						// Replace All Instances of the Testname
+						content = str_replace(content, 
+										"{TN}", testInfo[i][0]); 
+					
+						// Assume That TestFiles are somewhat short
+						content = str_replace(content, "{FL1}", "1");
+						content = str_replace(content, "{LL1}", 
+										itoa(file_count_char("bin/test/" +
+												testInfo[i][0] + ".test", '\n')));
+					}
+					
+					std::cout << "Enter Brief Description for Test " << testInfo[i][0] << ":\n";
+					
+					getline(std::cin, ch);
+					content = str_replace(content, "{DESC}", ch);
 	
 				}
 			}
