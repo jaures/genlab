@@ -27,7 +27,11 @@ extern const char* mainfunc;
 
 extern const char* buildCMD[];
 
+<<<<<<< HEAD
 extern const char* testfile; 
+=======
+extern const char* testfile;
+>>>>>>> e79b70791da8c20f9c801c98a6c5bc6f62665d08
 
 std::string str_replace(std::string, std::string, std::string);
 
