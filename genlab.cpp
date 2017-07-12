@@ -469,7 +469,12 @@ void arg_test()
 
     std::vector<std::vector<std::string> > testInfo = _parse_testFile();
 
-    
+   _init_testFiles(testInfo);
+
+    std::cout << "Wait!!!\n";
+
+   std::cout << "[/] Successfully Created all test files\n";
+
 }
 
 
@@ -594,6 +599,33 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
   	return genInfo;
 }
 
+
+
+// Creates the test files
+void _init_testFiles(std::vector<std::vector<std::string> > tests )
+{
+    std::ofstream fw;
+
+    for(int i = 0; i < tests.size(); i++)
+    {
+        // Open a new test file for writing
+        fw.open( ("bin/test/" + tests[i][0] + ".test").c_str(), 
+                std::ofstream::out | std::ofstream::trunc);
+
+        // Init content and fill in placeholders
+        std::string content = str_replace(testfile, "{TN}", tests[i][0]);
+        content = str_replace(content, "{STDIN}", tests[i][2]);
+
+        fw << content;
+
+        fw.close();
+
+        std::cout << "Succesfully wrote TestFile: " << tests[i][0] << "\n";
+    }
+
+    std::cout << "\nAll Test Files created\n";
+
+}
 
 // Create the Makefile
 bool _init_makefile(std::string prj)
@@ -784,9 +816,7 @@ std::vector<std::vector<std::string> > _parse_testFile()
 
         //std::cout << "\n";
     }
-
-    std::cout << "\n\n=====\n" << tests[1][1] << ".\n\n====\n" << tests[1][2];
-    
+   
     return tests;
 }
 

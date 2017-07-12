@@ -83,7 +83,7 @@ const char* makefile =
 "# with reserved targets\n"
 ".PHONY: all project prjct proj pro clean run docs pack backup recover\n\n"
 
-"all: project prjct proj pro docs"
+"all: project docs pack"
 "\n\t$(info Making $(PRJCT) and Docs...)\n\n\n"
 
 "project: $(BDIR)$(PRJCT)\n"
@@ -110,6 +110,11 @@ const char* makefile =
 "pack: $(INCS) $(SRCS) $(DDIR)$(PRJCT).pdf"
 "\n\ttar czvf $(PDIR)$(PRJCT)_pkg.tgz $(PKGS)"
 "\n\tcp -uvf $(DDIR)$(PRJCT).pdf $(PDIR)\n\n\n"
+
+"%.test: $(TDIR)%.test"
+"\n\tsh $< > $(DDIR)$(@:.test=.out"
+"\n\tcat $(DDIR)$(@:.test=.out)"
+"\n\timport $(DDIR)/$(@:.test=.eps)\n\n\n"
 
 "backup: pack"
 "\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*\n\n\n";
@@ -221,7 +226,7 @@ const char* buildCMD[] =
 const char* testfile = 
 "#!/usr/bin/env bash\n\n"
 "echo \"Test {TN}:\n[INPUT]:\n{STDIN}\n\n[OUTPUT]:\n\"\n"
-"echo \"{STDIN}\" | bin/build/{PRJ}"; 
+"echo \"{STDIN}\" | bin/build/*"; 
 
 // Return a string with original substrings swapped for their
 //  replacement

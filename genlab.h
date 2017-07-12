@@ -41,6 +41,9 @@ int _check_call(std::string);
 // Create the .gen File
 std::vector<std::string> _init_genFile(int,char**);
 
+// Creates the test files
+void _init_testFiles(std::vector<std::vector<std::string> > );
+
 // Returns a Vector of String Representing a Parsed GenFile
 std::vector<std::string> _parse_genFile();
 
