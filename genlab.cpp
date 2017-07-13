@@ -711,7 +711,7 @@ std::string _docTest(std::string testName)
 {
 	std::string content, ch;
 	
-    if(!_check_call("make " + testName + ".test"))
+    if(!_check_call("make test." + testName))
 	{
 		std::cout << "Take Image of Test? (y/n): ";
 		getline(std::cin, ch);
