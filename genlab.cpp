@@ -478,7 +478,7 @@ void arg_test()
 
 		// Stream to write test latex 
 		std::ofstream tw("bin/test/.tests.tex",
-                std::ofstream std::ofstream::trunc);
+                std::ofstream::out | std::ofstream::trunc);
 		
 		for(int i = 0; i < testInfo.size(); i++)
 		{
@@ -489,7 +489,7 @@ void arg_test()
 
 			if(std::string("YESYesyes").find(ch) != std::string::npos)
 			{
-                tw << _docTest(testInfo);
+                tw << _docTest(testInfo[i][0]);
 			}
 
 		}
@@ -735,7 +735,7 @@ std::string _docTest(std::string testName)
 					
 			
             // Replace All Instances of the Testname
-			content = str_replace(content, "{TN}", testName]); 
+			content = str_replace(content, "{TN}", testName); 
 					
 			// Assume That TestFiles are somewhat short
 			content = str_replace(content, "{FL1}", "1");
