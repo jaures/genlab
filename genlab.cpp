@@ -234,7 +234,6 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += (line.empty() ? "\n": 
-    fw << content;
                     ("\t\t\\qi{" + str_replace(line,"\t","i")+"}\n"));
         
         }while(!line.empty());
@@ -364,7 +363,7 @@ void arg_doc()
     {
         std::ifstream fr("bin/test/.test.tex");
         section = "";
-        while( fr.good() && fr.eof())
+        while( fr.good() && !fr.eof())
         {
             getline(fr, line);
             section += line;
