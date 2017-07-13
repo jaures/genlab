@@ -41,25 +41,23 @@ int _check_call(std::string);
 // Create the .gen File
 std::vector<std::string> _init_genFile(int,char**);
 
-// Creates the test files
-//void _init_testFiles(std::vector<std::vector<std::string> > );
-
 // Returns a Vector of String Representing a Parsed GenFile
 std::vector<std::string> _parse_genFile();
 
 // Returns a 2D Vector of String Representing a Parsed TestFile
 std::vector<std::vector<std::string> > _parse_testFile();
 
-// Niave implementation of Integer to String
+// Naive implementation of Integer to String
 std::string itoa(unsigned int);
 
 // Create the Makefile
 bool _init_makefile(std::string);
 
 // Create the test files
-bool _init_testFiles(std::vector<std::vector<std::string> >);
+void _init_testFiles(std::vector<std::vector<std::string> >);
 
-void _init_testDocs(std::vector<std::vector<std::string> > );
+// Create the test file documentation
+std::string _docTest(std::vector<std::vector<std::string> > );
 
 // Create the Project Directory & Files
 bool _init_project(char**);

@@ -201,7 +201,7 @@ const char* testPageA =
 "\\testpagea{{TN}}{{DESC}}{{FL}}{{LL}}\n\n";
 
 const char* testPageB =
-"\\testpageb{{TN}}{{DESC}}{{FL1}}{{LL1}}{{FL2}}{{LL2}}\\n\n";
+"\\testpageb{{TN}}{{DESC}}{{FL1}}{{LL1}}{{FL2}}{{LL2}}\n\n";
 
 const char* hfile = 
 "/*\n{HEADER}\n*/\n\n"

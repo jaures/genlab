@@ -388,7 +388,8 @@ void arg_test()
     // Run Through Test Wizard if yes
     while(std::string("YESYesyes").find(choice) != std::string::npos)
     {
-		std::cout << "\nType 'list' to list current tests or 'clear' to clear all test cases\n"
+		std::cout << "\nType 'list' to list current tests "
+            << "or 'clear' to clear all test cases\n"
 			<< "\tNew test: ";
 
 		getline(std::cin, choice);
@@ -440,7 +441,8 @@ void arg_test()
 				testFile.close();
 			}
 			
-			testFile.open("bin/test/.tests", std::fstream::in | std::fstream::app);
+			testFile.open("bin/test/.tests", 
+                    std::fstream::in | std::fstream::app);
 
 			std::cout << "\n\t> Test " << choice 
 				<< "\n\tlines begining with '$' are sent to STDIN"
@@ -475,7 +477,8 @@ void arg_test()
 		std::cout << "Testing now...\n\n";
 
 		// Stream to write test latex 
-		std::ofstream tw("bin/test/.tests.tex");
+		std::ofstream tw("bin/test/.tests.tex",
+                std::ofstream std::ofstream::trunc);
 		
 		for(int i = 0; i < testInfo.size(); i++)
 		{
@@ -486,66 +489,12 @@ void arg_test()
 
 			if(std::string("YESYesyes").find(ch) != std::string::npos)
 			{
-				if(!_check_call("make test-" + testInfo[i][0] + ".test"))
-				{
-					
-					std::string content;
-					
-					std::cout << "Take Image of Test? (y/n): ";
-					getline(std::cin, ch);
-
-					if(std::string("YESYesyes").find(ch) != std::string::npos)
-					{
-						// Set Right Type of test Template
-						content = std::string(testPageA); 
-						
-						
-						// Assume That TestFiles are somewhat short
-						content = str_replace(content, "{FL}", "1");
-						content = str_replace(content, "{LL}", 
-										itoa(file_count_char("bin/test/" +
-												testInfo[i][0] + ".test", '\n')));
-					}
-					else
-					{
-						content = std::string(testPageB);   
-						// Loop Through and Add Pages
-						int numOfLines = file_count_char("docs/" + testInfo[i][0] + ".out", '\n');
-
-						for(int j = 1; j <= numOfLines; j += 15)
-						{
-							// Add first line number for test output
-							content = str_replace(content, "{FL2}", itoa(j));
-
-							// Add Second Line
-							content = str_replace(content, "{LL2}",
-										itoa(std::min(j + 14, numOfLines)));
-
-							content += "\n\n" + 
-									((numOfLines - j < 16) ? "" : std::string(testPageB));
-
-						}
-					
-						// Replace All Instances of the Testname
-						content = str_replace(content, 
-										"{TN}", testInfo[i][0]); 
-					
-						// Assume That TestFiles are somewhat short
-						content = str_replace(content, "{FL1}", "1");
-						content = str_replace(content, "{LL1}", 
-										itoa(file_count_char("bin/test/" +
-												testInfo[i][0] + ".test", '\n')));
-					}
-					
-					std::cout << "Enter Brief Description for Test " << testInfo[i][0] << ":\n";
-					
-					getline(std::cin, ch);
-					content = str_replace(content, "{DESC}", ch);
-	
-				}
+                tw << _docTest(testInfo);
 			}
 
 		}
+
+        tw.close();
 	}
 
 	
@@ -618,8 +567,6 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
     } while (!line.empty());
 
-
-
 	// Add All Project Files
 
     // Add Project Header File
@@ -683,7 +630,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
 
 // Run Tests and create the testdoc 
-void _init_testDocs(std::vector<std::vector<std::string> > tests )
+void _init_testFiles(std::vector<std::vector<std::string> > tests )
 {
     std::ofstream fw;
 
@@ -742,28 +689,68 @@ bool _init_makefile(std::string prj)
 
 }
 
-bool _init_testFiles(std::vector<std::vector<std::string> > tests)
+std::string _docTest(std::vector<std::vector<std::string> > testInfo)
 {
-
-	std::ofstream fw;
-	std::string testdir = "bin/test/";
-
-	// Loop Through and Test files
-	for(int i = 0; i < tests.size(); i++)
+	std::string content;
+	
+    if(!_check_call("make test-" + testInfo[i][0] + ".test"))
 	{
-		fw.open( (testdir + tests[i][0] + ".test").c_str(), std::ofstream::out | std::ofstream::trunc);
-		
-		std::string content = str_replace(testfile, "{TN}", tests[i][0]);
-		content = str_replace(content, "{STDIN}", tests[i][2]);
+		std::cout << "Take Image of Test? (y/n): ";
+		getline(std::cin, ch);
 
-		fw << content;
+		if(std::string("YESYesyes").find(ch) != std::string::npos)
+		{
+			// Set Right Type of test Template
+			content = std::string(testPageA); 
+						
+			
+			// Assume That TestFiles are somewhat short
+			content = str_replace(content, "{FL}", "1");
+			content = str_replace(content, "{LL}", 
+						itoa(file_count_char("bin/test/" +
+							testInfo[i][0] + ".test", '\n')));
+		}
+		else
+		{
+			content = std::string(testPageB);   
+	
+            // Loop Through and Add Pages
+			int numOfLines = 
+                file_count_char("docs/" + testInfo[i][0] + ".out", '\n');
 
-		fw.close();
+			for(int j = 1; j <= numOfLines; j += 15)
+			{
+				// Add first line number for test output
+				content = str_replace(content, "{FL2}", itoa(j));
 
-		std::cout << "Successfully Created " << tests[i][0] << " Test\n";
+                // Add Second Line
+				content = str_replace(content, "{LL2}",
+							itoa(std::min(j + 14, numOfLines)));
+
+				content += "\n\n" + 
+					((numOfLines - j < 16) ? "" : std::string(testPageB));
+
+			}
+					
+			
+            // Replace All Instances of the Testname
+			content = str_replace(content, "{TN}", testInfo[i][0]); 
+					
+			// Assume That TestFiles are somewhat short
+			content = str_replace(content, "{FL1}", "1");
+			content = str_replace(content, "{LL1}", 
+						itoa(file_count_char("bin/test/" +
+							testInfo[i][0] + ".test", '\n')));
+		}
+					
+		std::cout << "Enter Brief Description for Test " 
+                    << testInfo[i][0] << ":\n";
+					
+		getline(std::cin, ch);
+		content = str_replace(content, "{DESC}", ch);
 	}
-    
-    return true;
+
+    return content;
 }
 
 // Check if Project has been Initialized
