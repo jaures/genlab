@@ -42,7 +42,7 @@ int _check_call(std::string);
 std::vector<std::string> _init_genFile(int,char**);
 
 // Creates the test files
-void _init_testFiles(std::vector<std::vector<std::string> > );
+//void _init_testFiles(std::vector<std::vector<std::string> > );
 
 // Returns a Vector of String Representing a Parsed GenFile
 std::vector<std::string> _parse_genFile();
@@ -58,6 +58,8 @@ bool _init_makefile(std::string);
 
 // Create the test files
 bool _init_testFiles(std::vector<std::vector<std::string> >);
+
+void _init_testDocs(std::vector<std::vector<std::string> > );
 
 // Create the Project Directory & Files
 bool _init_project(char**);

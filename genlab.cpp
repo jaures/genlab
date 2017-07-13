@@ -278,7 +278,7 @@ void arg_doc()
             designSlide += "\t\t\\item["+ genInfo[i] 
                             + "]\\hfill \\\\ " + genInfo[i+1] + "\n"; 
             std::string impSlide = std::string(implmntPage);
-            std::string testSlide = std::string(testPage);
+            
             section = "";
 
             std::cout << "Implementation for " << genInfo[i] 
@@ -475,7 +475,7 @@ void arg_test()
 		std::cout << "Testing now...\n\n";
 
 		// Stream to write test latex 
-		std::ofstream tw("bin/test/.tests.tex")
+		std::ofstream tw("bin/test/.tests.tex");
 		
 		for(int i = 0; i < testInfo.size(); i++)
 		{
@@ -486,7 +486,7 @@ void arg_test()
 
 			if(std::string("YESYesyes").find(ch) != std::string::npos)
 			{
-				if(!_check_call("make test-" + testInfo[i][0] + ".test");
+				if(!_check_call("make test-" + testInfo[i][0] + ".test"))
 				{
 					
 					std::string content;
@@ -510,19 +510,19 @@ void arg_test()
 					{
 						content = std::string(testPageB);   
 						// Loop Through and Add Pages
-						int numOfLines = file_count_char("docs/" + testInfo[i][0] + ".out", "\n");
+						int numOfLines = file_count_char("docs/" + testInfo[i][0] + ".out", '\n');
 
 						for(int j = 1; j <= numOfLines; j += 15)
 						{
 							// Add first line number for test output
-							content = str_replace(content, "{FL2}", itoa{j});
+							content = str_replace(content, "{FL2}", itoa(j));
 
 							// Add Second Line
 							content = str_replace(content, "{LL2}",
 										itoa(std::min(j + 14, numOfLines)));
 
 							content += "\n\n" + 
-									(numOfLines - j) < 16 ? "" : std::string(testPageB);
+									((numOfLines - j < 16) ? "" : std::string(testPageB));
 
 						}
 					
@@ -682,9 +682,8 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 }
 
 
-
-// Creates the test files
-void _init_testFiles(std::vector<std::vector<std::string> > tests )
+// Run Tests and create the testdoc 
+void _init_testDocs(std::vector<std::vector<std::string> > tests )
 {
     std::ofstream fw;
 
@@ -752,10 +751,10 @@ bool _init_testFiles(std::vector<std::vector<std::string> > tests)
 	// Loop Through and Test files
 	for(int i = 0; i < tests.size(); i++)
 	{
-		fw.open(testdir + test[i][0] + ".test", std::ofstream::out | std::ofstream::trunc);
+		fw.open( (testdir + tests[i][0] + ".test").c_str(), std::ofstream::out | std::ofstream::trunc);
 		
 		std::string content = str_replace(testfile, "{TN}", tests[i][0]);
-		content = str_replace(content, "{STDIN}", test[i][2]);
+		content = str_replace(content, "{STDIN}", tests[i][2]);
 
 		fw << content;
 
@@ -763,6 +762,8 @@ bool _init_testFiles(std::vector<std::vector<std::string> > tests)
 
 		std::cout << "Successfully Created " << tests[i][0] << " Test\n";
 	}
+    
+    return true;
 }
 
 // Check if Project has been Initialized
