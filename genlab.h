@@ -54,10 +54,10 @@ std::string itoa(unsigned int);
 bool _init_makefile(std::string);
 
 // Create the test files
-void _init_testFiles(std::vector<std::vector<std::string> >);
+bool _init_testFiles(std::vector<std::vector<std::string> >);
 
 // Create the test file documentation
-std::string _docTest(std::vector<std::vector<std::string> > );
+std::string _docTest(std::string);
 
 // Create the Project Directory & Files
 bool _init_project(char**);

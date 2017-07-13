@@ -630,7 +630,7 @@ std::vector<std::string> _init_genFile(int cnt, char* vals[])
 
 
 // Run Tests and create the testdoc 
-void _init_testFiles(std::vector<std::vector<std::string> > tests )
+bool _init_testFiles(std::vector<std::vector<std::string> > tests )
 {
     std::ofstream fw;
 
@@ -652,7 +652,8 @@ void _init_testFiles(std::vector<std::vector<std::string> > tests )
     }
 
     std::cout << "\nAll Test Files created\n";
-
+    
+    return true;
 }
 
 // Create the Makefile
@@ -689,11 +690,11 @@ bool _init_makefile(std::string prj)
 
 }
 
-std::string _docTest(std::vector<std::vector<std::string> > testInfo)
+std::string _docTest(std::string testName)
 {
-	std::string content;
+	std::string content, ch;
 	
-    if(!_check_call("make test-" + testInfo[i][0] + ".test"))
+    if(!_check_call("make test-" + testName + ".test"))
 	{
 		std::cout << "Take Image of Test? (y/n): ";
 		getline(std::cin, ch);
@@ -708,7 +709,7 @@ std::string _docTest(std::vector<std::vector<std::string> > testInfo)
 			content = str_replace(content, "{FL}", "1");
 			content = str_replace(content, "{LL}", 
 						itoa(file_count_char("bin/test/" +
-							testInfo[i][0] + ".test", '\n')));
+							testName + ".test", '\n')));
 		}
 		else
 		{
@@ -716,7 +717,7 @@ std::string _docTest(std::vector<std::vector<std::string> > testInfo)
 	
             // Loop Through and Add Pages
 			int numOfLines = 
-                file_count_char("docs/" + testInfo[i][0] + ".out", '\n');
+                file_count_char("docs/" + testName + ".out", '\n');
 
 			for(int j = 1; j <= numOfLines; j += 15)
 			{
@@ -734,17 +735,17 @@ std::string _docTest(std::vector<std::vector<std::string> > testInfo)
 					
 			
             // Replace All Instances of the Testname
-			content = str_replace(content, "{TN}", testInfo[i][0]); 
+			content = str_replace(content, "{TN}", testName]); 
 					
 			// Assume That TestFiles are somewhat short
 			content = str_replace(content, "{FL1}", "1");
 			content = str_replace(content, "{LL1}", 
 						itoa(file_count_char("bin/test/" +
-							testInfo[i][0] + ".test", '\n')));
+							testName + ".test", '\n')));
 		}
 					
 		std::cout << "Enter Brief Description for Test " 
-                    << testInfo[i][0] << ":\n";
+                    << testName << ":\n";
 					
 		getline(std::cin, ch);
 		content = str_replace(content, "{DESC}", ch);
