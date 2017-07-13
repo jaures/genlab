@@ -710,6 +710,13 @@ std::string _docTest(std::string testName)
 			content = str_replace(content, "{LL}", 
 						itoa(file_count_char("bin/test/" +
 							testName + ".test", '\n')));
+
+            // Run Import Command to get Image
+            if(!_check_call("import docs/" + testName + ".eps"))
+            {
+                std::cout << "Succesfully saved image for Test "
+                    << testName << "\n";
+            }
 		}
 		else
 		{

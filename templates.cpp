@@ -114,7 +114,7 @@ const char* makefile =
 "%.test: $(TDIR)%.test"
 "\n\tsh $< > $(DDIR)$(@:.test=.out"
 "\n\tcat $(DDIR)$(@:.test=.out)"
-"\n\timport $(DDIR)/$(@:.test=.eps)\n\n\n"
+//"\n\timport $(DDIR)/$(@:.test=.eps)\n\n\n"
 
 "backup: pack"
 "\n\ttar czvf $(PDIR)/.backup.tgz $(PDIR)*\n\n\n";
