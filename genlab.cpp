@@ -234,6 +234,7 @@ void arg_doc()
         {
             getline(std::cin, line);
             section += (line.empty() ? "\n": 
+    fw << content;
                     ("\t\t\\qi{" + str_replace(line,"\t","i")+"}\n"));
         
         }while(!line.empty());
@@ -350,8 +351,32 @@ void arg_doc()
 
     }
 
+    
+    // Import the Test Results
+    arg_test(); // Call To Prompt them to run test
+                //  wizard so there are files to be imported;
+
+    std::cout << "Import Tests? (y/n): ";
+
+    getline(std::cin, line);
+
+    if(std::string("YESYesyes").find(line) != std::string::npos)
+    {
+        std::ifstream fr("bin/test/.test.tex");
+        section = "";
+        while( fr.good() && fr.eof())
+        {
+            getline(fr, line);
+            section += line;
+        }
+        content = str_replace(content, "{TESTS}", section); 
+    }   
+
     fw << content;
     fw.close();
+    
+
+
 
 }
 
@@ -465,12 +490,13 @@ void arg_test()
 		getline(std::cin, choice);
 
 	}
+    
+    std::cout << "[/] Successfully Created all test files\n";
 
     if(testFile.is_open()){ testFile.close(); }
 
     std::vector<std::vector<std::string> > testInfo = _parse_testFile();
 	
-
 	// Init the Test Files and then test them
 	if(_init_testFiles(testInfo))
 	{
@@ -496,15 +522,6 @@ void arg_test()
 
         tw.close();
 	}
-
-	
-
-
-   _init_testFiles(testInfo);
-
-    std::cout << "Wait!!!\n";
-
-   std::cout << "[/] Successfully Created all test files\n";
 
 }
 
@@ -653,6 +670,7 @@ bool _init_testFiles(std::vector<std::vector<std::string> > tests )
 
     std::cout << "\nAll Test Files created\n";
     
+
     return true;
 }
 
@@ -694,7 +712,7 @@ std::string _docTest(std::string testName)
 {
 	std::string content, ch;
 	
-    if(!_check_call("make test-" + testName + ".test"))
+    if(!_check_call("make " + testName + ".test"))
 	{
 		std::cout << "Take Image of Test? (y/n): ";
 		getline(std::cin, ch);

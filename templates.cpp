@@ -108,7 +108,7 @@ const char* makefile =
 "\n\tdvipdf $(DDIR)$(PRJCT).dvi $(DDIR)$(PRJCT).pdf\n\n\n"
 
 "pack: $(INCS) $(SRCS) $(DDIR)$(PRJCT).pdf"
-"\n\ttar czvf $(PDIR)$(PRJCT)_pkg.tgz $(PKGS)"
+"\n\ttar czvf $(PDIR)$(PRJCT)_pkg.tgz $(PKGS) Makefile"
 "\n\tcp -uvf $(DDIR)$(PRJCT).pdf $(PDIR)\n\n\n"
 
 "%.test: $(TDIR)%.test"
